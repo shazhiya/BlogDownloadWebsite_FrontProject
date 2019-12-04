@@ -5,7 +5,7 @@
       </label>
       <button type="submit" v-on:click='click'>view</button>
       <p>{{message.title}}</p>
-      <p v-html='message.content'> </p>
+      <p v-html='message.content'></p>
       <p>{{message.releaseTime}}</p>
   </div>
 </template>
@@ -14,7 +14,10 @@
   export default {
   methods: {
     click: function(){
-      this.axios.get('/test',{params:{'id':this.id}})
+      var article = {
+        'id':this.id
+      }
+      this.axios.post('/test',article)
       .then(res=>{
         this.message = res.data
       }).catch(err=>{

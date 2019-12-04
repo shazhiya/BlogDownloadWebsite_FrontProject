@@ -12,7 +12,9 @@
     "core-js": "^3.3.2",
     "qs": "^6.9.1",
     "vue": "^2.6.10",
-    "vue-router": "^3.1.3"
+    "vue-router": "^3.1.3",
+    "express": "latest",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",
