@@ -10,7 +10,7 @@
 
                 <el-form-item prop="username" class="item-form">
                     <label>账号</label>
-                    <el-input type="text" v-model="ruleForm.username" autocomplete="off" maxlength="16"></el-input>
+                    <el-input type="text" v-model="ruleForm.account" autocomplete="off" maxlength="16"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="password" class="item-form">
@@ -32,7 +32,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="danger" @click="submitForm('ruleForm')" class="login-btn block">提交</el-button>
+                    <el-button type="danger" @click="submitForm" class="login-btn block">提交</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -90,12 +90,12 @@
 
                 // 表单数据
                 ruleForm: {
-                    username: '',
+                    account: '',
                     password: '',
                     Code: ''
                 },
                 rules: {
-                    username: [
+                    account: [
                         { validator: validateUsername, trigger: 'blur' }
                     ],
                     password: [
@@ -125,15 +125,18 @@
                 data.current = true
             },
 
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        //console.log('error submit!!');
-                        return false;
-                    }
-                });
+            submitForm() {
+                // var data = {
+                //     account:this.ruleForm.account,
+                //     password:this.ruleForm.password
+                // }
+                // this.axios.post("/userLogin",data).then(function(res){
+                //     // if(res.data()){
+                //     //
+                //     // }
+                // }).catch(function(error){
+                //
+                // })
             },
         }
     }

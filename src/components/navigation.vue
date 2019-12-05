@@ -2,15 +2,56 @@
     <el-menu
             class="el-menu-demo"
             mode="horizontal"
-
-            background-color="#545c64"
-            text-color="#fff"
+            background-color="#FDF9F3"
+            text-color="#000"
             active-text-color="#ffd04b">
-        <el-menu-item index="1"><img src="../assets/Logo.png" height="32" width="49" class="logo"/></el-menu-item>
-        <el-menu-item index="2">首页</el-menu-item>
-        <el-menu-item index="3">博客</el-menu-item>
-        <el-menu-item index="4">下载</el-menu-item>
-        <head-search></head-search>
+
+            <el-row>
+                <!-- 导航栏 单个导航 -->
+                <el-col :span="1" :offset="3">
+                    <el-menu-item index="1">
+                        <img src="../assets/Logo.png" height="32" width="49" class="logo"/>
+                    </el-menu-item>
+                </el-col>
+                <el-col :span="1">
+                    <el-menu-item index="2">
+                        首页
+                    </el-menu-item>
+                </el-col>
+                <el-col :span="1">
+                    <el-menu-item index="3">
+                        博客
+                    </el-menu-item>
+                </el-col>
+                <el-col :span="1">
+                    <el-menu-item index="4">
+                        下载
+                    </el-menu-item>
+                </el-col>
+                <!-- 导航栏 搜索框 -->
+                <el-col :span="3" :offset="3">
+                    <head-search></head-search>
+                </el-col>
+                <el-col :span="1" :offset="0">
+                    <el-button type="success">
+                        Search
+                    </el-button>
+                </el-col>
+                <!-- 导航栏 用户框 -->
+                <el-col :span="2" :offset="5">
+                    <el-row gutter="30">
+                        <el-col span="1">
+                            <i class="el-icon-edit"></i>
+                        </el-col>
+                        <el-col span="1">
+                            <i class="el-icon-chat-dot-round"></i>
+                        </el-col>
+                    </el-row>
+                </el-col>
+            </el-row>
+
+
+
     </el-menu>
 </template>
 
