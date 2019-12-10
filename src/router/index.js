@@ -28,7 +28,12 @@ const routes = [
     path: '/blogIndex',
     name: 'blogIndex',
     component: ()=> import('../views/BlogIndex/index.vue')
-  }
+  },
+    {
+        path: '/regist',
+        name: 'regist',
+        component: ()=> import('../views/Regist/index.vue')
+    }
 ]
 
 const router = new VueRouter({

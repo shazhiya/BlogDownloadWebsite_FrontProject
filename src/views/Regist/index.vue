@@ -1,12 +1,12 @@
 <template>
-    <div id="login">
+    <div id="regist">
         <div class="top"></div>
-        <div class="login-wrap">
+        <div class="regist-wrap">
             <ul class="menu-tab">
                 <li v-for="item in menuTab" :key="item.id" :class="{'current':item.current}" @click="toggleMenu(item)">{{item.txt}}</li>
             </ul>
             <!-- 表单开始 -->
-            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" size="medium ">
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="regist-form" size="medium ">
 
                 <el-form-item prop="username" class="item-form">
                     <label>账号</label>
@@ -16,6 +16,11 @@
                 <el-form-item prop="password" class="item-form">
                     <label>密码</label>
                     <el-input type="password" v-model="ruleForm.password" autocomplete="off" minlength="6" maxlength="20"></el-input>
+                </el-form-item>
+
+                <el-form-item prop="repassword" class="item-form">
+                    <label>验证密码</label>
+                    <el-input type="repassword" v-model="ruleForm.repassword" autocomplete="off" minlength="6" maxlength="20"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="code" class="item-form">
@@ -42,7 +47,7 @@
 
 <script>
     export default {
-        name:'login',
+        name:'index',
         data(){
             // 验证用户名
             var validateUsername = (rule, value, callback) => {
@@ -63,12 +68,28 @@
                 let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6,20}$/;
                 if (value === '') {
                     callback(new Error('请输入密码'));
-                } else if (!reg.test(value)) {
+                }
+                else if (!reg.test(value)) {
                     callback(new Error('密码为6至20位数字+字母'));
                 } else {
                     callback();
                 }
             };
+
+            // 验证两次密码是否一致
+            var validateRepassword = (rule, value, callback) => {
+                // 密码 正则
+                let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6,20}$/;
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value != this.ruleForm.password) {
+                    callback(new Error('两次输入密码不一致'));
+                } else if (!reg.test(value)) {
+                    callback(new Error('密码为6至20位数字+字母'));
+                }  else {
+                    callback();
+                }
+            }
 
             // 验证 验证码
             var validateCode = (rule, value, callback) => {
@@ -84,14 +105,15 @@
 
             return{
                 menuTab:[
-                    { txt:'登录', current:true },
-                    { txt:'注册', current:false }
+                    { txt:'登录', current:false },
+                    { txt:'注册', current:true }
                 ],
 
                 // 表单数据
                 ruleForm: {
                     account: '',
                     password: '',
+                    repassword: '',
                     Code: ''
                 },
                 rules: {
@@ -100,6 +122,9 @@
                     ],
                     password: [
                         { validator: validatePassword, trigger: 'blur' }
+                    ],
+                    repassword: [
+                        { validator: validateRepassword, trigger: 'blur' }
                     ],
                     code: [
                         { validator: validateCode, trigger: 'blur' }
@@ -130,7 +155,7 @@
                     account:this.ruleForm.account,
                     password:this.ruleForm.password
                 }
-                this.axios.post("/login",data).then(function (res) {
+                this.axios.post("/regist",data).then(function (res) {
                     window.console.log(res)
                 })
             },
@@ -139,11 +164,11 @@
 </script>
 
 <style lang="scss" scoped>
-    #login{
+    #regist{
         height: 100vh;
         background-color: cadetblue;
     }
-    .login-wrap{
+    .regist-wrap{
         width: 330px;
         margin: auto;
     }
@@ -163,7 +188,7 @@
         }
 
     }
-    .login-form{
+    .regist-form{
         label {
             display: block;
             font-size: 14px;

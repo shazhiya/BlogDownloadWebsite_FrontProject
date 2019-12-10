@@ -1,16 +1,90 @@
 <template>
     <div>
-        <el-container id="blogIndex">
+        <el-container id="blogIndex" style="background-color:#D3DCE6">
+            <!-- header -->
             <el-header style="padding: 0px">
+                <!-- 导航栏组件 -->
                 <navigation></navigation>
             </el-header>
+            <!-- container  -->
             <el-container>
-                <el-aside width="200px">Aside</el-aside>
+                <!-- 左侧aside -->
+                <el-aside width="500px">
+                    <div style="height: 500px; width: auto;background-color: #333333;margin-left: 52%;margin-top: 10%;border-radius: 4px">
+                        <el-menu
+                                default-active="1"
+                                class="el-menu-vertical-demo"
+                                style="border-radius: 4px">
+                            <el-menu-item index="1">
+                                <i class="el-icon-magic-stick"></i>
+                                <span slot="title">随便看看</span>
+                            </el-menu-item>
+                            <el-menu-item index="2">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">Java</span>
+                            </el-menu-item>
+                            <el-menu-item index="3">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">C/C++</span>
+                            </el-menu-item>
+                            <el-menu-item index="4">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">Python</span>
+                            </el-menu-item>
+                            <el-menu-item index="5">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">PHP</span>
+                            </el-menu-item>
+                            <el-menu-item index="6">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">C#</span>
+                            </el-menu-item>
+                            <el-menu-item index="7">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">JavaScript</span>
+                            </el-menu-item>
+                            <el-menu-item index="8">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">Vue</span>
+                            </el-menu-item>
+                            <el-menu-item index="9">
+                                <i class="el-icon-arrow-right"></i>
+                                <span slot="title">SQL</span>
+                            </el-menu-item>
+                        </el-menu>
+                    </div>
+
+                </el-aside>
                 <el-container>
-                    <el-main>Main</el-main>
-                    <el-footer>Footer</el-footer>
+                    <el-main style="line-height: 70px;background-color:#B3C0D1;margin-top: 50px;margin-left: 10px;margin-right: 10px;border-radius: 4px">
+                        <ul style="list-style: none;">
+                            <li>
+                                <compArticleList></compArticleList>
+                            </li>
+                            <li>
+                                <compArticleList></compArticleList>
+                            </li>
+                            <li>
+                                <compArticleList></compArticleList>
+                            </li>
+                            <li>
+                                <compArticleList></compArticleList>
+                            </li>
+                        </ul>
+                    </el-main>
+
+                    <el-footer>
+                        Footer
+                    </el-footer>
                 </el-container>
-                <el-aside width="200px">Aside</el-aside>
+                <el-aside width="500px">
+                    <div style="height: 200px; width: auto;background-color: #333333;margin-right: 52%;margin-top: 10%;border-radius: 4px">
+
+                    </div>
+                    <div style="height: 400px; width: auto;background-color: #333333;margin-right: 52%;margin-top: 10%;border-radius: 4px">
+
+                    </div>
+                </el-aside>
             </el-container>
         </el-container>
     </div>
@@ -18,11 +92,11 @@
 
 <script>
     import navigation from '../../components/navigation'
+    import compArticleList from '../../components/compArticleList'
 
     export default {
         data() {
             return {
-
             };
         },
         methods: {
@@ -31,6 +105,7 @@
             // }
         },
         components:{
+            compArticleList,
             navigation
         }
     }
@@ -56,7 +131,7 @@
     }
 
     .el-main {
-        background-color: #E9EEF3;
+        background-color: #D3DCE6;
         color: #333;
         text-align: center;
         line-height: 160px;

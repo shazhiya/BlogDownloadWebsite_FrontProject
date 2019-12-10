@@ -38,13 +38,19 @@
                     </el-button>
                 </el-col>
                 <!-- 导航栏 用户框 -->
-                <el-col :span="2" :offset="5">
-                    <el-row gutter="30">
-                        <el-col span="1">
+                <el-col :span="3" :offset="5" style="font-size:24px">
+                    <el-row :gutter="40">
+                        <el-col :span="1">
                             <i class="el-icon-edit"></i>
                         </el-col>
-                        <el-col span="1">
-                            <i class="el-icon-chat-dot-round"></i>
+                        <el-col :span="1">
+                            <i class="el-icon-bell"></i>
+                        </el-col>
+                        <el-col :span="1">
+                            <i class="el-icon-coin"></i>
+                        </el-col>
+                        <el-col :span="1">
+                            <i class="el-icon-user"></i>
                         </el-col>
                     </el-row>
                 </el-col>
