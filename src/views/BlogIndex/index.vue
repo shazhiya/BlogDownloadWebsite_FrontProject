@@ -9,7 +9,7 @@
             <!-- container  -->
             <el-container>
                 <!-- 左侧aside -->
-                <el-aside width="500px">
+                <el-aside width="25%">
                     <div style="height: 500px; width: auto;background-color: #333333;margin-left: 52%;margin-top: 10%;border-radius: 4px">
                         <el-menu
                                 default-active="1"
@@ -77,7 +77,7 @@
                         Footer
                     </el-footer>
                 </el-container>
-                <el-aside width="500px">
+                <el-aside width="25%">
                     <div style="height: 200px; width: auto;background-color: #333333;margin-right: 52%;margin-top: 10%;border-radius: 4px">
 
                     </div>
