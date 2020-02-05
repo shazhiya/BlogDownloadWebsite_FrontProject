@@ -29,11 +29,15 @@ const routes = [
     name: 'blogIndex',
     component: ()=> import('../views/BlogIndex/index.vue')
   },
-    {
+  {
         path: '/regist',
         name: 'regist',
         component: ()=> import('../views/Regist/index.vue')
-    }
+  },
+  {
+    path:'/bloghome',
+    component: ()=> import('../views/BlogHome/index')
+  }
 ]
 
 const router = new VueRouter({

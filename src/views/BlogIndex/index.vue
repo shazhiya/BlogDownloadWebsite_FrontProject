@@ -59,16 +59,16 @@
                     <el-main style="line-height: 70px;background-color:#B3C0D1;margin-top: 50px;margin-left: 10px;margin-right: 10px;border-radius: 4px">
                         <ul style="list-style: none;">
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                         </ul>
                     </el-main>
