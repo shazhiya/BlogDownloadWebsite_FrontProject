@@ -10,7 +10,7 @@
                 <!-- 导航栏 单个导航 -->
                 <el-col :span="1" :offset="3">
                     <el-menu-item index="1">
-                        <img src="../assets/Logo.png" height="32" width="49" class="logo"/>
+                        <img src="../assets/Logo.png" height="57%" width="100%" class="logo"/>
                     </el-menu-item>
                 </el-col>
                 <el-col :span="1">

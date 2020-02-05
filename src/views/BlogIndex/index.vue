@@ -9,7 +9,7 @@
             <!-- container  -->
             <el-container>
                 <!-- 左侧aside -->
-                <el-aside width="500px">
+                <el-aside width="25%">
                     <div style="height: 500px; width: auto;background-color: #333333;margin-left: 52%;margin-top: 10%;border-radius: 4px">
                         <el-menu
                                 default-active="1"
@@ -59,16 +59,16 @@
                     <el-main style="line-height: 70px;background-color:#B3C0D1;margin-top: 50px;margin-left: 10px;margin-right: 10px;border-radius: 4px">
                         <ul style="list-style: none;">
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                             <li>
-                                <compArticleList></compArticleList>
+                                <compArticleList/>
                             </li>
                         </ul>
                     </el-main>
@@ -77,7 +77,7 @@
                         Footer
                     </el-footer>
                 </el-container>
-                <el-aside width="500px">
+                <el-aside width="25%">
                     <div style="height: 200px; width: auto;background-color: #333333;margin-right: 52%;margin-top: 10%;border-radius: 4px">
 
                     </div>

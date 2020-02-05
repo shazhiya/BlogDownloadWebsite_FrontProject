@@ -28,6 +28,10 @@ const routes = [
     path: '/login_regist',
     name: 'login_regist',
     component: ()=> import('../views/Login_Regist/index.vue')
+  },
+  {
+    path:'/bloghome',
+    component: ()=> import('../views/BlogHome/index')
   }
 ]
 
