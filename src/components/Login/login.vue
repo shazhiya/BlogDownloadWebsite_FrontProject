@@ -1,46 +1,40 @@
 <template>
-    <div id="login">
-        <div class="top"></div>
-        <div class="login-wrap">
-            <ul class="menu-tab">
-                <li v-for="item in menuTab" :key="item.id" :class="{'current':item.current}" @click="toggleMenu(item)">{{item.txt}}</li>
-            </ul>
-            <!-- 表单开始 -->
-            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" size="medium ">
+    <div>
+        <!-- 表单开始 -->
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" size="medium ">
 
-                <el-form-item prop="username" class="item-form">
-                    <label>账号</label>
-                    <el-input type="text" v-model="ruleForm.account" autocomplete="off" maxlength="16"></el-input>
-                </el-form-item>
+            <el-form-item prop="username" class="item-form">
+                <label>账号</label>
+                <el-input type="text" v-model="ruleForm.account" autocomplete="off" maxlength="16"></el-input>
+            </el-form-item>
 
-                <el-form-item prop="password" class="item-form">
-                    <label>密码</label>
-                    <el-input type="password" v-model="ruleForm.password" autocomplete="off" minlength="6" maxlength="20"></el-input>
-                </el-form-item>
+            <el-form-item prop="password" class="item-form">
+                <label>密码</label>
+                <el-input type="password" v-model="ruleForm.password" autocomplete="off" minlength="6" maxlength="20"></el-input>
+            </el-form-item>
 
-                <el-form-item prop="code" class="item-form">
-                    <label>验证码</label>
-                    <el-row :gutter="10">
-                        <el-col :span="16">
-                            <el-input v-model.number="ruleForm.code" minlength="6" maxlength="6"></el-input>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-button type="success" class="block">获取验证码</el-button>
-                        </el-col>
-                    </el-row>
+            <el-form-item prop="code" class="item-form">
+                <label>验证码</label>
+                <el-row :gutter="10">
+                    <el-col :span="16">
+                        <el-input v-model.number="ruleForm.code" minlength="6" maxlength="6"></el-input>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-button type="success" class="block2">验证码</el-button>
+                    </el-col>
+                </el-row>
+            </el-form-item>
 
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="danger" @click="submitForm" class="login-btn block">提交</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-
+            <el-form-item>
+                <el-button type="danger" @click="submitForm" class="login-btn block1">提交</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
 <script>
+    import router from "../../router";
+
     export default {
         name:'login',
         data(){
@@ -83,11 +77,6 @@
             };
 
             return{
-                menuTab:[
-                    { txt:'登录', current:true },
-                    { txt:'注册', current:false }
-                ],
-
                 // 表单数据
                 ruleForm: {
                     account: '',
@@ -104,7 +93,7 @@
                     code: [
                         { validator: validateCode, trigger: 'blur' }
                     ]
-                }
+                },
 
             }
         },
@@ -117,67 +106,59 @@
         // 写函数的地方
         methods:{
             // Vue 是 数据驱动视频渲染
-            toggleMenu(data){
-                //console.log(data)
-                this.menuTab.forEach(elem =>{
-                    elem.current = false
-                })
-                data.current = true
-            },
-
             submitForm() {
                 let data = {
                     account:this.ruleForm.account,
-                    password:this.ruleForm.password
+                    password:this.ruleForm.password,
                 }
-                this.axios.post("/login",data).then(function (res) {
+
+                var url = ""
+
+
+                this.axios.post(
+                    url,
+                    data).then((res)=> {
                     window.console.log(res)
+                    if(res.data == true){
+                        router.push(url)
+                    }else {
+                        window.alert('登录失败')
+                    }
+
                 })
-            },
+
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    #login{
-        height: 100vh;
-        background-color: cadetblue;
-    }
-    .login-wrap{
-        width: 330px;
-        margin: auto;
-    }
-    .menu-tab{
-        text-align: center;
-        li {
-            display: inline-block;
-            width: 88px;
-            line-height: 36px;
-            font-size: 14px;
-            color: #fff;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-        .current{
-            background-color: rgba(0,0,0,.1);
-        }
-
-    }
     .login-form{
         label {
-            display: block;
             font-size: 14px;
-            color: #fff;
+            color: #000000;
         }
         .item-form{
             margin-bottom: 13px;
+            margin-left: 25px;
+            margin-right: 25px;
         }
-        .block{
-            width: 100%;
+        .block1{
+            width: 310px;
+            display: block;
+        }
+        .block2{
+            width: 97px;
             display: block;
         }
         .login-btn{
             margin-top: 10px;
+            margin-left: 25px;
+            margin-right: 25px;
         }
+    }
+    .radio{
+        margin-left: 110px;
+        margin-bottom: 5px;
     }
 </style>

@@ -20,20 +20,15 @@ const routes = [
     component: ()=> import('../components/article.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: ()=> import('../views/Login/index.vue')
-  },
-  {
     path: '/blogIndex',
     name: 'blogIndex',
     component: ()=> import('../views/BlogIndex/index.vue')
   },
-    {
-        path: '/regist',
-        name: 'regist',
-        component: ()=> import('../views/Regist/index.vue')
-    }
+  {
+    path: '/login_regist',
+    name: 'login_regist',
+    component: ()=> import('../views/Login_Regist/index.vue')
+  }
 ]
 
 const router = new VueRouter({
