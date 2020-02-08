@@ -56,6 +56,11 @@
                     <el-col :span="8">
                         <div style="margin-top: -2%">
                             <compArticleList/>
+                            <compArticleList/>
+                            <compArticleList/>
+                            <compArticleList/>
+                            <compArticleList/>
+
                         </div>
 
                     </el-col>

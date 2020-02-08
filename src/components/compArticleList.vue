@@ -45,7 +45,10 @@
             <FAIcon :icon="['far','star']"></FAIcon>
             999+
         </span>
-        <el-button>
+        <span class="readNum">
+            阅读数:15675
+        </span>
+        <el-button type="primary" class="readButton">
             Read
         </el-button>
     </div>
@@ -132,9 +135,17 @@
     }
     .foot{
         margin-left: 4px;
+        margin-bottom: 10px;
     }
     .foot span{
-        font-size: 15px;
+        font-size: 13px;
         margin-left: 10px;
+    }
+    .foot .readNum{
+        color: #888888;
+        margin-left: 40%;
+    }
+    .readButton{
+        margin-left: 2%;
     }
 </style>
