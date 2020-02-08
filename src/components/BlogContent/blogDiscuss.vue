@@ -13,7 +13,7 @@
         </div>
         <i class="el-icon-caret-bottom" style="float: left; margin-left: 1%"/>
         <div style="clear: both"></div>
-        <div class="alldiscuss">
+        <div class="alldiscuss"> 
             <div class="discuss1">
                 <div class="authorintro">
                     <img class="headpic" src="../../assets/headPic.jpg">
