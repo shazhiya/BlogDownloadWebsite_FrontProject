@@ -1,34 +1,55 @@
 <template>
-    <div style="height: 200px;width:90%;background-color: #ffffff;margin-left: 5%;margin-right: 5%;margin-top: 3.5%;border-radius: 4px;box-shadow: 1px 1px 10px #888;">
-        <div class="cardHead" style="height: 20%;margin-bottom: 2%">
-            <span style="font-size: 24px"><a>[博客美化]给你博客添加一个萌萌的看板娘吧</a></span>
-        </div>
-        <div class="cardCon" style="height: 50%;">
-            <a style="float: left; margin-left: 2.5%;margin-right: 2.5%">
-            <img src="../assets/headPic.jpg" height="50" width="50" class="logo" style="border-radius: 30px"/>
-            </a>
-            <p style="line-height: 20px;text-align: left">
-                超级无敌可爱的的看板娘大哥~一直有人问关于博客园看板娘的是如何加上去的，一开始的时候的确踩了很多坑，还有，这个美化博客这个事情，大家还是时刻适可而止的好，不然永远没有尽头，把自己的大好时光全都浪费（滑稽.jpg）
-            </p>
-        </div>
-        <div class="cardFoot" style="height: 20%;line-height: 20px;">
-            <div style="float: left;font-size:24px;margin-left: 20px;">
-                <i class="el-icon-thumb"></i>
-                <span style="font-size: 16px">999</span>
-            </div>
-            <div style="float: left;font-size:24px;margin-left: 20px">
-                <i class="el-icon-sugar"></i>
-                <span style="font-size: 16px">22</span>
-            </div>
-            <div style="float: left;font-size:24px;margin-left: 20px">
-                <i class="el-icon-star-off"></i>
-                <span style="font-size: 16px">33</span>
-            </div>
-            <div style="height: 10%;float: right;margin-right: 20px;">
-                <el-button type="primary" size="small">Read</el-button>
-            </div>
-        </div>
+<div class="article">
+    <!-- 作者头像 -->
+    <div class="userPic">
+        <a>
+            <img src="../assets/defaultPic.png"  class="userPicImg">
+        </a>
     </div>
+    <!-- 文章标题 -->
+    <a class="">
+        <div class="content">
+            The Ember Times - Issue No. 134
+        </div>
+    </a>
+    <!-- 文章作者 -->
+    <h4>
+        <a href="" class="userH4A">
+            Supper Tiny Red・<time>Feb  8</time>
+            <span class="time-ago-indicator">(2 hours ago)</span>
+        </a>
+    </h4>
+    <!-- 文章tags -->
+    <div class="tags">
+        <a href="">
+            <span class="tag">#Java</span>
+        </a>
+        <a href="">
+            <span class="tag">#Web</span>
+        </a>
+        <a href="">
+            <span class="tag">#SSH</span>
+        </a>
+    </div>
+    <!-- 投币点赞收藏 阅读数 阅读按钮-->
+    <div class="foot">
+        <span>
+            <FAIcon :icon="['far','thumbs-up']"></FAIcon>
+            999+
+        </span>
+        <span>
+            <FAIcon :icon="['fas','donate']"></FAIcon>
+            999+
+        </span>
+        <span>
+            <FAIcon :icon="['far','star']"></FAIcon>
+            999+
+        </span>
+        <el-button>
+            Read
+        </el-button>
+    </div>
+</div>
 </template>
 
 <script>
@@ -38,5 +59,82 @@
 </script>
 
 <style scoped>
+    a{
+        text-decoration:none;
+        color:#333;
+    }
+    .article{
+        margin-top: 12px;
+        width: 100%;
+        background: #ffffff;
+        text-align: left;
+        vertical-align: top;
+        overflow: hidden;
+        border: 1px solid #d6d6d6;
+        box-shadow: var(--theme-container-box-shadow, 1px 1px 0px #c2c2c2);
+        border-radius: 3px;
+        cursor: pointer;
+        position: relative;
+    }
+    .userPic{
+        padding: 23px 0px 27px;
+        height: 50px;
+        width: 50px;
+        float: left;
+        margin-left: 12px;
+        margin-top: 3px;
+        border-radius: 999px;
+    }
+    .userPicImg {
+        height: 100%;
+        width: 100%;
+        border-radius: 50px;
+    }
+    .content{
+        font-weight: bolder;
+        font-size: 24px;
+        display: block;
+        float: left;
+        width: calc(100% - 88px);
+        padding: calc(1vw + 7px) 9px;
+        padding-bottom: 0px;
+    }
+    .content h3 {
+        margin: 0px;
+        font-size: 27px;
+        line-height: 32px;
+    }
 
+    .article h4 {
+        max-width: 80%;
+        padding: 0px;
+        font-weight: 500;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        left: 72px;
+        font-size: 17px;
+        margin-left: 9px;
+    }
+    .userH4A{
+        color: var(--theme-secondary-color, #666);
+        font-weight: 500;
+    }
+    .userH4A span{
+        font-weight: lighter;
+    }
+    .tags{
+        margin-left: 65px;
+        margin-bottom: 25px;
+    }
+    .tags .tag{
+        margin-left: 7px;
+    }
+    .foot{
+        margin-left: 4px;
+    }
+    .foot span{
+        font-size: 15px;
+        margin-left: 10px;
+    }
 </style>

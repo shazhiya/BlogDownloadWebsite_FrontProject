@@ -6,7 +6,7 @@
             text-color="#000"
             active-text-color="#ffd04b">
 
-            <el-row>
+            <el-row style="margin-left: 100px">
                 <!-- 导航栏 单个导航 -->
                 <el-col :span="1" :offset="3">
                     <el-menu-item index="1">
@@ -29,16 +29,16 @@
                     </el-menu-item>
                 </el-col>
                 <!-- 导航栏 搜索框 -->
-                <el-col :span="3" :offset="3">
+                <el-col :span="3" :offset="3" style="margin-top: 8px">
                     <head-search></head-search>
                 </el-col>
-                <el-col :span="1" :offset="0">
+                <el-col :span="1" :offset="0" style="margin-top: 8px">
                     <el-button type="success">
                         Search
                     </el-button>
                 </el-col>
                 <!-- 导航栏 用户框 -->
-                <el-col :span="3" :offset="5" style="font-size:24px">
+                <el-col :span="3" :offset="3" style="font-size:24px;margin-top: 10px">
                     <el-row :gutter="40">
                         <el-col :span="1">
                             <i class="el-icon-edit"></i>
