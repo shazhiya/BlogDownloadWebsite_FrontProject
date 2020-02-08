@@ -31,7 +31,13 @@ const routes = [
   },
   {
     path:'/bloghome',
+    name:'bloghome',
     component: ()=> import('../views/BlogHome/index')
+  },
+  {
+    path:'/blogcontent',
+    name:'blogcontent',
+    component: ()=> import('../views/BlogContent/index')
   }
 ]
 

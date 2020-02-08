@@ -14,7 +14,9 @@ import qs from 'qs'
 // import vuex from 'vuex'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+Vue.use(ViewUI);
 Vue.use(ElementUI);
 Vue.component('FAIcon', FontAwesomeIcon);
 
