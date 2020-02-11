@@ -38,6 +38,11 @@ const routes = [
     path:'/blogcontent',
     name:'blogcontent',
     component: ()=> import('../views/BlogContent/index')
+  },
+  {
+    path:'/blogcoins',
+    name:'blogcoins',
+    component: ()=> import('../views/BlogCoins/index')
   }
 ]
 
