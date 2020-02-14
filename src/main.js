@@ -21,7 +21,6 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 
-
 Vue.use(ElementUI);
 Vue.component('FAIcon', FontAwesomeIcon);
 //Vue.use( CKEditor );

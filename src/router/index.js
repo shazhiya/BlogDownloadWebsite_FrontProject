@@ -33,6 +33,21 @@ const routes = [
     path:'/bloghome',
     name: 'bloghome',
     component: ()=> import('../views/BlogHome/index')
+  },
+  {
+    path:'/blogcontent',
+    name:'blogcontent',
+    component: ()=> import('../views/BlogContent/index')
+  },
+  {
+    path:'/blogcoins',
+    name:'blogcoins',
+    component: ()=> import('../views/BlogCoins/index')
+  },
+  {
+    path:'/blogdownload',
+    name:'blogdownload',
+    component: ()=> import('../views/blogDownload/index')
   }
 ]
 
