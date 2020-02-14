@@ -112,15 +112,16 @@
                     password:this.ruleForm.password,
                 }
 
-                var url = ""
+                var url = "/login"
 
 
                 this.axios.post(
                     url,
                     data).then((res)=> {
-                    window.console.log(res)
+                    window.console.log(res.data)
                     if(res.data == true){
-                        router.push(url)
+                        this.$store.commit("updateIsLogin")
+                        router.push("/blogIndex")
                     }else {
                         window.alert('登录失败')
                     }

@@ -91,10 +91,63 @@
             // handleSelect(key, keyPath) {
             //     console.log(key, keyPath);
             // }
+
+            // 从服务器获取博文(推荐分类)
+            getRecommendBlogList(){
+                this.axios.post(
+                    "article/recommend",{
+                        "page":1,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateBlogList",res.data)
+                })
+            },
+
+            // 从服务器获取博文(普通分类)
+            getBlogList(){
+                this.axios.post(
+                    "article/classify",{
+                            "id":1,
+                            "page":1,
+                }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateBlogList",res.data)
+                })
+            },
+
+            // 从服务器获取分类
+            getBlogClass(){
+                this.axios.post(
+                    "article/classifyList",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateBlogClassifyList",res.data)
+                })
+            }
         },
         components:{
             compArticleList,
             navigation
+        },
+        created() {
+            if(this.$store.state.isLogin){
+                this.axios.post(
+                    "/myInfo/view",{
+
+                    }
+                ).then((res) =>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateUser",res.data)
+                }).catch((err) =>{
+                    window.console.log(err.data)
+                }).finally(() => {
+                    window.console.log("无论如何都会执行")
+                })
+            }
+            //this.getBlogClass()
+            //this.getRecommendBlogList()
+            //this.getBlogList()
         }
     }
 </script>

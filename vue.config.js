@@ -4,12 +4,11 @@ module.exports = {
       'host': 'localhost',
       'port': 8888,
         proxy: {
-            '/api': {
-                target: 'http://192.168.43.54:8080',
+            '/blog': {
+                target: 'http://w291753h42.goho.co/blog',
                 changeOrigin: true,
-                ws: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/blog': ''
                 }
             }
         }

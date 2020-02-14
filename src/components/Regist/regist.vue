@@ -125,7 +125,7 @@
                     password:this.ruleForm.password,
                 }
 
-                var url = ""
+                var url = "/register"
 
                 this.axios.post(
                     url,
