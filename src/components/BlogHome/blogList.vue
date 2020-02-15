@@ -32,11 +32,12 @@
         width: 100%;
         min-height: 160px;
         background: white;
-        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
+
         /*border: #D3DCE6 1px solid;*/
         margin-top: 10px;
-        padding-left: 20%;
+        padding-left: 10%;
         padding-right: 13%;
+
     }
     .text {
         font-size: 14px;
@@ -47,12 +48,12 @@
     }
 
     .box-card {
-        width: 140%;
+        width: 145%;
         margin-top: 10px;
-        margin-left: -24%;
-
+        margin-left: -14%;
         border: none;
         border-top: #d3dce6 1px dashed;
+        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
     }
     .time{
         float: right;

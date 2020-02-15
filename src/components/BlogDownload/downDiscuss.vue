@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import discussContent from "../BlogContent/discussContent";
+    import discussContent from "./discussContent";
     export default {
         name: "downDiscuss",
         components:{
