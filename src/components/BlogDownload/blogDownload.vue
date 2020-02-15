@@ -68,7 +68,7 @@
         margin-top: 30px;
     }
     .status{
-        width: 25%;
+        width: 20%;
         text-align: right;
         margin-top: 30px;
         padding-right: 25px;

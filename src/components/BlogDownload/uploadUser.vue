@@ -25,7 +25,7 @@
 <style scoped>
     .upload{
         width: 70%;
-        min-width: 300px;
+        min-width: 320px;
         min-height: 100px;
         margin-left: 25px;
         background: white;
@@ -34,7 +34,7 @@
         border-radius: 5px;
     }
     .authorname{
-        max-width: 60%;
+        max-width: 80%;
         min-width: 165px;
         height: 80px;
         float: left;
@@ -57,7 +57,7 @@
     }
     .care{
         float: right;
-        margin-top: 30px;
+        margin-top: 10%;
         padding-right: 15px;
     }
 

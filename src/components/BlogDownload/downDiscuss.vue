@@ -22,6 +22,7 @@
         width: 98%;
         margin: auto;
         margin-top: 40px;
+        padding-bottom: 15px;
         min-height: 280px;
         background: white;
         text-align: left;

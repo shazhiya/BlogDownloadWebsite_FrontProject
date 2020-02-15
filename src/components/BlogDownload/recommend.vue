@@ -49,7 +49,7 @@
         margin-top: 15px;
     }
     .status{
-        width: 25%;
+        width: 15%;
         text-align: right;
         margin-top: 15px;
         padding-right: 25px;
