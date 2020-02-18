@@ -48,12 +48,17 @@ const routes = [
     path:'/blogdownload',
     name:'blogdownload',
     component: ()=> import('../views/blogDownload/index')
+  },
+  {
+    path:'/blogWrite',
+    name:'blogWrite',
+    component: ()=> import('../views/WriteArticle/index')
   }
 ]
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  //mode: 'history'
 })
 
 export default router

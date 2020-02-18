@@ -41,12 +41,23 @@
           }
         },
         methods: {
-
+            getBlogInfo(id){
+                this.axios.post(
+                    "myInfo/blogHome",{
+                        "id":id
+                    }).then((res)=>{
+                    window.console.log("getBlogInfo" + res.data)
+                    this.$store.commit("updateBlogInfo",res.data)
+                })
+            }
         },
         components: {
             blogHomeHander,
             blogInformation,
             blogList
+        },
+        created() {
+            this.getBlogInfo(1)
         }
     }
 </script>
@@ -71,4 +82,5 @@
         border-radius: 4px;
         min-height: 36px;
     }
+
 </style>

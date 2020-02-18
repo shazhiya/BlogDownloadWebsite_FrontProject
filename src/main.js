@@ -6,9 +6,10 @@ import qs from 'qs'
 // import vuex from 'vuex'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import store from './store'
+import store from './store';
 
 //import CKEditor from '@ckeditor/ckeditor5-build-decoupled-document'
+//import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -20,10 +21,10 @@ import {
     faThumbsUp,faStar
 } from '@fortawesome/free-regular-svg-icons';
 
-
+//Vue.use(CKEditor);
 Vue.use(ElementUI);
 Vue.component('FAIcon', FontAwesomeIcon);
-//Vue.use( CKEditor );
+
 
 library.add(
     faDonate,faThumbsUp,faStar

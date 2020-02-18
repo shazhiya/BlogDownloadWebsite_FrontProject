@@ -8,7 +8,9 @@ export default new Vuex.Store({
     isLogin: false,
     user: null,
     blogList:null,
-    blogClassifyList:null
+    blogClassifyList:null,
+    blogInfo:null,
+    blogContent:null,
   },
   mutations: {
     updateIsLogin(state){
@@ -22,7 +24,14 @@ export default new Vuex.Store({
     },
     updateBlogClassifyList(state,info){
       state.blogClassifyList = info
+    },
+    updateBlogInfo(state,info){
+      state.blogInfo = info
+    },
+    updateBlogContent(state,info){
+      state.blogContent = info
     }
+
   },
   actions: {
   },
@@ -33,5 +42,7 @@ export default new Vuex.Store({
     getUserInfo:state => {return state.user},
     getBlogList:state => {return state.blogList},
     getBlogClassifyList:state => {return state.blogClassifyList},
+    getBlogInfo:state => {return state.blogInfo},
+    getBlogContent:state => {return state.blogContent}
   }
 })

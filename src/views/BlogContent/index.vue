@@ -33,6 +33,15 @@
     export default {
         name: "index",
         methods:{
+            getBlogContent(id){
+                this.axios.post(
+                    "article/detail",{
+                        "id":id
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateBlogContent",res.data)
+                })
+            }
 
         },
         components:{
@@ -41,6 +50,9 @@
             blogDiscuss,
             blogAuthor,
             blogLike
+        },
+        created() {
+            this.getBlogContent(1)
         }
     }
 </script>
