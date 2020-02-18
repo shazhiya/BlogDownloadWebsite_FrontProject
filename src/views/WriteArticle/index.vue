@@ -76,6 +76,7 @@
 
 <script>
     import Ck from "../../components/CKEditor/ck";
+    import jq from "jquery";
     export default {
         name: "index",
         components:{
@@ -147,8 +148,15 @@
                 this.inputValue = '';
             },
             postBlogArticle(){
-                this.axios.post(
-                    "article/releaseBlog",{
+                jq.ajax({
+                    // headers必须添加，否则会报415错误
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: 'POST',
+                    dataType: "json", //表示返回值类型，不必须
+                    data: JSON.stringify({
                         title:"这是文章标题",
                         content:"文章内容",
                         introduction:"这是文章介绍",
@@ -157,10 +165,12 @@
                         tags:[{
                             name: "默认标签"
                         }]
-
-                    }).then((res)=>{
-                    window.console.log("postBlogArticle:" + res.data)
+                    }),
+                    url:"http://w291753h42.goho.co/blog/article/releaseBlog",
+                    success:function(res){
+                        window.console.log("postBlogArticle:" + res.data)
                     //this.$store.commit("updateBlogInfo",res.data)
+                    }
                 })
             },
         }
