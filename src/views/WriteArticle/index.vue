@@ -76,7 +76,6 @@
 
 <script>
     import Ck from "../../components/CKEditor/ck";
-    import jq from "jquery";
     export default {
         name: "index",
         components:{
@@ -128,6 +127,14 @@
           }
         },
         methods:{
+            arrayToString(list){
+                let str = ""
+                list.forEach(item=>{
+                    window.alert(item.name)
+                    str += item.name + ''
+                })
+                return str
+            },
             handleClose(tag) {
                 this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
             },
@@ -148,30 +155,19 @@
                 this.inputValue = '';
             },
             postBlogArticle(){
-                jq.ajax({
-                    // headers必须添加，否则会报415错误
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    type: 'POST',
-                    dataType: "json", //表示返回值类型，不必须
-                    data: JSON.stringify({
-                        title:"这是文章标题",
-                        content:"文章内容",
-                        introduction:"这是文章介绍",
-                        type:this.type,
-                        bcid:this.classify[0].value,
-                        tags:[{
-                            name: "默认标签"
-                        }]
-                    }),
-                    url:"http://w291753h42.goho.co/blog/article/releaseBlog",
-                    success:function(res){
-                        window.console.log("postBlogArticle:" + res.data)
-                    //this.$store.commit("updateBlogInfo",res.data)
-                    }
-                })
+                let data = {
+                    bcid:1,
+                    title:"test",
+                    tagsStr:this.arrayToString([{name:"tests"}])
+                }
+                this.axios
+                    .post("article/releaseBlog",data)
+                    .then(res=>{
+                        window.console.log(res)
+                    })
+                    .catch(err=>{
+                        window.console.log(err)
+                    })
             },
         }
     }
