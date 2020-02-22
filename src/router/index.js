@@ -58,6 +58,11 @@ const routes = [
     path:'/blogmessage',
     name:'blogmessage',
     component: ()=> import('../views/BlogMessage/index')
+  },
+  {
+    path:'/blogupload',
+    name:'blogupload',
+    component: ()=> import('../views/BlogUpload/index')
   }
 ]
 
