@@ -55,6 +55,16 @@ const routes = [
     component: ()=> import('../views/WriteArticle/index')
   },
   {
+    path:'/blogmessage',
+    name:'blogmessage',
+    component: ()=> import('../views/BlogMessage/index')
+  },
+  {
+    path:'/blogupload',
+    name:'blogupload',
+    component: ()=> import('../views/BlogUpload/index')
+  },
+  {
     path:'/blogMng',
     name:'blogMng',
     component: ()=> import('../views/BlogMng/index')
