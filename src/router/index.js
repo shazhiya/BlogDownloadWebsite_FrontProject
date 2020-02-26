@@ -63,6 +63,11 @@ const routes = [
     path:'/blogupload',
     name:'blogupload',
     component: ()=> import('../views/BlogUpload/index')
+  },
+  {
+    path:'/admin',
+    name:'admin',
+    component: ()=> import('../views/AdminManager/index')
   }
 ]
 
