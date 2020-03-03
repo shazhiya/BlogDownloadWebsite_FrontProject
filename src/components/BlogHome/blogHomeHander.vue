@@ -16,7 +16,8 @@
                 </div>
             </div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple lastone">
-                <i class="el-icon-s-custom" style="float: right; margin-right: 20px;"/>
+                <el-button style="color: black; float: right; margin-right: 20px;" @click="show()" icon="el-icon-s-custom" circle type="text"></el-button>
+<!--                <i class="el-icon-s-custom" style="float: right; margin-right: 20px;" onclick="show()"/>-->
                 <div style="margin-top: 20px">
                     <el-tag type="info" size="mini">邮箱</el-tag>
                     <p>123456@qq.com</p>
@@ -33,16 +34,77 @@
                 </div>
             </div></el-col>
         </el-row>
+        <dialog id="myDialog" style="margin: auto; border: none; border-radius: 10px">
+            <div style="float: left; width: 1000px;height: 550px;">
+                <p style="text-align: right"><el-button icon="el-icon-close" circle @click="close" type="text"></el-button></p>
+                <el-form label-position="left" label-width="100px" :model="formLabelAlign">
+                    <el-form-item label="真实姓名：">
+                        <el-input v-model="formLabelAlign.realName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="性别：">
+                        <el-input v-model="formLabelAlign.sex"></el-input>
+                    </el-form-item>
+                    <el-form-item label="生日:">
+                        <el-input v-model="formLabelAlign.birth"></el-input>
+                    </el-form-item>
+                    <el-form-item label="住址:">
+                        <el-input v-model="formLabelAlign.address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="行业:">
+                        <el-input v-model="formLabelAlign.trade"></el-input>
+                    </el-form-item>
+                    <el-form-item label="职位:">
+                        <el-input v-model="formLabelAlign.position"></el-input>
+                    </el-form-item>
+                    <el-form-item label="个人介绍:">
+                        <el-input v-model="formLabelAlign.introduction"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm()" style="float: right; margin-right: 55px">保存</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </dialog>
     </div>
 </template>
 
 <script>
     export default {
-        name: "blogHomeHander"
+        name: "blogHomeHander",
+        methods:{
+            show(){
+                document.getElementById("myDialog").showModal();
+            },
+            close(){
+                document.getElementById("myDialog").close();
+            },
+            submitForm(){
+                alert('submit!')
+            }
+        },
+        data() {
+            return {
+                formLabelAlign: {
+                    realName: '',
+                    sex: '',
+                    birth: '',
+                    address: '',
+                    trade: '',
+                    position: '',
+                    introduction: ''
+                }
+            };
+        }
     }
 </script>
 
 <style scoped>
+    .el-input{
+        width: 75%;
+    }
+    .el-form-item{
+        margin-left: 55px;
+    }
     .grid-content{
         border-top: white 1px solid;
     }
