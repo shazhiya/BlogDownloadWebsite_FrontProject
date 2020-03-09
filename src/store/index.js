@@ -53,7 +53,7 @@ export default new Vuex.Store({
     getBlogClassifyList:state => {return state.blogClassifyList},
     getBlogInfo:state => {return state.blogInfo},
     getBlogContent:state => {return state.blogContent},
-    getUserMngBlogList:state => {return state.userMngBlogList},
+    getUserMngBlogList1:state => {return state.userMngBlogList},
     getUserMngResourceList:state => {return state.userMngResourceList},
   }
 })

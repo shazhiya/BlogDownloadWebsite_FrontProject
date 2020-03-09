@@ -72,35 +72,29 @@
 <script>
     export default {
         name: "index",
+        created() {
+            //this.getUserMngBlogList(3)
+            //this.getUserMngResourceList()
+            this.postDeleteUserMngBlog(4)
+        },
         data() {
-            const item = {
-                date: '2016-05-02',
-                title: '论Vue中涉及到的跨域技术',
-                status: '公开',
-                type: '原创',
-                readNum: 233,
-                likeNum: 233,
-                collectedNum: 233,
-                coinNum: 233,
-            };
             return {
-                tableData: Array(20).fill(item)
+                tableData: this.$store.state.userMngBlogList,
             }
         },
         methods:{
-            getUserMngBlogList(){
+            getUserMngBlogList(id){
                 this.axios.post(
-                    "url",{
-                        "page":1,
+                    "myInfo/blogHome",{
+                        "id":id,
                     }).then((res)=>{
                     window.console.log(res.data)
-                    this.$store.commit("updateUserMngBlogList",res.data)
+                    this.$store.commit("updateUserMngBlogList",res.data.resourceList)
                 })
             },
             getUserMngResourceList(){
                 this.axios.post(
-                    "url",{
-                        "page":1,
+                    "resource/home",{
                     }).then((res)=>{
                     window.console.log(res.data)
                     this.$store.commit("updateUserMngResourceList",res.data)
@@ -108,8 +102,8 @@
             },
             postDeleteUserMngBlog(){
                 this.axios.post(
-                    "url",{
-                        "id":1,
+                    "article/delete",{
+                        "id":4,
                     }).then((res)=>{
                     window.console.log("postDeleteUserMngBlog:" + res.data)
                     if(res.data == true){
@@ -132,7 +126,8 @@
                     }
                 })
             },
-        }
+        },
+
     }
 </script>
 

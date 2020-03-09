@@ -121,7 +121,7 @@
                     window.console.log(res.data)
                     if(res.data == true){
                         this.$store.commit("updateIsLogin")
-                        router.push("/blogIndex")
+                        router.push("/bIndex")
                     }else {
                         window.alert('登录失败')
                     }

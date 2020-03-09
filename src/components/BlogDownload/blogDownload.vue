@@ -24,7 +24,7 @@
             <div class="left" style="margin-left: 25px">
                 <el-row>
                     <el-button type="primary" plain>立即购买</el-button>
-                    <el-button type="warning" plain disabled>立即下载</el-button>
+                    <el-button type="warning" plain @click="postDownload">立即下载</el-button>
                 </el-row>
             </div>
             <div class="clears"></div>
@@ -34,7 +34,34 @@
 
 <script>
     export default {
-        name: "blogDownload"
+        name: "blogDownload",
+        methods:{
+            postDownload(){
+                this.axios.post(
+                    "resource/download",{
+                        'id': 123
+                    }
+                ).then((res)=>{
+                    window.console.log(res.data)
+                    if(res.data != null){
+                        window.alert('下载成功bbb')
+                        this.goto(res)
+                    }else{
+                        window.alert('下载失败bbb')
+                    }
+                })
+            },
+            // 跳转函数（参数）
+            goto(res) {
+                // 跳转打开到新页面
+                const { href } = this.$router.resolve({
+                    path: "upload/download" + res.data
+                })
+                window.open(href, "_blank")
+                // 加入到指定路径
+                // this.$router.push({path: val})
+            }
+        }
     }
 </script>
 

@@ -57,7 +57,7 @@
             blogList
         },
         created() {
-            this.getBlogInfo(1)
+            this.getBlogInfo(3)
         }
     }
 </script>

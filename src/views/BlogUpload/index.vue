@@ -14,7 +14,7 @@
                     <el-row>
                         <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
                         <el-col :span="16"><div class="grid-content bg-purple">
-                            <upload-form/>
+                            <upload-form ref="uploadForm"></upload-form>
                         </div></el-col>
                         <el-col :span="4"><div class="grid-content bg-purple-light">
 
@@ -34,6 +34,20 @@
         components:{
             navigation,
             uploadForm
+        },
+        data () {
+            return {
+
+            }
+        },
+        mounted(){
+            window.console.log(this.$refs.uploadForm.formData)
+        },
+        created(){
+
+        },
+        methods:{
+
         }
     }
 </script>
