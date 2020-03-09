@@ -43,21 +43,15 @@ const baseURL2 = '/upload'
 const axiosInstance = axios.create({
   baseURL: baseURL,
   headers: {
-    contentType : "application/x-www-form-urlencoded;charset=utf-8"
-  },
-    transformRequest:[function (data) {
-        return qs.stringify(data)
-    }]
+    contentType : "application/json;charset=UTF-8"
+  }
 })
 
 const axiosInstance2 = axios.create({
     baseURL: baseURL2,
     headers: {
-        contentType : "application/x-www-form-urlencoded;charset=utf-8"
-    },
-    transformRequest:[function (data) {
-        return qs.stringify(data)
-    }]
+        contentType : "application/json;charset=UTF-8"
+    }
 })
 
 
