@@ -10,6 +10,13 @@ module.exports = {
                 pathRewrite: {
                     '^/blog': ''
                 }
+            },
+            '/upload': {
+                target: 'http://29175vv342.zicp.vip',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/upload': ''
+                }
             }
         }
     }

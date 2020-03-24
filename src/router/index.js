@@ -20,7 +20,7 @@ const routes = [
     component: ()=> import('../components/article.vue')
   },
   {
-    path: '/blogIndex',
+    path: '/bIndex',
     name: 'blogIndex',
     component: ()=> import('../views/BlogIndex/index.vue')
   },
@@ -30,39 +30,44 @@ const routes = [
     component: ()=> import('../views/Login_Regist/index.vue')
   },
   {
-    path:'/bloghome',
+    path:'/bhome',
     name: 'bloghome',
     component: ()=> import('../views/BlogHome/index')
   },
   {
-    path:'/blogcontent',
+    path:'/bcontent',
     name:'blogcontent',
     component: ()=> import('../views/BlogContent/index')
   },
   {
-    path:'/blogcoins',
+    path:'/bcoins',
     name:'blogcoins',
     component: ()=> import('../views/BlogCoins/index')
   },
   {
-    path:'/blogdownload',
+    path:'/bdownload',
     name:'blogdownload',
     component: ()=> import('../views/blogDownload/index')
   },
   {
-    path:'/blogWrite',
+    path:'/bWrite',
     name:'blogWrite',
     component: ()=> import('../views/WriteArticle/index')
   },
   {
-    path:'/blogmessage',
+    path:'/bmessage',
     name:'blogmessage',
     component: ()=> import('../views/BlogMessage/index')
   },
   {
-    path:'/blogupload',
+    path:'/bupload',
     name:'blogupload',
     component: ()=> import('../views/BlogUpload/index')
+  },
+  {
+    path:'/bMng',
+    name:'blogMng',
+    component: ()=> import('../views/BlogMng/index')
   },
   {
     path:'/admin',
@@ -82,8 +87,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
-  //mode: 'history'
+  routes,
+  mode: 'history'
 })
 
 export default router

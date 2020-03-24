@@ -8,8 +8,10 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        multiple>
+                        action="update/uploadResource"
+                        :auto-upload="false"
+                        :before-upload="doBeforeUpload"
+                        >
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
@@ -18,8 +20,9 @@
                 </el-form-item>
                 <el-form-item label="资源类型:">
                     <el-select v-model="form.region" placeholder="请选择资源类型" style="width: 100%">
-                        <el-option label="类型一" value="Java"></el-option>
-                        <el-option label="类型二" value="Python"></el-option>
+                        <el-option label="文档" value="文档"></el-option>
+                        <el-option label="视频" value="视频"></el-option>
+                        <el-option label="工具" value="工具"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="所需硬币:">
@@ -50,7 +53,7 @@
                     <el-input type="textarea" v-model="form.desc" placeholder="请描述一下你的资源信息"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">提交</el-button>
+                    <el-button type="primary" @click="submitFileInfo">提交</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -59,6 +62,7 @@
 </template>
 
 <script>
+    import BMF from 'browser-md5-file'
     export default {
         name: "uploadForm",
         data() {
@@ -72,11 +76,61 @@
                     tags: ['java','python'],
                     desc: '',
                     inputVisible: false,
-                    inputValue: ''
-                }
+                    inputValue: '',
+                },
+                fMD5:''
             }
         },
         methods: {
+            doBeforeUpload(file){
+                const bmf = new BMF()
+                bmf.md5(
+                    file,
+                    (err,md5) => {
+                        window.console.log('err:',err);
+                        window.console.log('md5 string:',md5);
+                        this.fMD5 = md5
+
+                        this.axios.post(
+                            "resource/confirmMD5",{
+                                "md5":md5,
+                            }).then((res)=> {
+                            window.console.log(res.data)
+                            if(res.data == true){
+                                window.alert('md5在数据库内存在')
+                            }else {
+                                window.alert('md5在数据库内不存在')
+                                this.submitUpload()
+                            }
+                        })
+                    }
+                )
+            },
+            submitFileInfo(){
+                    this.$aaa.post(
+                        "update/download",{
+                            'name':this.form.name,
+                            'type':this.form.region,
+                            // 'coin':this.form.coin,
+                            // 'tags':this.form.tags,
+                            'introduction':this.form.desc,
+                            // 'resourceEntity': {
+                            //     'md5':this.fMD5
+                            // }
+                        }
+                    ).then((res)=>{
+                        window.console.log(res.data)
+                        if(res.data == true){
+                            window.alert('上传成功bbb')
+                        }else{
+                            window.alert('上传失败bbb')
+                        }
+                    })
+
+            },
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
             onSubmit() {
                 alert('submit!');
             },
@@ -98,7 +152,7 @@
                 }
                 this.form.inputVisible = false;
                 this.form.inputValue = '';
-            }
+            },
         }
     }
 </script>

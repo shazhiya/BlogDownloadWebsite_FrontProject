@@ -11,6 +11,8 @@ export default new Vuex.Store({
     blogClassifyList:null,
     blogInfo:null,
     blogContent:null,
+    userMngBlogList:null,
+    userMngResourceList:null,
   },
   mutations: {
     updateIsLogin(state){
@@ -30,7 +32,14 @@ export default new Vuex.Store({
     },
     updateBlogContent(state,info){
       state.blogContent = info
-    }
+    },
+    updateUserMngBlogList(state,info){
+      state.userMngBlogList = info
+    },
+    updateUserMngResourceList(state,info){
+      state.userMngResourceList = info
+    },
+
 
   },
   actions: {
@@ -43,6 +52,8 @@ export default new Vuex.Store({
     getBlogList:state => {return state.blogList},
     getBlogClassifyList:state => {return state.blogClassifyList},
     getBlogInfo:state => {return state.blogInfo},
-    getBlogContent:state => {return state.blogContent}
+    getBlogContent:state => {return state.blogContent},
+    getUserMngBlogList1:state => {return state.userMngBlogList},
+    getUserMngResourceList:state => {return state.userMngResourceList},
   }
 })
