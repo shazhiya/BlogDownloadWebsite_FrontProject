@@ -2,7 +2,7 @@
     <div>
     <div style="width: 100%; height: 56px; overflow: inherit;">
         <div class="topBox">
-            <div class="title"><!--文章标题-->
+            <div class="title"><!--文章标题--> <!-- ！！！编辑器宽度应该与展示页面宽度一致 -->
                 <el-button @click="postBlogArticle">发布文章</el-button>
                 <!--<input maxlength="100" placeholder="输入文章标题" class="titleInput" @click="postBlogArticle()">-->
                 <span class="textNum"><!--标题字数统计-->

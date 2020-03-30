@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import adminManager from "../../components/BlogAdmin/adminManager";
+    import adminManager from "../../components/BlogAdmin/adminBlogMng";
     import managerlLeft from "../../components/BlogAdmin/managerlLeft";
     import managerHeader from "../../components/BlogAdmin/managerHeader";
     export default {

@@ -41,7 +41,23 @@
                     window.console.log(res.data)
                     this.$store.commit("updateBlogContent",res.data)
                 })
-            }
+            },
+            // 发送评论
+            postBlogComment(){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": 3,
+                        },
+                        "parentComment":{
+                            "id": 5,
+                        },
+                        "content": "借一部说话",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
 
         },
         components:{
@@ -52,7 +68,8 @@
             blogLike
         },
         created() {
-            this.getBlogContent(1)
+            this.getBlogContent(3)
+            // this.postBlogComment()
         }
     }
 </script>

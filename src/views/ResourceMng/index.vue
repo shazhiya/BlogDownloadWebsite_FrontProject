@@ -9,7 +9,20 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        methods:{
+            getUserMngBlogList(id){
+                this.axios.post(
+                    "myInfo/blogHome",{
+                        "id":id,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateUserMngBlogList",res.data.resourceList)
+                })
+            },
+        },
+        created() {
+        },
     }
 </script>
 

@@ -75,7 +75,7 @@
         created() {
             //this.getUserMngBlogList(3)
             //this.getUserMngResourceList()
-            this.postDeleteUserMngBlog(4)
+            // this.postDeleteUserMngBlog(4)
         },
         data() {
             return {

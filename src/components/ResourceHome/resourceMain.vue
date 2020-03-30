@@ -78,7 +78,41 @@
             settype(type){
                 this.dynamicTags[1] = type;
                 this.$forceUpdate();
-            }
+            },
+            // 从服务器获取资源(分类)
+            getResourceClassifyList(){
+                this.axios.post(
+                    "resource/classify",{}).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceClassifyList",res.data)
+                })
+            },
+            // 从服务器获取热门标签(tags)
+            getResourceHotTagsList(){
+                this.axios.post(
+                    "resource/topTags",{}).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceHotTagsList",res.data)
+                })
+            },
+            // 从服务器获取资源list
+            getResourceList(){
+                this.axios.post(
+                    "resource/index",{
+                        "resource":{
+                            "name": "搜索的内容",
+                            "rcid": 1,
+                            "type": null,
+                            "page": 1,
+                        },
+                        "tag":{
+                            "id": null,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceList",res.data)
+                })
+            },
         }
     }
 </script>

@@ -10,11 +10,6 @@ const routes = [
     redirect:"login_regist"
   },
   {
-    path: '/sign_up',
-    name: 'signup',
-    component: () => import(/**/'../views/SignUp.vue')
-  },
-  {
     path: '/article',
     name: 'article',
     component: ()=> import('../components/article.vue')
@@ -80,9 +75,9 @@ const routes = [
     component: ()=> import('../views/LoginAdmin/index')
   },
   {
-    path:'/resourcehome',
-    name:'resourcehome',
-    component: ()=> import('../views/ResourceHome/index')
+    path:'/resourceIndex',
+    name:'resourceIndex',
+    component: ()=> import('../views/ResourceIndex/index')
   }
 ]
 

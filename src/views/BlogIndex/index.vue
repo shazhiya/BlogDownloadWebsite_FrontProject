@@ -85,6 +85,9 @@
     export default {
         data() {
             return {
+                userInfo: this.$store.getters.getUserInfo,
+                blogClassifyList: this.$store.getters.getBlogClassifyList,
+                blogList: this.$store.getters.getBlogList,
             };
         },
         methods: {
@@ -124,7 +127,12 @@
                     window.console.log(res.data)
                     this.$store.commit("updateBlogClassifyList",res.data)
                 })
+            },
+
+            test1(){
+                window.console.log("user:" + this.$store.getters.getUserInfo);
             }
+
         },
         components:{
             compArticleList,
@@ -148,6 +156,7 @@
             //this.getBlogClass()
             //this.getRecommendBlogList()
             //this.getBlogList()
+            this.test1()
         }
     }
 </script>

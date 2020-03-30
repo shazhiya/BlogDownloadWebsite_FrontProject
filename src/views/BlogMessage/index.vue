@@ -37,6 +37,55 @@
             navigation,
             messageLeft,
             messageCenter,
+        },
+        methods:{
+            postMessage(){
+                this.axios.post(
+                    "message/postMessage",{
+                        "target": 1,
+                        "content": "你好帅",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            //请求谁给我发的消息userList
+            getMessageUserList(){
+                this.axios.post(
+                    "message/index",{
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            //请求与某人的未读聊天信息 单方
+            getUnreadMessageList(){
+                this.axios.post(
+                    "message/messages",{
+                        "uid": 1,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            //请求与某人的历史聊天信息 双方
+            getHistoryMessageList(){
+                this.axios.post(
+                    "message/history",{
+                        "uid": 4,
+                        "time": 1585405662347,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+
+        },
+        created() {
+            //this.postMessage();
+            // this.getMessageUserList();
+            //this.getUnreadMessageList();
+            // this.getHistoryMessageList();
         }
     }
 </script>

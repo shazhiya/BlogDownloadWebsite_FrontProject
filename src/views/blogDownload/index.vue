@@ -45,6 +45,49 @@
             uploadUser,
             downDiscuss,
             downloadRecommended
+        },
+        methods:{
+            // 请求资源对象
+            getResourceDetail(){
+                this.axios.post(
+                    "resource/resourceDetail",{
+                        "id":2,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 发送购买资源请求
+            postResourcePayment(){
+                this.axios.post(
+                    "resource/buyLicense",{
+                        "id":101,
+                        "resourceDetail":{
+                            "id": 2,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 发送评论
+            postResourceComment(){
+                this.axios.post(
+                    "resource/sendComment",{
+                        "resourceDetail":{
+                            "id": 2,
+                        },
+                        "content": "借一部说话",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+        },
+        created() {
+            // this.getResourceDetail()
+            // this.postResourcePayment()
+            // this.postResourceComment()
         }
     }
 </script>

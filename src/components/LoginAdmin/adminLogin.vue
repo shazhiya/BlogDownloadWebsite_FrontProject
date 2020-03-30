@@ -92,7 +92,7 @@
                     password:this.ruleForm.password,
                 }
 
-                var url = "/login"
+                var url = "sign/login"
 
 
                 this.axios.post(
@@ -100,8 +100,8 @@
                     data).then((res)=> {
                     window.console.log(res.data)
                     if(res.data == true){
-                        this.$store.commit("updateIsLogin")
-                        router.push("/blogIndex")
+                        // this.$store.commit("updateIsLogin")
+                        router.push("/admin")
                     }else {
                         window.alert('登录失败')
                     }

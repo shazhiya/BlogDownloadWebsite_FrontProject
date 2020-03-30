@@ -48,7 +48,7 @@
         <span class="readNum">
             阅读数:15675
         </span>
-        <el-button type="primary" class="readButton">
+        <el-button type="primary" class="readButton" @click="gotoArticle">
             Read
         </el-button>
     </div>
@@ -57,7 +57,13 @@
 
 <script>
     export default {
-        name: "compArticleList"
+        name: "compArticleList",
+        methods:{
+            gotoArticle(){
+                window.alert("/bcontent");
+                this.$router.push("/bcontent")
+            }
+        }
     }
 </script>
 

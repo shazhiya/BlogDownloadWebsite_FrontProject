@@ -36,6 +36,62 @@
             navigation,
             resourceMain,
             resourceTag
+        },
+        data(){
+          return{
+              resourceClassify: [{
+                  "id":1,
+                  "name":"red pig"
+              }],
+              resourceList:[{
+
+              }],
+              ResourceHotTagsList:[],
+          }
+        },
+        methods:{
+            // 从服务器获取资源(分类)
+            getResourceList(){
+                this.axios.post(
+                    "resource/index",{
+                        "resource":{
+                            "rcid":1,
+                            "type":1,
+                            "name":null,
+                            "page": 1,
+                        },
+                        "tag":{
+                          "id": null,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceList",res.data)
+                })
+            },
+            // 获取资源分类
+            getResourceClassifyList(){
+                this.axios.post(
+                    "resource/classify",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceClassifyList",res.data)
+            })
+            },
+            // 获取热门标签
+            getResourceHotTagsList(){
+                this.axios.post(
+                    "resource/topTags",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceHotTagsList",res.data)
+                })
+            },
+        },
+        created() {
+            this.getResourceList()
+            // this.getResourceHotTagsList()
         }
     }
 </script>

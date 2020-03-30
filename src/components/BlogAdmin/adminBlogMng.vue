@@ -75,14 +75,34 @@
 
 <script>
     export default {
-        name: "adminManager",
+        name: "adminBlogMng",
         methods:{
             handleClick(row) {
                 window.console.log(row);
             },
             onSubmit() {
                 window.console.log('submit!');
-            }
+            },
+            // 从服务器获取博文
+            getAdminBlogList(){
+                this.axios.post(
+                    "article/query",{
+                        "page":1,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 管理员删除博文
+            getAdminDeleteBlog(){
+                this.axios.post(
+                    "article/delete",{
+                        "id":1,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
         },
         data() {
             const item = {
