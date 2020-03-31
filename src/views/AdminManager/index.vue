@@ -9,9 +9,9 @@
                 <el-header style="text-align: right; font-size: 12px;" height="100px">
                     <manager-header/>
                 </el-header>
-
+                    <admin-resource-mng/>
                 <el-main>
-                    <admin-manager/>
+                    <admin-blog-mng/>
                 </el-main>
             </el-container>
         </el-container>
@@ -19,16 +19,22 @@
 </template>
 
 <script>
-    import adminManager from "../../components/BlogAdmin/adminBlogMng";
+    // import adminManager from "../../components/BlogAdmin/adminBlogMng";
     import managerlLeft from "../../components/BlogAdmin/managerlLeft";
     import managerHeader from "../../components/BlogAdmin/managerHeader";
+    import AdminResourceMng from "../../components/BlogAdmin/adminResourceMng";
+    // import AdminUerMng from "../../components/BlogAdmin/adminUserMng";
+    // import AdminBlogMng from "../../components/BlogAdmin/adminBlogMng";
     export default {
         name: "index",
         components:{
-            adminManager,
+            // AdminBlogMng,
+            // AdminUerMng,
+            // adminManager,
+            AdminResourceMng,
             managerHeader,
             managerlLeft
-        }
+        },
     }
 </script>
 

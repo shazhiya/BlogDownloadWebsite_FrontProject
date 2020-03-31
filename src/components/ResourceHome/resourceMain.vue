@@ -47,21 +47,24 @@
         </span>
         </div>
         <div class="resource">
-
+            <resource-card  v-for="i in 4" :key="i"></resource-card>
         </div>
     </div>
 </template>
 
 <script>
+    import ResourceCard from "./resourceCard";
     export default {
         name: "resourceMain",
+        components: {ResourceCard},
         data() {
             return {
                 dynamicTags: [],
                 inputVisible: false,
                 inputValue: '',
                 classifys: ['java','python','c++','c','php','javaweb','c','大数据','移动开发','安卓开发'],
-                types: ['全部','文档类','代码类','工具类','其他']
+                types: ['全部','文档类','代码类','工具类','其他'],
+
             };
         },
         methods: {
@@ -69,7 +72,8 @@
                 this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
             },
             onSubmit() {
-                alert("submit")
+                alert("submit");
+                alert(this.dynamicTags);
             },
             setclassify(classify){
                 this.dynamicTags[0] = classify;
@@ -80,29 +84,13 @@
                 this.$forceUpdate();
             },
             // 从服务器获取资源(分类)
-            getResourceClassifyList(){
-                this.axios.post(
-                    "resource/classify",{}).then((res)=>{
-                    window.console.log(res.data)
-                    this.$store.commit("updateResourceClassifyList",res.data)
-                })
-            },
-            // 从服务器获取热门标签(tags)
-            getResourceHotTagsList(){
-                this.axios.post(
-                    "resource/topTags",{}).then((res)=>{
-                    window.console.log(res.data)
-                    this.$store.commit("updateResourceHotTagsList",res.data)
-                })
-            },
-            // 从服务器获取资源list
             getResourceList(){
                 this.axios.post(
                     "resource/index",{
                         "resource":{
-                            "name": "搜索的内容",
-                            "rcid": 1,
-                            "type": null,
+                            "rcid":1,
+                            "type":1,
+                            "name":null,
                             "page": 1,
                         },
                         "tag":{
@@ -113,17 +101,48 @@
                     this.$store.commit("updateResourceList",res.data)
                 })
             },
+            // 获取资源分类
+            getResourceClassifyList(){
+                this.axios.post(
+                    "resource/classify",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceClassifyList",res.data)
+                })
+            },
+            // 获取热门标签
+            getResourceHotTagsList(){
+                this.axios.post(
+                    "resource/topTags",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceHotTagsList",res.data)
+                })
+            },
+        },
+        created() {
+
         }
     }
 </script>
 
 <style scoped>
-    .chuse,.resource{
+    .chuse{
         width: 100%;
         min-width: 1086px;
         min-height: 200px;
         background: white;
         padding-top: 25px;
+        padding-bottom: 15px;
+        margin-bottom: 40px;
+    }
+    .resource{
+        width: 100%;
+        min-width: 1086px;
+        min-height: 100px;
+        padding-top: 15px;
         padding-bottom: 15px;
         margin-bottom: 40px;
     }
@@ -151,5 +170,32 @@
         margin-top: 25px;
         float: right;
         margin-right: 50px;
+    }
+    .fileImg{
+        float: left;
+    }
+    .el-card__body{
+        padding-top: 0px;
+        padding-left: 0px;
+        padding-bottom: 0px;
+        text-align: left;
+    }
+    .fileTitle{
+        font-size: 24px;
+        font-weight: 400;
+    }
+    .fileInfo>span{
+        font-size: 16px;
+        margin-right: 10px;
+    }
+    .fileButton{
+        float: right;
+    }
+    .resource .el-card__body{
+        margin-bottom: 20px;
+    }
+    .resource .el-card__body>div{
+        margin-left: 80px;
+        margin-bottom: 12px;
     }
 </style>

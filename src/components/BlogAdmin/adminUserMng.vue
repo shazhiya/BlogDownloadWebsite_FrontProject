@@ -83,7 +83,7 @@
             onSubmit() {
                 window.console.log('submit!');
             },
-            // 从服务器获取资源
+            // 从服务器获取用户
             getAdminUserList(){
                 this.axios.post(
                     "user/query",{
@@ -93,8 +93,8 @@
                     // this.$store.commit("updateBlogList",res.data)
                 })
             },
-            // 管理员删除资源
-            getAdminDeleteUser(){
+            // 管理员删除用户
+            postAdminDeleteUser(){
                 this.axios.post(
                     "user/delete",{
                         "id":1,
@@ -117,6 +117,10 @@
                     date2: ''
                 }
             }
+        },
+        created() {
+            // this.getAdminUserList();
+            // this.postAdminDeleteUser();
         }
     }
 </script>

@@ -94,10 +94,10 @@
                 })
             },
             // 管理员删除资源
-            getAdminDeleteResource(){
+            postAdminDeleteResource(id){
                 this.axios.post(
                     "resource/delete",{
-                        "id":1,
+                        "id":id,
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
@@ -117,6 +117,10 @@
                     date2: ''
                 }
             }
+        },
+        created() {
+            // this.getAdminResourceList();
+            // this.postAdminDeleteResource(2);
         }
     }
 </script>

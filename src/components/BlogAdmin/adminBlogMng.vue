@@ -94,10 +94,10 @@
                 })
             },
             // 管理员删除博文
-            getAdminDeleteBlog(){
+            postAdminDeleteBlog(){
                 this.axios.post(
                     "article/delete",{
-                        "id":1,
+                        "id":6,
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
@@ -117,6 +117,10 @@
                     date2: ''
                 }
             }
+        },
+        created() {
+            // this.getAdminBlogList();
+            this.postAdminDeleteBlog();
         }
     }
 </script>

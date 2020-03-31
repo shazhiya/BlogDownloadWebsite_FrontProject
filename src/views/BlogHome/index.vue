@@ -1,4 +1,6 @@
 <template>
+    <div>
+    <navigation/>
     <div class="content">
         <el-row>
             <el-col :span="24"><div class="grid-content bg-purple-dark">
@@ -27,12 +29,14 @@
             </div></el-col>
         </el-row>
     </div>
+    </div>
 </template>
 
 <script>
     import blogHomeHander from "../../components/BlogHome/blogHomeHander";
     import blogInformation from "../../components/BlogHome/blogInformation";
     import blogList from "../../components/BlogHome/blogList";
+    import Navigation from "../../components/navigation";
     export default {
         name: "index",
         data(){
@@ -52,6 +56,7 @@
             }
         },
         components: {
+            Navigation,
             blogHomeHander,
             blogInformation,
             blogList
