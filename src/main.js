@@ -39,6 +39,7 @@ library.add(
 
 const baseURL = '/blog'
 const baseURL2 = '/upload'
+const baseURL3 = '/admin'
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -54,12 +55,21 @@ const axiosInstance2 = axios.create({
     }
 })
 
+const axiosInstance3 = axios.create({
+    baseURL: baseURL3,
+    headers: {
+        contentType : "application/json;charset=UTF-8"
+    }
+})
+
 
 axiosInstance.defaults.withCredentials = true
 axiosInstance2.defaults.withCredentials = true
+axiosInstance3.defaults.withCredentials = true
 
 Vue.prototype.axios = axiosInstance
 Vue.prototype.$aaa = axiosInstance2
+Vue.prototype.admin = axiosInstance3
 Vue.config.productionTip = false
 Vue.prototype.qs = qs
 

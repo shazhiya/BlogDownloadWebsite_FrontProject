@@ -14,7 +14,7 @@
                     <el-row>
                         <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
                         <el-col :span="14"><div class="grid-content bg-purple">
-                            <blog-download/>
+                            <blog-download :resource="resource"/>
                             <down-discuss/>
                             <download-recommended/>
                         </div></el-col>
@@ -46,15 +46,21 @@
             downDiscuss,
             downloadRecommended
         },
+        data(){
+            return{
+                currentResourceId: this.$route.query.id,
+                resource: this.$store.getters.getResourceDetail,
+            }
+        },
         methods:{
             // 请求资源对象
-            getResourceDetail(){
+            getResourceDetail(rid){
                 this.axios.post(
                     "resource/resourceDetail",{
-                        "id":2,
+                        "id":rid,
                     }).then((res)=>{
                     window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
+                    this.$store.commit("updateResourceDetail",res.data)
                 })
             },
             // 发送购买资源请求
@@ -85,7 +91,7 @@
             },
         },
         created() {
-            // this.getResourceDetail()
+            this.getResourceDetail(this.currentResourceId);
             // this.postResourcePayment()
             // this.postResourceComment()
         }

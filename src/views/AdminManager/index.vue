@@ -9,7 +9,6 @@
                 <el-header style="text-align: right; font-size: 12px;" height="100px">
                     <manager-header/>
                 </el-header>
-                    <admin-resource-mng/>
                 <el-main>
                     <admin-blog-mng/>
                 </el-main>
@@ -22,16 +21,17 @@
     // import adminManager from "../../components/BlogAdmin/adminBlogMng";
     import managerlLeft from "../../components/BlogAdmin/managerlLeft";
     import managerHeader from "../../components/BlogAdmin/managerHeader";
-    import AdminResourceMng from "../../components/BlogAdmin/adminResourceMng";
+    // import AdminResourceMng from "../../components/BlogAdmin/adminResourceMng";
+    import AdminBlogMng from "../../components/BlogAdmin/adminBlogMng";
     // import AdminUerMng from "../../components/BlogAdmin/adminUserMng";
     // import AdminBlogMng from "../../components/BlogAdmin/adminBlogMng";
     export default {
         name: "index",
         components:{
-            // AdminBlogMng,
+            AdminBlogMng,
             // AdminUerMng,
             // adminManager,
-            AdminResourceMng,
+            // AdminResourceMng,
             managerHeader,
             managerlLeft
         },
