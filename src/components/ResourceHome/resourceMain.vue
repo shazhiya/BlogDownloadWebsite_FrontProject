@@ -109,7 +109,7 @@
                     "resource/index",{
                         "resource":{
                             "rcid":null,
-                            "type":"文档",
+                            "type": null,
                             "name":null,
                             "page": 1,
                         },

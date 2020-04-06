@@ -80,7 +80,7 @@
         name: "uploadForm",
         data() {
             return {
-                flag:"12313",
+                flag: "12313",
                 form: {
                     name: null,
                     coin: '5',
@@ -92,22 +92,29 @@
                     inputVisible: false,
                     inputValue: '',
                     path: null,
-                    md5: null,
+                    md5: '123456',
                 },
                 resourceClassify: this.$store.getters.getResourceClassifyList,
             }
         },
         methods: {
-            doBeforeUpload(file) {
+            async doBeforeUpload(file) {
                 const bmf = new BMF()
-                bmf.md5(file, (err, md5) => {
-                        window.console.log('err:', err);
-                        window.console.log('md5 string:', md5);
-                        this.form.md5 = md5
+                window.alert("全局")
+                window.console.log("全局md5:" + this.form.md5);
 
-                        this.axios.post(
+                 await bmf.md5(file,async (err, md5) => {
+                        window.alert("md5方法内");
+                        window.console.log('err:', err);
+                        window.console.log('md5加密后的string:', md5);
+                     window.console.log('全局MD5的string:', this.form.md5);
+                     this.form.md5 = md5
+                     window.console.log('赋值后全局MD5的string:', this.form.md5);
+
+
+                     await this.axios.post(
                             "resource/confirmMD5", {
-                                "md5": md5,
+                                "md5": this.form.md5,
                             }).then((res) => {
                             window.console.log(res.data)
                             if (res.data == true) {
@@ -117,9 +124,11 @@
                                 window.alert('md5在数据库内不存在')
                                 this.flag = true
                             }
-                        })
+                        });
                     }
-                )
+                );
+
+
                 window.console.log("会不会上传：" + this.flag);
                 return this.flag;
             },
@@ -137,22 +146,22 @@
                         'type': this.form.type,
                         'rcid': this.form.resourceClassifyId,
                         // 'coin':this.form.coin,
-                        'tags':[
+                        'tags': [
                             {
-                                "tag":{
+                                "tag": {
                                     "name": "JDK"
                                 }
                             },
                             {
-                                "tag":{
-                                "name": "Spring"
+                                "tag": {
+                                    "name": "Spring"
                                 }
                             },
                         ],
                         'introduction': this.form.desc,
                         'resourceEntity': {
                             'md5': this.form.md5,
-                            'realPath':this.form.path,
+                            'realPath': this.form.path,
                         },
                     }
                 ).then((res) => {
@@ -166,19 +175,17 @@
 
             },
             // 获取资源分类
-            getResourceClassifyList(){
+            getResourceClassifyList() {
                 this.axios.post(
-                    "resource/classify",{
-
-                    }).then((res)=>{
+                    "resource/classify", {}).then((res) => {
                     window.console.log(res.data)
-                    this.$store.commit("updateResourceClassifyList",res.data)
+                    this.$store.commit("updateResourceClassifyList", res.data)
                 })
             },
             submitUpload() {
                 this.$refs.upload.submit();
             },
-            onSucces(response){
+            onSucces(response) {
                 window.console.log(response);
                 this.form.path = response.path;
             },

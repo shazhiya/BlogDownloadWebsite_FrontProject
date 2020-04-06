@@ -48,7 +48,17 @@
                 <el-row :gutter="40">
                     <el-col :span="1">
                         <router-link to="/bWrite">
-                            <i class="el-icon-edit"></i>
+                            <el-dropdown>
+                                <i class="el-icon-edit iconSize"></i>
+                                <el-dropdown-menu slot="dropdown" style="width: 160px">
+                                    <router-link to="/bWrite">
+                                        <el-dropdown-item icon="el-icon-s-home">发布博客</el-dropdown-item>
+                                    </router-link>
+                                    <router-link to="/bupload">
+                                        <el-dropdown-item icon="el-icon-s-platform">上传资源</el-dropdown-item>
+                                    </router-link>
+                                </el-dropdown-menu>
+                            </el-dropdown>
                         </router-link>
                     </el-col>
                     <el-col :span="1">

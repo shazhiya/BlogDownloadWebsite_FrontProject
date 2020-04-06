@@ -3,14 +3,13 @@
     <div style="width: 100%; height: 56px; overflow: inherit;">
         <div class="topBox">
             <div class="title"><!--文章标题--> <!-- ！！！编辑器宽度应该与展示页面宽度一致 -->
-                <el-button @click="postBlogArticle">发布文章</el-button>
-                <!--<input maxlength="100" placeholder="输入文章标题" class="titleInput" @click="postBlogArticle()">-->
+                <el-input v-model="writeArticle.title" placeholder="请输入文章标题"></el-input>
                 <span class="textNum"><!--标题字数统计-->
 					0/100
                 </span>
             </div>
             <div class="btnBox"><!--提交按钮 头像-->
-                <input type="submit" class="submitBtn" value="发布文章">
+                <el-button @click="postBlogArticle">发布文章</el-button>
                 <div class="userBox">
                     <div class="userInforBox">
                         <div class="userPic"></div>
@@ -83,6 +82,11 @@
         },
         data(){
           return{
+              writeArticle:{
+                  title:'',
+                  tags:[],
+                  content:''
+              },
               classify: [{
                   value: 1,
                   label: 'Java'
@@ -155,16 +159,29 @@
                 this.inputVisible = false;
                 this.inputValue = '';
             },
-            postBlogArticle(){
+            postBlogArticle(){ /* tags数据绑定重写arrayToString方法 ！！ */
+                window.alert(this.writeArticle.title)
                 let data = {
                     bcid:1,
-                    title:"test",
-                    tagsStr:this.arrayToString([{name:"tests"}])
+                    title:this.writeArticle.title,
+                    tags:[
+                        {
+                            "tag":{
+                                "name": "Java"
+                            }
+                        },
+                        {
+                            "tag":{
+                                "name": "删除测试"
+                            }
+                        }
+                    ],
+                    content:"啊啊啊啊啊这CKeditor的子传父咋用啊啊啊啊",
                 }
                 this.axios
                     .post("article/releaseBlog",data)
                     .then(res=>{
-                        window.console.log(res)
+                        window.console.log(res.data)
                     })
                     .catch(err=>{
                         window.console.log(err)

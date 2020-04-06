@@ -17,7 +17,14 @@ module.exports = {
                 pathRewrite: {
                     '^/upload': ''
                 }
-            }
+            },
+            '/admin': {
+                target: 'http://w291753h42.goho.co/admin',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/admin': ''
+                }
+            },
         }
     }
 }

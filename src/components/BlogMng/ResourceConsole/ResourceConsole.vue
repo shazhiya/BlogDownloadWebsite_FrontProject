@@ -8,7 +8,7 @@
                     <div class="warp-content">
                         <el-select v-model="type" placeholder="请选择" style="width: 100%;">
                             <el-option
-                                    v-for="item in this.articleType"
+                                    v-for="item in this.resourceType"
                                     :key="item"
                                     :label="item"
                                     :value="item">
@@ -24,7 +24,7 @@
                     <div class="warp-content">
                         <el-date-picker
                                 style="width: 80%"
-                                v-model="articleDate"
+                                v-model="searchDate"
                                 type="daterange"
                                 align="right"
                                 unlink-panels
@@ -41,14 +41,14 @@
                 <div class="label-warp-keyWord">
                     <label>分类：</label>
                     <div class="warp-content">
-                        <el-select v-model="articleClassifyName" style="width: 78%">
-                            <el-option
-                                    v-for="classify in articleClassify"
-                                    :key="classify.id"
-                                    :value="classify.name"
-                                    :label="classify.name">
-                            </el-option>
-                        </el-select>
+                        <el-select v-model="resourceClassifyName" style="width: 78%">
+                        <el-option
+                                v-for="classify in resourceClassify"
+                                :key="classify.id"
+                                :value="classify.name"
+                                :label="classify.name">
+                        </el-option>
+                    </el-select>
                     </div>
                 </div>
             </el-col>
@@ -73,19 +73,19 @@
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column align="center" type="selection" width="55"></el-table-column>
             <!--            <el-table-column align="center" prop="releaseTime" label="发布日期" width="200px"></el-table-column>-->
-            <el-table-column align="center" prop="date" label="上传日期" width="200px"></el-table-column>
-            <el-table-column align="center" prop="title" label="资源标题" width="300px"></el-table-column>
+            <el-table-column align="center" label="上传日期" width="200px"><template slot-scope="scope">{{timestamp13ToTime(scope.row.releasetime)}}</template></el-table-column>
+            <el-table-column align="center" prop="name" label="资源标题" width="300px"></el-table-column>
             <el-table-column align="center" prop="type" label="资源类型" width="80px"></el-table-column>
-            <el-table-column align="center" prop="classify" label="资源分类" width="100px"></el-table-column>
-            <el-table-column align="center" prop="author" label="上传者"></el-table-column>
-            <el-table-column align="center" prop="readNum" label="下载数" width="80px"></el-table-column>
-            <el-table-column align="center" prop="likeNum" label="点赞数" width="80px"></el-table-column>
-            <el-table-column align="center" prop="coinNum" label="硬币数" width="80px"></el-table-column>
+            <el-table-column align="center" label="文章分类" width="100px"><template slot-scope="scope">{{getClassifyNameById(scope.row.rcid)}}</template></el-table-column>
+            <el-table-column align="center" label="上传者">{{user.account}}</el-table-column>
+            <el-table-column align="center" label="购买数" width="80px">999</el-table-column>
+            <el-table-column align="center" label="下载数" width="80px">999</el-table-column>
+            <el-table-column align="center" label="硬币数" width="80px">999</el-table-column>
             <el-table-column align="center" prop="status" label="资源状态" width="80px"></el-table-column>
             <el-table-column align="center" label="操作">
-                <template>
-                    <el-button size="small" type="warning">编辑</el-button>
-                    <el-button size="small" type="danger">删除</el-button>
+                <template slot-scope="scope">
+                    <el-button size="small" type="warning">撤销</el-button>
+                    <el-button size="small" type="danger" @click="postDeleteUserMngResource(scope.row.id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -119,75 +119,14 @@
         data() {
             return {
                 user: this.$store.getters.getUserInfo,
-                articleClassify: this.$store.getters.getBlogClassifyList,
-                tableData:
-                    [{
-                        date: '2016-04-22 18:05:42 ',
-                        title: 'matlab基本操作和语法',
-                        type: '文档',
-                        classify: 'Java',
-                        author: '安小北north',
-                        readNum: '19918',
-                        likeNum: '36',
-                        coinNum: '1800',
-                        collectNum: '524',
-                        status: '公开',
-                    },
-                        {
-                            date: '2016-04-22 18:05:42 ',
-                            title: 'matlab基本操作和语法',
-                            type: '文档',
-                            classify: 'Java',
-                            author: '安小北north',
-                            readNum: '19918',
-                            likeNum: '36',
-                            coinNum: '1800',
-                            collectNum: '524',
-                            status: '公开',
-                        },
-                        {
-                            date: '2016-04-22 18:05:42 ',
-                            title: 'matlab基本操作和语法',
-                            type: '文档',
-                            classify: 'Java',
-                            author: '安小北north',
-                            readNum: '19918',
-                            likeNum: '36',
-                            coinNum: '1800',
-                            collectNum: '524',
-                            status: '公开',
-                        },
-                        {
-                            date: '2016-04-22 18:05:42 ',
-                            title: 'matlab基本操作和语法',
-                            type: '文档',
-                            classify: 'Java',
-                            author: '安小北north',
-                            readNum: '19918',
-                            likeNum: '36',
-                            coinNum: '1800',
-                            collectNum: '524',
-                            status: '公开',
-                        },
-                        {
-                            date: '2016-04-22 18:05:42 ',
-                            title: 'matlab基本操作和语法',
-                            type: '转载',
-                            classify: 'Matlab',
-                            author: '安小北north',
-                            readNum: '19918',
-                            likeNum: '36',
-                            coinNum: '1800',
-                            collectNum: '524',
-                            status: '公开',
-                        },
-                    ],
-                articleType: ['原创', '转载'],
+                resourceClassify: this.$store.getters.getResourceClassifyList,
+                tableData:this.$store.getters.getUserMngResourceList.resourceList,
+                resourceType: ['文档', '视频','工具'],
                 type: '',
-                articleDate: null,
-                articleClassifyName: null,
+                searchDate: null,
+                resourceClassifyName: null,
                 search_keyWord: null,
-                test: this.$store.getters.getUserMngBlogList,
+                // test: this.$store.getters.getUserMngResourceList.resourceList,
             }
         },
         methods: {
@@ -220,19 +159,38 @@
                     }
                 })
             },
-            // 从服务器获取分类
-            getBlogClass() {
+            // 获取资源分类
+            getResourceClassifyList(){
                 this.axios.post(
-                    "article/classifyList", {}).then((res) => {
-                    // window.console.log(res.data)
-                    this.$store.commit("updateBlogClassifyList", res.data)
+                    "resource/classify",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceClassifyList",res.data)
                 })
             },
+            timestamp13ToTime(timestamp) {
+                const date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                const D = date.getDate() + ' ';
+                const h = date.getHours() + ':';
+                const m = date.getMinutes() + ':';
+                const s = date.getSeconds();
+                return Y + M + D + h + m + s;
+            },
+            getClassifyNameById(rcid){
+                for(let i=0;i<this.resourceClassify.length;i++){
+                    if(rcid === this.resourceClassify[i].id){
+                        return this.resourceClassify[i].name;
+                    }
+                }
+            }
         },
         created() {
-            this.getBlogClass();
+            this.getResourceClassifyList();
             this.getUserMngResourceList();
-            // window.console.log(this.test);
+            window.console.log(this.tableData);
         }
     }
 </script>
