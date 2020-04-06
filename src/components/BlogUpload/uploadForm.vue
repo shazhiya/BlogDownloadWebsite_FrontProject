@@ -8,23 +8,35 @@
                 <el-upload
                         class="upload-demo"
                         drag
-                        action="update/uploadResource"
-                        :auto-upload="false"
+                        action="upload/uploadResource"
+                        :auto-upload="true"
                         :before-upload="doBeforeUpload"
-                        >
+                        :on-success="onSucces"
+                >
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                 </el-upload>
                 <el-form-item label="资源名称:">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.name" placeholder="请填写资源名称"></el-input>
                 </el-form-item>
                 <el-form-item label="资源类型:">
-                    <el-select v-model="form.region" placeholder="请选择资源类型" style="width: 100%">
+                    <el-select v-model="form.type" placeholder="请选择资源类型" style="width: 100%">
                         <el-option label="文档" value="文档"></el-option>
                         <el-option label="视频" value="视频"></el-option>
                         <el-option label="工具" value="工具"></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="资源分类:">
+                    <el-select v-model="form.resourceClassifyId" placeholder="请选择资源分类" style="width: 100%">
+                        <el-option
+                                v-for="classify in resourceClassify"
+                                :key="classify.id"
+                                :value="classify.id"
+                                :label="classify.name">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <!-- 分类下拉框 -->
                 <el-form-item label="所需硬币:">
                     <el-input v-model="form.coin"></el-input>
                 </el-form-item>
@@ -53,7 +65,7 @@
                     <el-input type="textarea" v-model="form.desc" placeholder="请描述一下你的资源信息"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitFileInfo">提交</el-button>
+                    <el-button type="primary" @click="submitFileInfo">提交</el-button> <!-- submitFileInfo -->
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -63,73 +75,112 @@
 
 <script>
     import BMF from 'browser-md5-file'
+
     export default {
         name: "uploadForm",
         data() {
             return {
+                flag:"12313",
                 form: {
-                    name: '',
-                    region: '',
-                    coin: '',
+                    name: null,
+                    coin: '5',
                     delivery: false,
-                    type: [],
-                    tags: ['java','python'],
+                    resourceClassifyId: null,
+                    type: null,
+                    tags: [],
                     desc: '',
                     inputVisible: false,
                     inputValue: '',
+                    path: null,
+                    md5: null,
                 },
-                fMD5:''
+                resourceClassify: this.$store.getters.getResourceClassifyList,
             }
         },
         methods: {
-            doBeforeUpload(file){
+            doBeforeUpload(file) {
                 const bmf = new BMF()
-                bmf.md5(
-                    file,
-                    (err,md5) => {
-                        window.console.log('err:',err);
-                        window.console.log('md5 string:',md5);
-                        this.fMD5 = md5
+                bmf.md5(file, (err, md5) => {
+                        window.console.log('err:', err);
+                        window.console.log('md5 string:', md5);
+                        this.form.md5 = md5
 
                         this.axios.post(
-                            "resource/confirmMD5",{
-                                "md5":md5,
-                            }).then((res)=> {
+                            "resource/confirmMD5", {
+                                "md5": md5,
+                            }).then((res) => {
                             window.console.log(res.data)
-                            if(res.data == true){
+                            if (res.data == true) {
                                 window.alert('md5在数据库内存在')
-                            }else {
+                                this.flag = false
+                            } else {
                                 window.alert('md5在数据库内不存在')
-                                this.submitUpload()
+                                this.flag = true
                             }
                         })
                     }
                 )
+                window.console.log("会不会上传：" + this.flag);
+                return this.flag;
             },
-            submitFileInfo(){
-                    this.$aaa.post(
-                        "update/download",{
-                            'name':this.form.name,
-                            'type':this.form.region,
-                            // 'coin':this.form.coin,
-                            // 'tags':this.form.tags,
-                            'introduction':this.form.desc,
-                            // 'resourceEntity': {
-                            //     'md5':this.fMD5
-                            // }
-                        }
-                    ).then((res)=>{
-                        window.console.log(res.data)
-                        if(res.data == true){
-                            window.alert('上传成功bbb')
-                        }else{
-                            window.alert('上传失败bbb')
-                        }
-                    })
+            submitFileInfo() {
+                window.alert("name:" + this.form.name);
+                window.alert("type:" + this.form.type);
+                window.alert("rcid:" + this.form.resourceClassifyId);
+                window.alert("introduction:" + this.form.desc);
+                window.alert("md5:" + this.form.md5);
+                window.alert("path:" + this.form.path);
 
+                this.axios.post(
+                    "resource/uploadResource", {
+                        'name': this.form.name,
+                        'type': this.form.type,
+                        'rcid': this.form.resourceClassifyId,
+                        // 'coin':this.form.coin,
+                        'tags':[
+                            {
+                                "tag":{
+                                    "name": "JDK"
+                                }
+                            },
+                            {
+                                "tag":{
+                                "name": "Spring"
+                                }
+                            },
+                        ],
+                        'introduction': this.form.desc,
+                        'resourceEntity': {
+                            'md5': this.form.md5,
+                            'realPath':this.form.path,
+                        },
+                    }
+                ).then((res) => {
+                    window.console.log(res.data)
+                    if (res.data == true) {
+                        window.alert('上传成功bbb')
+                    } else {
+                        window.alert('上传失败bbb')
+                    }
+                })
+
+            },
+            // 获取资源分类
+            getResourceClassifyList(){
+                this.axios.post(
+                    "resource/classify",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceClassifyList",res.data)
+                })
             },
             submitUpload() {
                 this.$refs.upload.submit();
+            },
+            onSucces(response){
+                window.console.log(response);
+                this.form.path = response.path;
             },
             onSubmit() {
                 alert('submit!');
@@ -144,7 +195,6 @@
                 //     this.form.$refs.saveTagInput.$refs.input.focus();
                 // });
             },
-
             handleInputConfirm() {
                 let inputValue = this.form.inputValue;
                 if (inputValue) {
@@ -153,24 +203,31 @@
                 this.form.inputVisible = false;
                 this.form.inputValue = '';
             },
+        },
+        created() {
+            // this.submitFileInfo()
+            this.getResourceClassifyList();
         }
     }
 </script>
 
 <style scoped>
-    .content{
+    .content {
         width: 100%;
         height: 700px;
         background: white;
         box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
         border: #D3DCE6 1px solid;
     }
-    .upload-demo{
+
+    .upload-demo {
         width: 100%;
     }
+
     .el-tag + .el-tag {
         margin-left: 10px;
     }
+
     .button-new-tag {
         margin-left: 10px;
         height: 32px;
@@ -178,6 +235,7 @@
         padding-top: 0;
         padding-bottom: 0;
     }
+
     .input-new-tag {
         width: 90px;
         margin-left: 10px;

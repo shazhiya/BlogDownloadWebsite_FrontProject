@@ -5,26 +5,27 @@
 
         </div>
         <div class="titles left">
-            <h2>jdk1.7 64位官方下载</h2>
-            <p style="font-style: oblique">jdk1.7 64位官方下载jdk.exe</p>
-            <p style="font-style: oblique; padding-bottom: 10px">jdk1.7 64位官方下载jdk.exe</p>
+            <h2>{{resource.name}}</h2>
+<!--            <p style="font-style: oblique">jdk1.7 64位官方下载jdk.exe</p>-->
+<!--            <p style="font-style: oblique; padding-bottom: 10px">jdk1.7 64位官方下载jdk.exe</p>-->
             <p>
-                <el-tag type="info">java</el-tag>
-                <el-tag style="margin-left: 10px" type="info">1.7</el-tag>
-                <el-tag style="margin-left: 10px" type="info">64位</el-tag>
+                <template  v-for="tag in resource.tags">
+                    &nbsp;
+                    <el-tag :key="tag.id" type="info">{{tag.name}}</el-tag>
+                </template>
             </p>
         </div>
         <div class="status left">
             <h5 style="font-size: 16px;">资源状态：<span>公开</span></h5>
-            <p style="margin-top: 90px;  color: #c2c2c2"><span>2020-01-01</span>上传</p>
+            <p style="margin-top: 90px;  color: #c2c2c2">上传：<span>{{timestamp13ToTime(resource.releaseTime)}}</span></p>
         </div>
         <div class="clears"></div>
         <div class="download">
             <div class="left">所需：<span style="font-size: 24px; color: red; padding-right: 5px">5</span>硬币</div>
             <div class="left" style="margin-left: 25px">
                 <el-row>
-                    <el-button type="primary" plain>立即购买</el-button>
-                    <el-button type="warning" plain @click="postDownload">立即下载</el-button>
+                    <el-button type="primary" @click="postResourcePayment(resource.id)">立即购买</el-button>
+                    <el-button type="warning" @click="postDownload(resource.id)">立即下载</el-button>
                 </el-row>
             </div>
             <div class="clears"></div>
@@ -35,11 +36,12 @@
 <script>
     export default {
         name: "blogDownload",
+        props:['resource'],
         methods:{
-            postDownload(){
+            postDownload(rid){
                 this.axios.post(
                     "resource/download",{
-                        'id': 123
+                        'id': rid
                     }
                 ).then((res)=>{
                     window.console.log(res.data)
@@ -60,7 +62,29 @@
                 window.open(href, "_blank")
                 // 加入到指定路径
                 // this.$router.push({path: val})
-            }
+            },
+            // 发送购买资源请求
+            postResourcePayment(rid){
+                this.axios.post(
+                    "resource/buyLicense",{
+                        "resourceDetail":{
+                            "id": rid,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            timestamp13ToTime(timestamp) {
+                const date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                const D = date.getDate() + ' ';
+                const h = date.getHours() + ':';
+                const m = date.getMinutes() + ':';
+                const s = date.getSeconds();
+                return Y + M + D + h + m + s;
+            },
         }
     }
 </script>
@@ -93,6 +117,7 @@
     .titles{
         width: 60%;
         margin-top: 30px;
+        font-size: 24px;
     }
     .status{
         width: 20%;

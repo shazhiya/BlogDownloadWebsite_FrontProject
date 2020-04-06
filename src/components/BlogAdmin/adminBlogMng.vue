@@ -85,7 +85,7 @@
             },
             // 从服务器获取博文
             getAdminBlogList(){
-                this.axios.post(
+                this.admin.post(
                     "article/query",{
                         "page":1,
                     }).then((res)=>{
@@ -94,10 +94,10 @@
                 })
             },
             // 管理员删除博文
-            postAdminDeleteBlog(){
-                this.axios.post(
+            postAdminDeleteBlog(bid){
+                this.admin.post(
                     "article/delete",{
-                        "id":6,
+                        "id":bid,
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
@@ -120,7 +120,7 @@
         },
         created() {
             // this.getAdminBlogList();
-            this.postAdminDeleteBlog();
+            this.postAdminDeleteBlog(6);
         }
     }
 </script>

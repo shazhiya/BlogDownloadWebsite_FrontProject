@@ -1,78 +1,114 @@
 <template>
-<div class="article">
-    <!-- 作者头像 -->
-    <div class="userPic">
-        <a>
-            <img src="../assets/defaultPic.png"  class="userPicImg">
-        </a>
-    </div>
-    <!-- 文章标题 -->
-    <a class="">
-        <div class="content">
-            The Ember Times - Issue No. 134
+    <div class="article">
+        <!-- 作者头像 -->
+        <div class="userPic">
+            <a>
+                <img src="../assets/defaultPic.png" class="userPicImg">
+            </a>
         </div>
-    </a>
-    <!-- 文章作者 -->
-    <h4>
-        <a href="" class="userH4A">
-            Supper Tiny Red・<time>Feb  8</time>
-            <span class="time-ago-indicator">(2 hours ago)</span>
+        <!-- 文章标题 -->
+        <a class="">
+            <div class="content">
+                {{blogArticle.title}}
+            </div>
         </a>
-    </h4>
-    <!-- 文章tags -->
-    <div class="tags">
-        <a href="">
-            <span class="tag">#Java</span>
-        </a>
-        <a href="">
-            <span class="tag">#Web</span>
-        </a>
-        <a href="">
-            <span class="tag">#SSH</span>
-        </a>
-    </div>
-    <!-- 投币点赞收藏 阅读数 阅读按钮-->
-    <div class="foot">
+        <!-- 文章作者 -->
+        <h4>
+            <a href="" class="userH4A" @click="gotoAuthorHome(blogArticle.uid)">
+                {{blogArticle.account}}
+                <time>{{this.timestamp13ToTime(blogArticle.releaseTime)}}</time>
+                <span class="time-ago-indicator">(2 hours ago)</span>
+            </a>
+        </h4>
+        <!-- 文章tags -->
+        <div class="tags">
+            <template v-for="tag in blogArticle.tags">
+                <a href="" :key="tag.tid">
+                    <span class="tag">#{{tag.tagName}}</span>
+                </a>
+            </template>
+        </div>
+        <!-- 投币点赞收藏 阅读数 阅读按钮-->
+        <div class="foot">
         <span>
             <FAIcon :icon="['far','thumbs-up']"></FAIcon>
-            999+
+            {{blogArticle.likeNum}}
         </span>
-        <span>
+            <span>
             <FAIcon :icon="['fas','donate']"></FAIcon>
-            999+
+            {{blogArticle.coinNum}}
         </span>
-        <span>
+            <span>
             <FAIcon :icon="['far','star']"></FAIcon>
-            999+
+            {{blogArticle.favoriteNum}}
         </span>
-        <span class="readNum">
-            阅读数:15675
+            <span class="readNum">
+            阅读数: {{blogArticle.readNum}}
         </span>
-        <el-button type="primary" class="readButton" @click="gotoArticle">
-            Read
-        </el-button>
+            <el-button type="primary" class="readButton" @click="gotoArticle">
+                Read
+            </el-button>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
+
     export default {
         name: "compArticleList",
-        methods:{
-            gotoArticle(){
-                window.alert("/bcontent");
-                this.$router.push("/bcontent")
-            }
+        props:['article'],
+        data(){
+          return{
+              blogArticle: this.article,
+          }
+        },
+        methods: {
+            gotoArticle() {
+                window.alert("博文id：" + this.blogArticle.id);
+                this.$router.push({
+                    name:'bcontent',
+                    query:{
+                        id: this.blogArticle.id,
+                    }
+                    }
+                )
+            },
+            // 跳转到当前作者低博客主页
+            gotoAuthorHome(uid){
+                window.alert(uid)
+                this.$router.push({
+                        name:'bloghome',
+                        query:{
+                            uid: uid,
+                        }
+                    }
+                )
+            },
+            timestamp13ToTime(timestamp) {
+                const date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                const D = date.getDate() + ' ';
+                const h = date.getHours() + ':';
+                const m = date.getMinutes() + ':';
+                const s = date.getSeconds();
+                return Y + M + D + h + m + s;
+            },
+
+        },
+        created() {
+            // window.console.log(this.blogArticle)
         }
     }
 </script>
 
 <style scoped>
-    a{
-        text-decoration:none;
-        color:#333;
+    a {
+        text-decoration: none;
+        color: #333;
     }
-    .article{
+
+    .article {
         margin-top: 12px;
         width: 100%;
         background: #ffffff;
@@ -85,7 +121,8 @@
         cursor: pointer;
         position: relative;
     }
-    .userPic{
+
+    .userPic {
         padding: 23px 0px 27px;
         height: 50px;
         width: 50px;
@@ -94,12 +131,14 @@
         margin-top: 3px;
         border-radius: 999px;
     }
+
     .userPicImg {
         height: 100%;
         width: 100%;
         border-radius: 50px;
     }
-    .content{
+
+    .content {
         font-weight: bolder;
         font-size: 24px;
         display: block;
@@ -108,6 +147,7 @@
         padding: calc(1vw + 7px) 9px;
         padding-bottom: 0px;
     }
+
     .content h3 {
         margin: 0px;
         font-size: 27px;
@@ -125,33 +165,41 @@
         font-size: 17px;
         margin-left: 9px;
     }
-    .userH4A{
+
+    .userH4A {
         color: var(--theme-secondary-color, #666);
         font-weight: 500;
     }
-    .userH4A span{
+
+    .userH4A span {
         font-weight: lighter;
     }
-    .tags{
+
+    .tags {
         margin-left: 65px;
         margin-bottom: 25px;
     }
-    .tags .tag{
+
+    .tags .tag {
         margin-left: 7px;
     }
-    .foot{
+
+    .foot {
         margin-left: 4px;
         margin-bottom: 10px;
     }
-    .foot span{
+
+    .foot span {
         font-size: 13px;
         margin-left: 10px;
     }
-    .foot .readNum{
+
+    .foot .readNum {
         color: #888888;
         margin-left: 40%;
     }
-    .readButton{
+
+    .readButton {
         margin-left: 2%;
     }
 </style>

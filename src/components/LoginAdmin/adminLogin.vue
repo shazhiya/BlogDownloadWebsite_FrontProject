@@ -95,13 +95,13 @@
                 var url = "sign/login"
 
 
-                this.axios.post(
+                this.admin.post(
                     url,
                     data).then((res)=> {
                     window.console.log(res.data)
                     if(res.data == true){
                         // this.$store.commit("updateIsLogin")
-                        router.push("/admin")
+                        router.push("/aMng")
                     }else {
                         window.alert('登录失败')
                     }

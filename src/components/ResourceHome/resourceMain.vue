@@ -6,7 +6,7 @@
                     <td>资源分类：</td>
                     <td>
                         <ul>
-                            <li :key="classify.index" v-for="classify in classifys" @click="setclassify(classify)" >{{classify}}</li>
+                            <li :key="classify.id" v-for="classify in classifyList" @click="setclassify(classify.name)" >{{classify.name}}</li>
                         </ul>
                     </td>
                 </tr>
@@ -47,7 +47,9 @@
         </span>
         </div>
         <div class="resource">
-            <resource-card  v-for="i in 4" :key="i"></resource-card>
+            <template  v-for="resource in resourceList">
+                <resource-card :key=resource.id :resource="resource"></resource-card>
+            </template>
         </div>
     </div>
 </template>
@@ -62,9 +64,9 @@
                 dynamicTags: [],
                 inputVisible: false,
                 inputValue: '',
-                classifys: ['java','python','c++','c','php','javaweb','c','大数据','移动开发','安卓开发'],
+                classifyList: this.$store.getters.getResourceClassifyList, // ['java','python','c++','c','php','javaweb','c','大数据','移动开发','安卓开发']
                 types: ['全部','文档类','代码类','工具类','其他'],
-
+                resourceList: this.$store.getters.getResourceList,
             };
         },
         methods: {
@@ -88,8 +90,26 @@
                 this.axios.post(
                     "resource/index",{
                         "resource":{
-                            "rcid":1,
-                            "type":1,
+                            "rcid":null,
+                            "type":"文档",
+                            "name":null,
+                            "page": 1,
+                        },
+                        "tag":{
+                            "id": null,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceList",res.data)
+                })
+            },
+            // 从服务器获取资源(分类)
+            getAllResourceList(){
+                this.axios.post(
+                    "resource/index",{
+                        "resource":{
+                            "rcid":null,
+                            "type":"文档",
                             "name":null,
                             "page": 1,
                         },
@@ -111,19 +131,10 @@
                     this.$store.commit("updateResourceClassifyList",res.data)
                 })
             },
-            // 获取热门标签
-            getResourceHotTagsList(){
-                this.axios.post(
-                    "resource/topTags",{
-
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    this.$store.commit("updateResourceHotTagsList",res.data)
-                })
-            },
         },
         created() {
-
+            this.getResourceClassifyList();
+            this.getAllResourceList();
         }
     }
 </script>

@@ -85,7 +85,7 @@
             },
             // 从服务器获取资源
             getAdminResourceList(){
-                this.axios.post(
+                this.admin.post(
                     "resource/query",{
                         "page":1,
                     }).then((res)=>{
@@ -95,9 +95,38 @@
             },
             // 管理员删除资源
             postAdminDeleteResource(id){
-                this.axios.post(
+                this.admin.post(
                     "resource/delete",{
                         "id":id,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 管理员增加关键字屏蔽
+            postAdminAddShieldKeyWord(str){
+                this.admin.post(
+                    "shieldKey/add",{
+                        word: str,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 管理员查询关键字屏蔽
+            getAdminShieldKeyWord(){
+                this.admin.post(
+                    "shieldKey/search",{
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 管理员删除关键字屏蔽
+            postAdminDeleteShieldKeyWord(id){
+                this.admin.post(
+                    "shieldKey/delete",{
+                        id: id,
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
@@ -121,6 +150,9 @@
         created() {
             // this.getAdminResourceList();
             // this.postAdminDeleteResource(2);
+            // this.postAdminAddShieldKeyWord("shit");
+            // this.getAdminShieldKeyWord();
+            // this.postAdminDeleteShieldKeyWord(1);
         }
     }
 </script>

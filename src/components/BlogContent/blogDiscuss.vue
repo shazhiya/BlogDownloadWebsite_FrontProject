@@ -49,6 +49,7 @@
 <script>
     export default {
         name: "blogDiscuss",
+        props:['comment'],
         methods: {
             onSubmit() {
                 alert("submit")
