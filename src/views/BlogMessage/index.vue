@@ -42,7 +42,9 @@
             postMessage(){
                 this.axios.post(
                     "message/postMessage",{
-                        "target": 1,
+                        "target":{
+                            "id": 1,
+                        },
                         "content": "你好帅",
                     }).then((res)=>{
                     window.console.log(res.data)
@@ -59,10 +61,12 @@
                 })
             },
             //请求与某人的未读聊天信息 单方
-            getUnreadMessageList(){
+            getUnreadMessageList(){ // sender 某人
                 this.axios.post(
                     "message/messages",{
-                        "uid": 1,
+                        "sender": {
+                            "id": 1,
+                        },
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
@@ -72,7 +76,9 @@
             getHistoryMessageList(){
                 this.axios.post(
                     "message/history",{
-                        "uid": 4,
+                        "sender": {
+                            "id": 1,
+                        },
                         "time": 1585405662347,
                     }).then((res)=>{
                     window.console.log(res.data)
@@ -84,7 +90,7 @@
         created() {
             //this.postMessage();
             // this.getMessageUserList();
-            //this.getUnreadMessageList();
+            this.getUnreadMessageList();
             // this.getHistoryMessageList();
         }
     }

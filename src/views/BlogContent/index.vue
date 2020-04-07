@@ -11,8 +11,8 @@
                             <blog-like/>
                         </div></el-col>
                         <el-col :span="14"><div class="grid-content bg-purple">
-                            <blog-content/>
-                            <blog-discuss/>
+                            <blog-content :article="this.article"/>
+                            <blog-discuss :comment="this.comment"/>
                         </div></el-col>
                         <el-col :span="5"><div class="grid-content bg-purple-light">
                             <blog-author/>
@@ -32,6 +32,13 @@
     import blogLike from "../../components/BlogContent/blogLike";
     export default {
         name: "index",
+        data(){
+          return{
+              currentArticleId: this.$route.query.id,
+              article: this.$store.getters.getBlogContent,
+              comment: this.$store.getters.getBlogContent.comment,
+          }
+        },
         methods:{
             getBlogContent(id){
                 this.axios.post(
@@ -42,15 +49,28 @@
                     this.$store.commit("updateBlogContent",res.data)
                 })
             },
-            // 发送评论
-            postBlogComment(){
+            // 发送博文评论
+            postBlogComment(aid){
                 this.axios.post(
                     "article/sendComment",{
                         "blogArticle":{
-                            "id": 3,
+                            "id": aid,
+                        },
+                        "content": "这是评论博文",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 发送评论的评论
+            postBlogCommentComment(blogId,commentId){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": blogId,
                         },
                         "parentComment":{
-                            "id": 5,
+                            "id": commentId,
                         },
                         "content": "借一部说话",
                     }).then((res)=>{
@@ -68,8 +88,10 @@
             blogLike
         },
         created() {
-            this.getBlogContent(3)
-            // this.postBlogComment()
+            this.getBlogContent(this.currentArticleId);
+            // this.postBlogComment(11)
+            // this.postBlogCommentComment(12,1)
+            // window.console.log();
         }
     }
 </script>

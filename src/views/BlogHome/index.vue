@@ -41,16 +41,16 @@
         name: "index",
         data(){
           return{
-
+              currentUserId: this.$route.query.uid,
           }
         },
         methods: {
-            getBlogInfo(id){
+            getBlogInfo(uid){
                 this.axios.post(
-                    "myInfo/blogHome",{
-                        "id":id
+                    "article/home",{
+                        "id":uid
                     }).then((res)=>{
-                    window.console.log("getBlogInfo" + res.data)
+                    window.console.log(res.data)
                     this.$store.commit("updateBlogInfo",res.data)
                 })
             }
@@ -62,7 +62,8 @@
             blogList
         },
         created() {
-            this.getBlogInfo(3)
+            window.console.log(this.currentUserId);
+            this.getBlogInfo(this.currentUserId);
         }
     }
 </script>

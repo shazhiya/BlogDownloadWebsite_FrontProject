@@ -10,57 +10,30 @@
                 <el-row style="margin-top:0.8%">
                     <el-col :span="8">
                         <div style="height: 500px; width: 44%;margin-left: 52%;border-radius: 2px;box-shadow: 1px 1px 5px #888888">
-                                <el-menu
-                                        default-active="1"
-                                        class="el-menu-vertical-demo"
-                                        style="border-radius: 4px">
-                                    <el-menu-item index="1">
-                                        <i class="el-icon-magic-stick"></i>
-                                        <span slot="title">随便看看</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="2">
+                            <el-menu
+                                    default-active="1"
+                                    class="el-menu-vertical-demo"
+                                    style="border-radius: 4px">
+                                <el-menu-item index="1">
+                                    <i class="el-icon-magic-stick"></i>
+                                    <span slot="title">随便看看</span>
+                                </el-menu-item>
+                                <template v-for="classify in blogClassifyList">
+                                    <el-menu-item :key="classify.id">
                                         <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">Java</span>
+                                        <span slot="title">{{classify.name}}</span>
                                     </el-menu-item>
-                                    <el-menu-item index="3">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">C/C++</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="4">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">Python</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="5">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">PHP</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="6">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">C#</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="7">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">JavaScript</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="8">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">Vue</span>
-                                    </el-menu-item>
-                                    <el-menu-item index="9">
-                                        <i class="el-icon-arrow-right"></i>
-                                        <span slot="title">SQL</span>
-                                    </el-menu-item>
-                                </el-menu>
-                            </div>
+                                </template>
+
+
+                            </el-menu>
+                        </div>
                     </el-col>
                     <el-col :span="8">
                         <div style="margin-top: -2%">
-                            <compArticleList/>
-                            <compArticleList/>
-                            <compArticleList/>
-                            <compArticleList/>
-                            <compArticleList/>
-
+                            <template v-for="article in blogList">
+                                <compArticleList :key="article.id" :article="article"/>
+                            </template>
                         </div>
 
                     </el-col>
@@ -96,73 +69,72 @@
             // }
 
             // 从服务器获取博文(推荐分类)
-            getRecommendBlogList(){
+            getRecommendBlogList() {
                 this.axios.post(
-                    "article/recommend",{
-                        "page":1,
-                    }).then((res)=>{
+                    "article/recommend", {
+                        "page": 1,
+                    }).then((res) => {
                     window.console.log(res.data)
-                    this.$store.commit("updateBlogList",res.data)
+                    this.$store.commit("updateBlogList", res.data)
                 })
             },
 
             // 从服务器获取博文(普通分类)
-            getBlogList(){
+            getBlogList(cid) {
                 this.axios.post(
-                    "article/classify",{
-                            "id":1,
-                            "page":1,
-                }).then((res)=>{
+                    "article/classify", {
+                        "id": cid,
+                        "page": 1,
+                    }).then((res) => {
                     window.console.log(res.data)
-                    this.$store.commit("updateBlogList",res.data)
+                    this.$store.commit("updateBlogList", res.data)
                 })
             },
 
             // 从服务器获取分类
-            getBlogClass(){
+            getBlogClass() {
                 this.axios.post(
-                    "article/classifyList",{
-
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    this.$store.commit("updateBlogClassifyList",res.data)
+                    "article/classifyList", {}).then((res) => {
+                    // window.console.log(res.data)
+                    this.$store.commit("updateBlogClassifyList", res.data)
                 })
             },
 
-            test1(){
-                window.console.log("user:" + this.$store.getters.getUserInfo);
+            test1() {
+                // window.console.log("user:" + this.$store.getters.getUserInfo);
+                window.console.log(this.$store.getters.getBlogClassifyList);
             }
 
         },
-        components:{
+        components: {
             compArticleList,
             navigation
         },
         created() {
-            if(this.$store.state.isLogin){
+            if (this.$store.state.isLogin) {
                 this.axios.post(
-                    "/myInfo/view",{
-
-                    }
-                ).then((res) =>{
+                    "/myInfo/view", {}
+                ).then((res) => {
                     window.console.log(res.data)
-                    this.$store.commit("updateUser",res.data)
-                }).catch((err) =>{
+                    this.$store.commit("updateUser", res.data)
+                }).catch((err) => {
                     window.console.log(err.data)
                 }).finally(() => {
                     window.console.log("无论如何都会执行")
                 })
             }
-            //this.getBlogClass()
-            //this.getRecommendBlogList()
-            //this.getBlogList()
-            this.test1()
+            this.getBlogClass()
+            this.getRecommendBlogList()
+            // this.getBlogList(1)
+            // this.test1()
+            // window.console.log(this.blogClassifyList)
+            // window.console.log(this.$store.getters.getBlogClassifyList)
         }
     }
 </script>
 
 <style scoped>
-    #blogIndex{
+    #blogIndex {
         height: 100vh;
     }
 
@@ -186,13 +158,16 @@
     .el-row {
         margin-bottom: 20px;
     }
+
     .el-col {
         border-radius: 4px;
     }
+
     .grid-content {
         border-radius: 4px;
         min-height: 36px;
     }
+
     .row-bg {
         padding: 10px 0;
         background-color: #f9fafc;

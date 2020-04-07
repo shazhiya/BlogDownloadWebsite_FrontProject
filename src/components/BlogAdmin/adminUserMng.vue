@@ -85,7 +85,7 @@
             },
             // 从服务器获取用户
             getAdminUserList(){
-                this.axios.post(
+                this.admin.post(
                     "user/query",{
                         "page":1,
                     }).then((res)=>{
@@ -95,7 +95,7 @@
             },
             // 管理员删除用户
             postAdminDeleteUser(){
-                this.axios.post(
+                this.admin.post(
                     "user/delete",{
                         "id":1,
                     }).then((res)=>{

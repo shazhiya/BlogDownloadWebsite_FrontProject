@@ -5,8 +5,7 @@
             <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                 <el-tag
                         v-for="tag in tags"
-                        :key="tag.name"
-                        :type="tag.type">
+                        :key="tag.id">
                     {{tag.name}}
                 </el-tag>
             </div>
@@ -23,25 +22,23 @@
         name: "resourceTag",
         data() {
             return {
-                tags: [
-                    { name: '标签一', type: '' },
-                    { name: '标签二', type: 'success' },
-                    { name: '标签三', type: 'info' },
-                    { name: '标签四', type: 'warning' },
-                    { name: '标签五', type: 'danger' },
-                    { name: '标签6', type: 'info' },
-                    { name: '标签7', type: 'warning' },
-                    { name: '标签8', type: 'danger' },
-                    { name: '标签9', type: '' },
-                    { name: '标签10', type: 'success' },
-                    { name: '标签11', type: 'info' },
-                    { name: '标签2', type: 'warning' },
-                    { name: '标签3', type: 'danger' },
-                    { name: '标签4', type: 'info' },
-                    { name: '标签5', type: 'warning' },
-                    { name: '标签1', type: 'danger' }
-                ]
+                tags: this.$store.getters.getResourceHotTagsList,
             };
+        },
+        methods:{
+            // 获取热门标签
+            getResourceHotTagsList(){
+                this.axios.post(
+                    "resource/topTags",{
+
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    this.$store.commit("updateResourceHotTagsList",res.data)
+                })
+            },
+        },
+        created() {
+            this.getResourceHotTagsList();
         }
     }
 </script>

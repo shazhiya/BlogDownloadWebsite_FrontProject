@@ -130,7 +130,7 @@
                 this.axios.post(
                     url,
                     data).then((res)=> {
-                    window.console.log(res)
+                    window.console.log(res.data)
                     if(res.data == true){
                         window.alert('注册成功')
                         window.location.reload()

@@ -41,9 +41,9 @@
             }
         },
         // 销毁组件前，销毁编辑器
-        beforeDestroy: function() {
-            self.ckeditor.destroy()
-        }
+        // beforeDestroy: function() {
+        //     self.ckeditor.destroy()
+        // },
     }
 </script>
 <style>
