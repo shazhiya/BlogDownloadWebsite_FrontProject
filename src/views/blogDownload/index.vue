@@ -48,9 +48,16 @@
         },
         data(){
             return{
-                currentResourceId: this.$route.query.id,
-                resource: this.$store.getters.getResourceDetail,
+                // currentResourceId: this.$route.query.id,
             }
+        },
+        computed:{
+            currentResourceId(){
+                return this.$route.query.id;
+            },
+            resource(){
+                return this.$store.getters.getResourceDetail;
+            },
         },
         methods:{
             // 请求资源对象

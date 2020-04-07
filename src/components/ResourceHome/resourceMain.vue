@@ -64,10 +64,18 @@
                 dynamicTags: [],
                 inputVisible: false,
                 inputValue: '',
-                classifyList: this.$store.getters.getResourceClassifyList, // ['java','python','c++','c','php','javaweb','c','大数据','移动开发','安卓开发']
+                // classifyList: this.$store.getters.getResourceClassifyList, // ['java','python','c++','c','php','javaweb','c','大数据','移动开发','安卓开发']
                 types: ['全部','文档类','代码类','工具类','其他'],
-                resourceList: this.$store.getters.getResourceList,
+                // resourceList: this.$store.getters.getResourceList,
             };
+        },
+        computed:{
+            classifyList(){
+                return this.$store.getters.getResourceClassifyList;
+            },
+            resourceList(){
+                return this.$store.getters.getResourceList;
+            },
         },
         methods: {
             handleClose(tag) {

@@ -24,6 +24,10 @@ import {
     faThumbsUp,faStar
 } from '@fortawesome/free-regular-svg-icons';
 
+// 引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 //Vue.use(CKEditor);
 Vue.use(ElementUI);
 Vue.component('FAIcon', FontAwesomeIcon);

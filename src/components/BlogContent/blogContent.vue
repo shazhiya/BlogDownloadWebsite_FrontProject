@@ -28,7 +28,12 @@
         props:['article'],
         data() {
             return {
-                blogArticle:this.article,
+                // blogArticle:this.article,
+            }
+        },
+        computed:{
+            blogArticle(){
+                return this.article;
             }
         },
         methods:{

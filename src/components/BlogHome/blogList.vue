@@ -1,16 +1,17 @@
 <template>
     <div class="content">
         <el-card class="box-card" shadow="never">
-            <div><el-button style="float: right; padding: 3px 0" type="text">阅读</el-button>
-                <h2>博客标题</h2>
+            <div><el-button style="float: right; padding: 3px 0" type="text" @click="gotoArticle(parentArticle.id)">阅读</el-button>
+                <h2 @click="gotoArticle(parentArticle.id)">{{parentArticle.title}}</h2>
             </div>
 
             <div class="text item">
-                博客内容简介计算球体顶点数据地球纹理贴图通过MVP矩阵旋转地球计算球体顶点数据我们知道OpenGL中最基本的图元是三角形，任何复杂的图形都可以分解为一个个的三
+<!--                {{parentArticle.intro}}-->
+                版权声明：本文为原创文章，转载请注明出处。
             </div>
             <div>
-                <span class="read tagb">123次阅读</span>
-                <span class="time tagb">2020-02-03 16:10:02</span>
+                <span class="read tagb">{{parentArticle.readNum}}次阅读</span>
+                <span class="time tagb">{{timestamp13ToTime(parentArticle.releaseTime)}}</span>
 
 
 
@@ -22,7 +23,35 @@
 
 <script>
     export default {
-        name: "blogList"
+        name: "blogList",
+        props:['article'],
+        computed:{
+            parentArticle(){
+                return this.article;
+            },
+        },
+        methods:{
+            gotoArticle(bid) {
+                window.alert("博文id：" + bid);
+                this.$router.push({
+                        name:'bcontent',
+                        query:{
+                            id: bid,
+                        }
+                    }
+                )
+            },
+            timestamp13ToTime(timestamp) {
+                const date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                const Y = date.getFullYear() + '-';
+                const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                const D = date.getDate() + ' ';
+                const h = date.getHours() + ':';
+                const m = date.getMinutes() + ':';
+                const s = date.getSeconds();
+                return Y + M + D + h + m + s;
+            },
+        }
     }
 </script>
 

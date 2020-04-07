@@ -119,9 +119,6 @@
         name: "blogConsole",
         data() {
             return {
-                user: this.$store.getters.getUserInfo,
-                articleClassify: this.$store.getters.getBlogClassifyList,
-                tableData:this.$store.getters.getUserMngBlogList.articles,
                 articleType: ['原创', '转载'],
                 type: '',
                 articleDate: null,
@@ -129,6 +126,17 @@
                 search_keyWord: null,
                 // test: this.$store.getters.getUserMngBlogList.articles,
             }
+        },
+        computed:{
+            user(){
+                return this.$store.getters.getUserInfo;
+            },
+            articleClassify(){
+                return this.$store.getters.getBlogClassifyList;
+            },
+            tableData(){
+                return this.$store.getters.getUserMngBlogList.articles;
+            },
         },
         methods: {
             handleSizeChange(val) {

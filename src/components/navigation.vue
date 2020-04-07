@@ -52,10 +52,10 @@
                                 <i class="el-icon-edit iconSize"></i>
                                 <el-dropdown-menu slot="dropdown" style="width: 160px">
                                     <router-link to="/bWrite">
-                                        <el-dropdown-item icon="el-icon-s-home">发布博客</el-dropdown-item>
+                                        <el-dropdown-item icon="el-icon-edit-outline">发布博客</el-dropdown-item>
                                     </router-link>
                                     <router-link to="/bupload">
-                                        <el-dropdown-item icon="el-icon-s-platform">上传资源</el-dropdown-item>
+                                        <el-dropdown-item icon="el-icon-upload2">上传资源</el-dropdown-item>
                                     </router-link>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -63,12 +63,29 @@
                     </el-col>
                     <el-col :span="1">
                         <router-link to="/bmessage">
-                            <i class="el-icon-bell"></i>
+                            <el-dropdown>
+                                <i class="el-icon-bell iconSize"></i>
+                                <el-dropdown-menu slot="dropdown" style="width: 160px">
+                                    <router-link to="/bmessage">
+                                        <el-dropdown-item icon="el-icon-bell">消息盒子</el-dropdown-item>
+                                    </router-link>
+                                </el-dropdown-menu>
+                            </el-dropdown>
                         </router-link>
                     </el-col>
                     <el-col :span="1">
                         <router-link to="/bMng">
-                            <i class="el-icon-coin"></i>
+                            <el-dropdown>
+                                <i class="el-icon-coin iconSize"></i>
+                                <el-dropdown-menu slot="dropdown" style="width: 160px">
+                                    <router-link to="/bMng">
+                                        <el-dropdown-item icon="el-icon-s-platform">博客管理</el-dropdown-item>
+                                    </router-link>
+                                    <router-link to="/bMng">
+                                        <el-dropdown-item icon="el-icon-monitor">资源管理</el-dropdown-item>
+                                    </router-link>
+                                </el-dropdown-menu>
+                            </el-dropdown>
                         </router-link>
                     </el-col>
                     <el-col :span="1">
@@ -78,12 +95,6 @@
                                 <a @click="gotoUserHome">
                                     <el-dropdown-item icon="el-icon-s-home">我的博客</el-dropdown-item>
                                 </a>
-                                <router-link to="/bMng">
-                                    <el-dropdown-item icon="el-icon-s-platform">博客管理</el-dropdown-item>
-                                </router-link>
-                                <router-link to="/bMng">
-                                    <el-dropdown-item icon="el-icon-monitor">资源管理</el-dropdown-item>
-                                </router-link>
                                 <router-link to="/bcoins">
                                     <el-dropdown-item icon="el-icon-s-order">硬币明细</el-dropdown-item>
                                 </router-link>

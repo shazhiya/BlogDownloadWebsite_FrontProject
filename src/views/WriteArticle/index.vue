@@ -169,14 +169,9 @@
                             "tag":{
                                 "name": "Java"
                             }
-                        },
-                        {
-                            "tag":{
-                                "name": "删除测试"
-                            }
                         }
                     ],
-                    content:"啊啊啊啊啊这CKeditor的子传父咋用啊啊啊啊",
+                    content: "博文内容"
                 }
                 this.axios
                     .post("article/releaseBlog",data)

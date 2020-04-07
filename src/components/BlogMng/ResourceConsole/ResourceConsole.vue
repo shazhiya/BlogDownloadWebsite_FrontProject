@@ -118,9 +118,6 @@
         name: "resourceConsole",
         data() {
             return {
-                user: this.$store.getters.getUserInfo,
-                resourceClassify: this.$store.getters.getResourceClassifyList,
-                tableData:this.$store.getters.getUserMngResourceList.resourceList,
                 resourceType: ['文档', '视频','工具'],
                 type: '',
                 searchDate: null,
@@ -128,6 +125,17 @@
                 search_keyWord: null,
                 // test: this.$store.getters.getUserMngResourceList.resourceList,
             }
+        },
+        computed:{
+            user(){
+                return this.$store.getters.getUserInfo;
+            },
+            resourceClassify(){
+                return this.$store.getters.getResourceClassifyList;
+            },
+            tableData(){
+                return this.$store.getters.getUserMngResourceList.resourceList;
+            },
         },
         methods: {
             handleSizeChange(val) {

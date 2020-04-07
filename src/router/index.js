@@ -117,21 +117,9 @@ const routes = [
         meta:{
           name: '资源管理',
           icon: 'el-icon-arrow-right',
-
         },
         component:()=>import("../components/BlogMng/ResourceConsole/ResourceConsole")
       },
-    ]
-  },
-  {
-    path:"/uData",
-    name:"uData",
-    menu:true,
-    meta:{
-      name: '数据分析',
-      icon: 'el-icon-s-data',
-    },
-    children:[
       {
         path:"/uDataIndex",
         name:"uDataIndex",
@@ -139,7 +127,7 @@ const routes = [
           name: '数据总览',
           icon: 'el-icon-arrow-right',
         },
-        component:()=>import("../components/BlogMng/BlogConsole/blogConsole")
+        component:()=>import("../components/BlogMng/DataAnalysis/DataAnalysis")
       },
       {
         path:"/uDataBlog",
@@ -147,7 +135,6 @@ const routes = [
         meta:{
           name: '博客数据',
           icon: 'el-icon-arrow-right',
-
         },
         component:()=>import("../components/BlogMng/ResourceConsole/ResourceConsole")
       },
@@ -157,13 +144,25 @@ const routes = [
         meta:{
           name: '资源数据',
           icon: 'el-icon-arrow-right',
-
         },
         component:()=>import("../components/BlogMng/ResourceConsole/ResourceConsole")
       },
-    ],
-    component:()=>import("../components/BlogMng/DataAnalysis/DataAnalysis")
+    ]
   },
+  // {
+  //   path:"/uData",
+  //   name:"uData",
+  //   menu:true,
+  //   meta:{
+  //     name: '数据分析',
+  //     icon: 'el-icon-s-data',
+  //   },
+  //   component:()=>import("../components/BlogMng/DataAnalysis/DataAnalysis"),
+  //   children:[
+  //
+  //   ],
+  //
+  // },
   {
     path:'/aMng',
     name:'aMng',

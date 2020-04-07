@@ -9,7 +9,9 @@
                 小红
             </div>
             <div class="left header-icon">
-                <i class="el-icon-switch-button"></i>
+                <router-link to="/bindex">
+                    <i class="el-icon-switch-button"></i>
+                </router-link>
             </div>
         </div>
     </div>
@@ -22,50 +24,50 @@
 </script>
 
 <style scoped>
-    #header-wrap{
+    #header-wrap {
         position: fixed;
-        top:0;
+        top: 0;
         right: 0;
         left: 250px;
         height: 75px;
         background-color: #fff;
-        -webkit-box-shadow: 0 3px 16px 0 rgba(0,0,0,.1);
+        -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .1);
     }
 
-    .left{
+    .left {
         float: left;
     }
 
-    .right{
+    .right {
         float: right;
     }
 
-    .header-icon{
+    .header-icon {
         padding: 24px 32px;
     }
 
-    .header-icon i{
+    .header-icon i {
         margin-bottom: -8px;
         font-size: 25px;
         cursor: pointer;
     }
 
-    .user-info{
+    .user-info {
         height: 100%;
         padding: 0 32px;
         border-right: 1px solid #ededed;
     }
 
-    .user-info + .header-icon{
+    .user-info + .header-icon {
         padding: 0 28px;
     }
 
-    .user-img{
+    .user-img {
         margin-top: -7px;
         height: 40px;
         width: 40px;
-        border-radius:25px;
+        border-radius: 25px;
         cursor: pointer;
     }
-    
+
 </style>

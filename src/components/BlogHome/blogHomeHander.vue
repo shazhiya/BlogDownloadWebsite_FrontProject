@@ -71,6 +71,12 @@
 <script>
     export default {
         name: "blogHomeHander",
+        props:['userId'],
+        computed:{
+            // userId(){
+            //     return this.userId;
+            // },
+        },
         methods:{
             show(){
                 document.getElementById("myDialog").showModal();

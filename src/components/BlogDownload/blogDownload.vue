@@ -5,11 +5,9 @@
 
         </div>
         <div class="titles left">
-            <h2>{{resource.name}}</h2>
-<!--            <p style="font-style: oblique">jdk1.7 64位官方下载jdk.exe</p>-->
-<!--            <p style="font-style: oblique; padding-bottom: 10px">jdk1.7 64位官方下载jdk.exe</p>-->
+            <h2>{{parentResource.name}}</h2>
             <p>
-                <template  v-for="tag in resource.tags">
+                <template  v-for="tag in parentResource.tags">
                     &nbsp;
                     <el-tag :key="tag.id" type="info">{{tag.name}}</el-tag>
                 </template>
@@ -17,15 +15,15 @@
         </div>
         <div class="status left">
             <h5 style="font-size: 16px;">资源状态：<span>公开</span></h5>
-            <p style="margin-top: 90px;  color: #c2c2c2">上传：<span>{{timestamp13ToTime(resource.releaseTime)}}</span></p>
+            <p style="margin-top: 90px;  color: #c2c2c2">上传：<span>{{timestamp13ToTime(parentResource.releaseTime)}}</span></p>
         </div>
         <div class="clears"></div>
         <div class="download">
             <div class="left">所需：<span style="font-size: 24px; color: red; padding-right: 5px">5</span>硬币</div>
             <div class="left" style="margin-left: 25px">
                 <el-row>
-                    <el-button type="primary" @click="postResourcePayment(resource.id)">立即购买</el-button>
-                    <el-button type="warning" @click="postDownload(resource.id)">立即下载</el-button>
+                    <el-button type="primary" @click="postResourcePayment(parentResource.id)">立即购买</el-button>
+                    <el-button type="warning" @click="postDownload(parentResource.id)">立即下载</el-button>
                 </el-row>
             </div>
             <div class="clears"></div>
@@ -37,6 +35,11 @@
     export default {
         name: "blogDownload",
         props:['resource'],
+        computed:{
+            parentResource(){
+                return this.resource;
+            },
+        },
         methods:{
             postDownload(rid){
                 this.axios.post(

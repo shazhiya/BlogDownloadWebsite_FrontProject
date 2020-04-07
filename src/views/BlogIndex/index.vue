@@ -31,7 +31,7 @@
                     </el-col>
                     <el-col :span="8">
                         <div style="margin-top: -2%">
-                            <template v-for="article in blogList">
+                            <template v-for="article in blogClass">
                                 <compArticleList :key="article.id" :article="article"/>
                             </template>
                         </div>
@@ -58,10 +58,18 @@
     export default {
         data() {
             return {
-                userInfo: this.$store.getters.getUserInfo,
-                blogClassifyList: this.$store.getters.getBlogClassifyList,
-                blogList: this.$store.getters.getBlogList,
             };
+        },
+        computed:{
+            blogClassifyList(){
+                return this.$store.getters.getBlogClassifyList;
+            },
+            blogClass(){
+                return this.$store.getters.getBlogList;
+            },
+            userInfo(){
+                return this.$store.getters.getUserInfo;
+            }
         },
         methods: {
             // handleSelect(key, keyPath) {
@@ -111,6 +119,10 @@
             navigation
         },
         created() {
+            this.getBlogClass();
+            this.getRecommendBlogList();
+        },
+        mounted() {
             if (this.$store.state.isLogin) {
                 this.axios.post(
                     "/myInfo/view", {}
@@ -123,12 +135,6 @@
                     window.console.log("无论如何都会执行")
                 })
             }
-            this.getBlogClass()
-            this.getRecommendBlogList()
-            // this.getBlogList(1)
-            // this.test1()
-            // window.console.log(this.blogClassifyList)
-            // window.console.log(this.$store.getters.getBlogClassifyList)
         }
     }
 </script>

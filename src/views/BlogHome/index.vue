@@ -4,7 +4,7 @@
     <div class="content">
         <el-row>
             <el-col :span="24"><div class="grid-content bg-purple-dark">
-                <blog-home-hander/>
+                <blog-home-hander :userId="currentUserId"/>
             </div></el-col>
         </el-row>
         <el-row :gutter="20">
@@ -13,18 +13,12 @@
             </div></el-col>
             <el-col :span="12"><div class="grid-content bg-purple-light">
                 <ul style="list-style: none">
-                    <li>
-                        <blog-list/>
+                    <template v-for="article in articleList">
+                    <li :key="article.id">
+                        <blog-list :article="article"/>
                     </li>
-                    <li>
-                        <blog-list/>
-                    </li>
-                    <li>
-                        <blog-list/>
-                    </li>
-                    <li>
-                        <blog-list/>
-                    </li>
+                    </template>
+
                 </ul>
             </div></el-col>
         </el-row>
@@ -44,6 +38,11 @@
               currentUserId: this.$route.query.uid,
           }
         },
+        computed:{
+            articleList(){
+                return this.$store.getters.getBlogInfo.articles;
+            }
+        },
         methods: {
             getBlogInfo(uid){
                 this.axios.post(
@@ -53,7 +52,7 @@
                     window.console.log(res.data)
                     this.$store.commit("updateBlogInfo",res.data)
                 })
-            }
+            },
         },
         components: {
             Navigation,

@@ -34,10 +34,21 @@
         name: "index",
         data(){
           return{
-              currentArticleId: this.$route.query.id,
-              article: this.$store.getters.getBlogContent,
-              comment: this.$store.getters.getBlogContent.comment,
+              // currentArticleId: this.$route.query.id,
+              // article: this.$store.getters.getBlogContent,
+              // comment: this.$store.getters.getBlogContent.comment,
           }
+        },
+        computed:{
+            currentArticleId(){
+                return this.$route.query.id;
+            },
+            article(){
+                return this.$store.getters.getBlogContent;
+            },
+            comment(){
+                return this.$store.getters.getBlogContent.comment;
+            }
         },
         methods:{
             getBlogContent(id){
@@ -92,6 +103,9 @@
             // this.postBlogComment(11)
             // this.postBlogCommentComment(12,1)
             // window.console.log();
+        },
+        mounted() {
+
         }
     }
 </script>
