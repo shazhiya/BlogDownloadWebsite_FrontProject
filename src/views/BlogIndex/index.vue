@@ -39,10 +39,10 @@
                     </el-col>
                     <el-col :span="8">
                         <div style="height: 200px; width: 200px;background-color: #333333;margin-left: 10%;border-radius: 4px">
-
+                            <img src="../../assets/adv_1.jpg" height="200" width="200" style="border-radius: 4px;cursor: pointer"/>
                         </div>
-                        <div style="height: 400px; width: 200px;background-color: #333333;margin-left: 10%;margin-top:5%;border-radius: 4px">
-                        </div>
+                        <div style="height: 150px; width: 200px;background-color: #333333;margin-left: 10%;border-radius: 4px;margin-top:20px">
+                            <img src="../../assets/adv_2.jpg" height="100%" width="100%" style="border-radius: 4px;cursor: pointer"/></div>
                     </el-col>
                 </el-row>
             </el-main>

@@ -32,7 +32,7 @@
         },
         methods:{
             gotoArticle(bid) {
-                window.alert("博文id：" + bid);
+                // window.alert("博文id：" + bid);
                 this.$router.push({
                         name:'bcontent',
                         query:{

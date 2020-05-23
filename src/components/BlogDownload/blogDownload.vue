@@ -22,7 +22,7 @@
             <div class="left">所需：<span style="font-size: 24px; color: red; padding-right: 5px">5</span>硬币</div>
             <div class="left" style="margin-left: 25px">
                 <el-row>
-                    <el-button type="primary" @click="postResourcePayment(parentResource.id)">立即购买</el-button>
+                    <el-button type="primary" @click="buyFile(parentResource.id)">立即购买</el-button>
                     <el-button type="warning" @click="postDownload(parentResource.id)">立即下载</el-button>
                 </el-row>
             </div>
@@ -41,6 +41,46 @@
             },
         },
         methods:{
+            // 购买
+            buyFile(rid) {
+                this.$confirm('将花费5硬币购买该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.postResourcePayment(rid);
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消购买'
+                    });
+                });
+            },
+
+            // 发送购买资源请求
+            postResourcePayment(rid){
+                this.axios.post(
+                    "resource/buyLicense",{
+                        "resourceDetail":{
+                            "id": rid,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    if(res.data){
+                        this.$message({
+                            type: 'success',
+                            message: '消息：购买成功!'
+                        });
+                    }else{
+                        this.$message({
+                            type: 'error',
+                            message: '消息：此资源已购买'
+                        });
+                    }
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+
             postDownload(rid){
                 this.axios.post(
                     "resource/download",{
@@ -49,10 +89,16 @@
                 ).then((res)=>{
                     window.console.log(res.data)
                     if(res.data != null){
-                        window.alert('下载成功bbb')
+                        this.$message({
+                            type: 'success',
+                            message: '消息：开始下载'
+                        });
                         this.goto(res)
                     }else{
-                        window.alert('下载失败bbb')
+                        this.$message({
+                            type: 'error',
+                            message: '消息：下载失败'
+                        });
                     }
                 })
             },
@@ -66,18 +112,7 @@
                 // 加入到指定路径
                 // this.$router.push({path: val})
             },
-            // 发送购买资源请求
-            postResourcePayment(rid){
-                this.axios.post(
-                    "resource/buyLicense",{
-                        "resourceDetail":{
-                            "id": rid,
-                        },
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
+
             timestamp13ToTime(timestamp) {
                 const date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
                 const Y = date.getFullYear() + '-';

@@ -70,19 +70,7 @@
                     this.$store.commit("updateResourceDetail",res.data)
                 })
             },
-            // 发送购买资源请求
-            postResourcePayment(){
-                this.axios.post(
-                    "resource/buyLicense",{
-                        "id":101,
-                        "resourceDetail":{
-                            "id": 2,
-                        },
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
+
             // 发送评论
             postResourceComment(){
                 this.axios.post(

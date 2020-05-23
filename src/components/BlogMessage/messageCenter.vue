@@ -4,8 +4,8 @@
             <senders/>
         </div>
         <div class="contents">
-            <message-content/>
-            <send-message/>
+            <message-content ref="messageContent"/>
+            <send-message @textFunc="textFunc" ref="sendMessage"/>
         </div>
         <div class="clears"></div>
     </div>
@@ -17,10 +17,28 @@
     import messageContent from "./messageContent";
     export default {
         name: "messageCenter",
+        data(){
+            return{
+                me:this.$store.getters.getUserInfo
+            }
+        },
         components:{
             sendMessage,
             senders,
             messageContent
+        },
+        methods:{
+            textFunc(){
+                window.console.log("子组件调用成功");
+                this.$refs.messageContent.parentDoChildFunc();
+                // this.$refs.messageContent.postedContent123.content = this.$refs.sendMessage.postedContent;
+                let add = {
+                    content: this.$refs.sendMessage.postedContent,
+                    targetId: null, // 从另一个组件获取
+                    senderId: this.me.id
+                }
+                this.$refs.messageContent.messageList.push(add)
+            },
         }
     }
 </script>

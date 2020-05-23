@@ -62,7 +62,9 @@
             </el-col>
             <!-- 新增按钮 -->
             <el-col :span="2">
-                <el-button type="success" style="width: 100%;">新增</el-button>
+                <router-link to="/bupload">
+                    <el-button type="success" style="width: 100%;">新增</el-button>
+                </router-link>
             </el-col>
         </el-row>
 
@@ -160,10 +162,11 @@
                         "id":rid,
                     }).then((res)=>{
                     window.console.log("postDeleteUserMngResource:" + res.data)
-                    if(res.data == true){
-                        window.alert('删除成功')
-                    }else {
-                        window.alert('删除失败')
+                    if (res.data == true) {
+                        this.successMessage();
+                        this.$router.go(0);
+                    } else {
+                        this.errorMessage();
                     }
                 })
             },
@@ -193,7 +196,19 @@
                         return this.resourceClassify[i].name;
                     }
                 }
-            }
+            },
+            successMessage() {
+                this.$message({
+                    message: '消息：删除成功',
+                    type: 'success'
+                });
+            },
+            errorMessage() {
+                this.$message({
+                    message: '消息：删除失败',
+                    type: 'error'
+                });
+            },
         },
         created() {
             this.getResourceClassifyList();

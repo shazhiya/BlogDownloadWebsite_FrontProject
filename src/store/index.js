@@ -17,8 +17,15 @@ export default new Vuex.Store({
         ResourceClassifyList: null,
         ResourceHotTagsList: null,
         ResourceDetail: null,
+        AdminBlogList: null,
+        userCoinRecord: null,
+        MessageUserList: null,
     },
     mutations: {
+        updateMessageUserList(state, info){
+            sessionStorage.setItem('MessageUserList', JSON.stringify(info));
+            state.MessageUserList = info;
+        },
         updateIsLogin(state) {
             sessionStorage.setItem("isLogin", true);
             state.isLogin = true
@@ -66,6 +73,14 @@ export default new Vuex.Store({
         updateResourceDetail(state,info){
             sessionStorage.setItem('ResourceDetail', JSON.stringify(info))
             state.ResourceDetail = info
+        },
+        updateAdminBlogList(state,info){
+            sessionStorage.setItem('AdminBlogList', JSON.stringify(info))
+            state.AdminBlogList = info
+        },
+        updateUserCoinRecord(state,info){
+            sessionStorage.setItem('userCoinRecord', JSON.stringify(info))
+            state.userCoinRecord = info
         },
 
 
@@ -144,6 +159,24 @@ export default new Vuex.Store({
                 state.ResourceDetail = JSON.parse(sessionStorage.getItem('ResourceDetail'));
             }
             return state.ResourceDetail
+        },
+        getAdminBlogList: state => {
+            if (!state.AdminBlogList) {
+                state.AdminBlogList = JSON.parse(sessionStorage.getItem('AdminBlogList'));
+            }
+            return state.AdminBlogList
+        },
+        getUserCoinRecord: state => {
+            if (!state.userCoinRecord) {
+                state.userCoinRecord = JSON.parse(sessionStorage.getItem('userCoinRecord'));
+            }
+            return state.userCoinRecord
+        },
+        getMessageUserList: state =>{
+            if (!state.MessageUserList) {
+                state.MessageUserList = JSON.parse(sessionStorage.getItem('MessageUserList'));
+            }
+            return state.MessageUserList
         }
     }
 })

@@ -3,7 +3,7 @@
         <div class="top"></div>
         <div class="login-wrap">
             <div class="login-card">
-                <img src="../../assets/logo2.png" class="img-logo">
+                <img src="../../assets/Logo_03.jpg" class="img-logo">
                 <ul class="menu-tab">
                     <li class="menu-li" v-for="item in menuTab" :key="item.id" :class="{'current':item.current}" @click="toggleMenu(item)">{{item.txt}}</li>
                 </ul>
@@ -79,7 +79,7 @@
     .img-logo{
         margin-top: 50px;
         margin-bottom: 20px;
-        margin-left: 100px;
+        margin-left: 125px;
         margin-right: auto;
     }
 

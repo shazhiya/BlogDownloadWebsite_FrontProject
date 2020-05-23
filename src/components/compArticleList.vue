@@ -64,7 +64,7 @@
         },
         methods: {
             gotoArticle() {
-                window.alert("博文id：" + this.blogArticle.id);
+                // window.alert("博文id：" + this.blogArticle.id);
                 this.$router.push({
                     name:'bcontent',
                     query:{

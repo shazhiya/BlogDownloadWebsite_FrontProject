@@ -5,7 +5,7 @@ module.exports = {
       'port': 8888,
         proxy: {
             '/blog': {
-                target: 'http://w291753h42.goho.co/blog',
+                target: 'http://192.168.43.106:8080/blog',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/blog': ''
@@ -19,7 +19,7 @@ module.exports = {
                 }
             },
             '/admin': {
-                target: 'http://w291753h42.goho.co/admin',
+                target: 'http://29175vv342.zicp.vip/admin',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/admin': ''

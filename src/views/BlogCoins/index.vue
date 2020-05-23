@@ -36,6 +36,22 @@
             navigation,
             coinIntroduction,
             coinsDetail
+        },
+        computed:{
+            userCoinRecord(){
+                return this.$store.getters.getUserCoinRecord;
+            },
+        },
+        methods:{
+            // 获取当前登录用户的硬币明细
+            getCoinRecord() {
+                this.axios.post(
+                    "article/recommend", {
+                    }).then((res) => {
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList", res.data)
+                })
+            },
         }
     }
 </script>

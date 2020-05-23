@@ -61,7 +61,20 @@
         methods:{
             tabfun:function (t) {
                 this.currentnum = t
-            }
+            },
+            //请求谁给我发的消息userList
+            getMessageUserList(){
+                this.axios.post(
+                    "message/index",{
+                    }).then((res)=>{
+                    // window.console.log(res.data)
+                    this.$store.commit("updateMessageUserList",res.data)
+                    window.console.log(this.$store.getters.getMessageUserList)
+                })
+            },
+        },
+        created() {
+            this.getMessageUserList();
         }
     }
 </script>

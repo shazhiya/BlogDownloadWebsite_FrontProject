@@ -3,7 +3,7 @@
         <div class="content">
             <el-form ref="form">
                 <el-form-item>
-                    <el-input class="inp" placeholder="来回复一下吧" type="textarea"></el-input>
+                    <el-input class="inp" placeholder="来回复一下吧" type="textarea" v-model="postedContent"></el-input>
                 </el-form-item>
                 <el-form-item class="submit">
                     <el-button type="primary" @click="onSubmit">发送</el-button>
@@ -17,10 +17,31 @@
 <script>
     export default {
         name: "sendMessage",
+        data(){
+            return{
+                postedContent:"nmsl",
+            }
+        },
         methods: {
             onSubmit() {
-                alert("submit")
-            }
+                // alert("submit");
+                // this.postMessage();
+                this.$emit('textFunc')
+                this.postMessage();
+            },
+            postMessage(){
+                window.console.log("postMessage");
+                this.axios.post(
+                    "message/postMessage",{
+                        "target":{
+                            "id": 3,
+                        },
+                        "content": this.postedContent,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
         }
     }
 </script>

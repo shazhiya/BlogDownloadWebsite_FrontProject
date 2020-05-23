@@ -7,9 +7,11 @@
             <el-container>
                 <el-main>
                     <el-row>
-                        <el-col :span="24"><div class="grid-img">
-                            <img style=" width:100%;" src="../../assets/coin.jpg"/>
-                        </div></el-col>
+                        <el-col :span="24">
+<!--                            <div class="grid-img">-->
+<!--                                <img style=" width:100%;" src="../../assets/coin.jpg"/>-->
+<!--                            </div>-->
+                        </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="6"><div class="grid-content bg-purple-light">
@@ -90,7 +92,7 @@
         created() {
             //this.postMessage();
             // this.getMessageUserList();
-            this.getUnreadMessageList();
+            // this.getUnreadMessageList();
             // this.getHistoryMessageList();
         }
     }

@@ -15,8 +15,7 @@
                 {{ item.tagName }}
             </el-tag>
         </div>
-        <div class="blogcontent">
-            {{this.blogArticle.content}}
+        <div class="blogcontent" v-html="this.blogArticle.content">
         </div>
 
     </div>

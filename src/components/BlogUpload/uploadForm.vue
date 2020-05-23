@@ -43,7 +43,7 @@
                 <el-form-item label="资源标签:" style="text-align: left">
                     <el-tag
                             :key="tag"
-                            v-for="tag in form.tags"
+                            v-for="tag in tempTags"
                             closable
                             :disable-transitions="false"
                             @close="handleClose(tag)">
@@ -95,13 +95,14 @@
                     md5: '123456',
                 },
                 resourceClassify: this.$store.getters.getResourceClassifyList,
+                tempTags:[],
             }
         },
         methods: {
             async doBeforeUpload(file) {
                 const bmf = new BMF()
-                window.alert("全局")
-                window.console.log("全局md5:" + this.form.md5);
+                // window.alert("全局")
+                // window.console.log("全局md5:" + this.form.md5);
 
                  await bmf.md5(file,async (err, md5) => {
                         window.alert("md5方法内");
@@ -118,46 +119,36 @@
                             }).then((res) => {
                             window.console.log(res.data)
                             if (res.data == true) {
-                                window.alert('md5在数据库内存在')
+                                window.alert('md5在数据库内存在,不会上传【秒传触发】')
                                 this.flag = false
                             } else {
-                                window.alert('md5在数据库内不存在')
+                                window.alert('md5在数据库内不存在，会上传')
                                 this.flag = true
                             }
                         });
                     }
                 );
 
-
                 window.console.log("会不会上传：" + this.flag);
                 return this.flag;
             },
             submitFileInfo() {
-                window.alert("name:" + this.form.name);
-                window.alert("type:" + this.form.type);
-                window.alert("rcid:" + this.form.resourceClassifyId);
-                window.alert("introduction:" + this.form.desc);
-                window.alert("md5:" + this.form.md5);
-                window.alert("path:" + this.form.path);
+                // window.alert("name:" + this.form.name);
+                // window.alert("type:" + this.form.type);
+                // window.alert("rcid:" + this.form.resourceClassifyId);
+                // window.alert("introduction:" + this.form.desc);
+                // window.alert("md5:" + this.form.md5);
+                // window.alert("path:" + this.form.path);
 
+                this.form.tags =  this.formatTags(this.tempTags);
+                window.console.log(this.form.tags);
                 this.axios.post(
                     "resource/uploadResource", {
                         'name': this.form.name,
                         'type': this.form.type,
                         'rcid': this.form.resourceClassifyId,
                         // 'coin':this.form.coin,
-                        'tags': [
-                            {
-                                "tag": {
-                                    "name": "JDK"
-                                }
-                            },
-                            {
-                                "tag": {
-                                    "name": "Spring"
-                                }
-                            },
-                        ],
+                        'tags': this.form.tags,
                         'introduction': this.form.desc,
                         'resourceEntity': {
                             'md5': this.form.md5,
@@ -167,9 +158,13 @@
                 ).then((res) => {
                     window.console.log(res.data)
                     if (res.data == true) {
-                        window.alert('上传成功bbb')
+                        this.successMessage();
+                        this.$router.push({
+                                name:'rConsole',
+                            }
+                        )
                     } else {
-                        window.alert('上传失败bbb')
+                        this.errorMessage();
                     }
                 })
 
@@ -205,10 +200,33 @@
             handleInputConfirm() {
                 let inputValue = this.form.inputValue;
                 if (inputValue) {
-                    this.form.tags.push(inputValue);
+                    this.tempTags.push(inputValue);
                 }
                 this.form.inputVisible = false;
                 this.form.inputValue = '';
+            },
+            formatTags(tagList) {
+                let result = [];
+                for (let tag in tagList) {
+                    result.push({
+                        tag: {
+                            name: tagList[tag]
+                        }
+                    })
+                }
+                return result;
+            },
+            successMessage() {
+                this.$message({
+                    message: '消息：上传成功',
+                    type: 'success'
+                });
+            },
+            errorMessage() {
+                this.$message({
+                    message: '消息：上传失败',
+                    type: 'error'
+                });
             },
         },
         created() {

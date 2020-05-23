@@ -62,7 +62,9 @@
             </el-col>
             <!-- 新增按钮 -->
             <el-col :span="2">
-                <el-button type="success" style="width: 100%;">新增</el-button>
+                <router-link to="/bWrite">
+                    <el-button type="success" style="width: 100%;">新增</el-button>
+                </router-link>
             </el-col>
         </el-row>
 
@@ -163,9 +165,10 @@
                     }).then((res) => {
                     window.console.log("postDeleteUserMngBlog:" + res.data)
                     if (res.data == true) {
-                        window.alert('删除成功')
+                        this.successMessage();
+                        this.$router.go(0);
                     } else {
-                        window.alert('删除失败')
+                        this.errorMessage();
                     }
                 })
             },
@@ -193,7 +196,19 @@
                         return this.articleClassify[i].name;
                     }
                 }
-            }
+            },
+            successMessage() {
+                this.$message({
+                    message: '消息：删除成功',
+                    type: 'success'
+                });
+            },
+            errorMessage() {
+                this.$message({
+                    message: '消息：删除失败',
+                    type: 'error'
+                });
+            },
         },
         created() {
             this.getBlogClass();

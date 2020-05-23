@@ -19,8 +19,8 @@
             self.ckeditor.setData(self.value)
 
             // 监听内容变更事件
-            self.ckeditor.on('change', function() {
-                self.$emit('input', self.ckeditor.getData())
+            self.ckeditor.on('change', ()=>{
+                this.$parent.writeArticle.content = this.ckeditor.getData();
             })
 
             //self.ckeditor.setData("")
