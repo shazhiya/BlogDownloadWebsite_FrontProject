@@ -1,5 +1,6 @@
 <template>
     <div class="discuss">
+        <!-- 评论框 -->
         <div class="content">
             <el-form ref="form">
                 <el-form-item>
@@ -14,6 +15,7 @@
         <i class="el-icon-caret-bottom" style="float: left; margin-left: 1%"/>
         <div style="clear: both"></div>
         <div class="alldiscuss">
+            <!-- 博文评论 -->
             <div class="discuss1">
                 <div class="authorintro">
                     <img class="headpic" src="../../assets/headPic.jpg">
@@ -28,6 +30,7 @@
                 <el-button style="float: right; padding: 3px 10px 10px;" type="text">回复</el-button>
             </div>
             <i class="el-icon-caret-bottom"/>
+            <!-- 评论评论 -->
             <div class="discuss2">
                 <div class="authorintro">
                     <img class="headpic" src="../../assets/headPic.jpg">
@@ -49,11 +52,48 @@
 <script>
     export default {
         name: "blogDiscuss",
-        props:['comment'],
+        props:['comment','currentArticleId'],
+        computed:{
+            articleId(){
+                return this.currentArticleId;
+            }
+        },
         methods: {
             onSubmit() {
                 alert("submit")
-            }
+            },
+            // 发送博文评论
+            postBlogComment(aid){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": aid,
+                        },
+                        "content": "这是评论博文",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 发送评论的评论
+            postBlogCommentComment(blogId,commentId){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": blogId,
+                        },
+                        "parentComment":{
+                            "id": commentId,
+                        },
+                        "content": "借一部说话",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+        },
+        created() {
+            // window.console.log(this.currentArticleId);
         }
     }
 </script>
@@ -97,8 +137,8 @@
         border: #D3DCE6 1px solid;
     }
     .discuss2{
-        width: 96%;
-        min-height: 120px;
+        width: 92%;
+        min-height: 50px;
         float: right;
         margin-right: 1%;
         margin-top: 10px;

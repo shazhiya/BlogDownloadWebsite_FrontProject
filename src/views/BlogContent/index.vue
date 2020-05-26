@@ -12,7 +12,7 @@
                         </div></el-col>
                         <el-col :span="14"><div class="grid-content bg-purple">
                             <blog-content :article="this.article"/>
-                            <blog-discuss :comment="this.comment"/>
+                            <blog-discuss :comment="this.comment" :currentArticleId="this.currentArticleId"/>
                         </div></el-col>
                         <el-col :span="5"><div class="grid-content bg-purple-light">
                             <blog-author/>
@@ -51,6 +51,7 @@
             }
         },
         methods:{
+            // 获取文章评论
             getBlogContent(id){
                 this.axios.post(
                     "article/detail",{
@@ -60,35 +61,7 @@
                     this.$store.commit("updateBlogContent",res.data)
                 })
             },
-            // 发送博文评论
-            postBlogComment(aid){
-                this.axios.post(
-                    "article/sendComment",{
-                        "blogArticle":{
-                            "id": aid,
-                        },
-                        "content": "这是评论博文",
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
-            // 发送评论的评论
-            postBlogCommentComment(blogId,commentId){
-                this.axios.post(
-                    "article/sendComment",{
-                        "blogArticle":{
-                            "id": blogId,
-                        },
-                        "parentComment":{
-                            "id": commentId,
-                        },
-                        "content": "借一部说话",
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
+
 
         },
         components:{

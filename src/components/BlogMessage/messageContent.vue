@@ -4,12 +4,7 @@
             李小红
             <span style="float: right; margin-right: 20px"><i class="el-icon-user-solid"/> </span>
         </div>
-<!--        <div class="messagecontent" id="messagecontent"-->
-<!--             v-for="(item,index) in comName"-->
-<!--             :key="index"-->
-<!--            >&lt;!&ndash; 对话列表 循环遍历           v-for="(item,index) in comName" :key="index"&ndash;&gt;-->
-<!--&lt;!&ndash;            <i><message/></i>&ndash;&gt;-->
-<!--        </div>-->
+
         <div class="messagecontent" id="messagecontent">
             <message
                     v-for="(item,index) in messageList"
@@ -42,21 +37,9 @@
                 this.judgeMessageClass();
             },
             judgeMessageClass(){
-                // let flag = false;
-
                 let com = document.getElementById("messagecontent");
                 let len = com.children.length
                 window.console.log(len);
-
-                //
-                // if(flag){ // 左
-                //     headPic.className = "head";
-                //     content.className = "receive";
-                // }else {
-                //     headPic.className = "head1";
-                //     content.className = "send";
-                // }
-
             }
 
         },

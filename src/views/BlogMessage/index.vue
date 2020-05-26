@@ -41,27 +41,6 @@
             messageCenter,
         },
         methods:{
-            postMessage(){
-                this.axios.post(
-                    "message/postMessage",{
-                        "target":{
-                            "id": 1,
-                        },
-                        "content": "你好帅",
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
-            //请求谁给我发的消息userList
-            getMessageUserList(){
-                this.axios.post(
-                    "message/index",{
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
             //请求与某人的未读聊天信息 单方
             getUnreadMessageList(){ // sender 某人
                 this.axios.post(

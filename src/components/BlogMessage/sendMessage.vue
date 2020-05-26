@@ -19,7 +19,7 @@
         name: "sendMessage",
         data(){
             return{
-                postedContent:"nmsl",
+                postedContent:"",
             }
         },
         methods: {

@@ -2,9 +2,9 @@
     <div style="height: 700px; overflow-y: auto;" class="listleft">
         <div style=" width:100%; text-align: left; padding-left: 15px; font-style: oblique; margin-top: 10px; margin-bottom: 10px">近期信息</div>
         <ul id="tabUL">
-            <li v-for="(item,index) in sender" :key="index" :class="[index==currentnum?class2:class1]" @click="tabfun(index)">
-                <img class="headpic" :src="item.headpic">
-                <div class="author">{{item.name}}</div>
+            <li v-for="(item,index) in MessageUserList" :key="index" :class="[index==currentnum?class2:class1]" @click="tabfun(index)">
+                <img class="headpic" src="../../assets/headPic.jpg"> <!-- :src="item.headpic"  -->
+                <div class="author">{{item.sernderAccount}}</div>
                 <div style="clear: both"></div>
             </li>
         </ul>
@@ -20,47 +20,18 @@
                 class1:'senderlist',
                 class2:'senderlist current',
                 currentnum: 0,
-                sender: [{
-                    headpic:require('../../assets/headPic.jpg'),
-                    name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'李小红'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'张文'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name:'冷jing灬'
-                    },
-                    {
-                        headpic:require('../../assets/headPic.jpg'),
-                        name: '冷jing灬'
-                    }]
             }
+        },
+        computed:{
+            MessageUserList(){
+                return this.$store.getters.getMessageUserList;
+            },
         },
         methods:{
             tabfun:function (t) {
-                this.currentnum = t
+                this.currentnum = t;
+                // this.getUnreadMessageList(2);
+                this.getHistoryMessageList(2);
             },
             //请求谁给我发的消息userList
             getMessageUserList(){
@@ -72,9 +43,35 @@
                     window.console.log(this.$store.getters.getMessageUserList)
                 })
             },
+            //请求与某人的未读聊天信息 单方
+            getUnreadMessageList(senderId){ // sender 某人
+                this.axios.post(
+                    "message/messages",{
+                        "sender": {
+                            "id": senderId,
+                        },
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            //请求与某人的历史聊天信息 双方
+            getHistoryMessageList(senderId){
+                this.axios.post(
+                    "message/history",{
+                        "sender": {
+                            "id": senderId,
+                        },
+                        "time": 1585405662347,
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
         },
         created() {
             this.getMessageUserList();
+            window.console.log(this.MessageUserList[0].sernderAccount);
         }
     }
 </script>
