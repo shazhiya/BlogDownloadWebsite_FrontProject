@@ -77,7 +77,7 @@ Vue.prototype.admin = axiosInstance3
 Vue.config.productionTip = false
 Vue.prototype.qs = qs
 
-new Vue({
+export default new Vue({
     router,
     store,
     render: h => h(App)

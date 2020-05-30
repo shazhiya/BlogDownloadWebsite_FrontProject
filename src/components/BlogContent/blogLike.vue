@@ -27,7 +27,9 @@
 <script>
     export default {
         name: "blogLike",
-        data(){},
+        data(){
+            return {}
+        },
         methods:{
             // 点赞 为博文点赞
             postBlogLike(bid) {
@@ -85,24 +87,24 @@
     .likebody{
         position: relative;
         color: red;
-        //background: white;
+        background: white;
         min-width: 160px;
         width: 10%;
         min-height: 250px;
         height: 30%;
         margin: auto;
-        //box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
-        //border: #D3DCE6 1px solid;
+        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
+        border: #D3DCE6 1px solid;
         position:fixed;
         left:12%;
-        //top:15%;
-        //border-top: white 1px solid;
+        top:15%;
+        border-top: white 1px solid;
     }
     .icons{
-        //background: red;
+        background: red;
         width: 60%;
         height: 25%;
-        //margin-left: 30%;
+        margin-left: 30%;
         margin-top: 5%;
         cursor: pointer;
 
@@ -115,7 +117,7 @@
         border: red 1px solid;
         border-radius: 999px;
         font-size: 36px;
-        //background: aqua;
+        background: aqua;
     }
     .num{
         position: absolute;

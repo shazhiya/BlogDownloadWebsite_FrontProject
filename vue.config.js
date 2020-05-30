@@ -5,7 +5,7 @@ module.exports = {
       'port': 8888,
         proxy: {
             '/blog': {
-                target: 'http://192.168.43.106:8080/blog',
+                target: 'http://localhost:8080/blog',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/blog': ''

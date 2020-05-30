@@ -56,7 +56,7 @@
                     "article/detail",{
                         "id":id
                     }).then((res)=>{
-                    window.console.log(res.data)
+                    window.console.log(res.data.comment)
                     this.$store.commit("updateBlogContent",res.data)
                 })
             },
@@ -68,8 +68,7 @@
                             "id": aid,
                         },
                         "content": "这是评论博文",
-                    }).then((res)=>{
-                    window.console.log(res.data)
+                    }).then(()=>{
                     // this.$store.commit("updateBlogList",res.data)
                 })
             },
@@ -100,9 +99,6 @@
         },
         created() {
             this.getBlogContent(this.currentArticleId);
-            // this.postBlogComment(11)
-            // this.postBlogCommentComment(12,1)
-            // window.console.log();
         },
         mounted() {
 
@@ -120,7 +116,7 @@
     }
 
     .el-main {
-        //background-color: #E9EEF3;
+        background-color: #E9EEF3;
         color: #333;
         text-align: center;
         min-height: 800px;
