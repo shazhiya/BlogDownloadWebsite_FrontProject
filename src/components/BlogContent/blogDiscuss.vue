@@ -14,37 +14,29 @@
         <i class="el-icon-caret-bottom" style="float: left; margin-left: 1%"/>
         <div style="clear: both"></div>
         <div class="alldiscuss">
-            <i><parent-discuss></parent-discuss></i>
-            <i><parent-comment></parent-comment></i>
-            <i class="el-icon-caret-bottom"/>
-            <i><child-discuss></child-discuss></i>
-            <i><child-discuss></child-discuss></i>
-            <i><parent-discuss></parent-discuss></i>
+            <comment v-for="com in comments" :key="com.id" :com="com" :child="com.childrens" @onSubmit="onSubmit"></comment>
         </div>
     </div>
 </template>
 
 <script>
-    import parentDiscuss from "../BlogContent/parentDiscuss";
-    import childDiscuss from "../BlogContent/childDiscuss";
-import {mapGetters} from 'vuex'
-import parentComment from './parentComment'
+    import comment from './comment'
+    import {mapGetters} from 'vuex'
     export default {
         data(){
             return{
                 content: null
-
             }
         },
         components:{
-            parentComment,
-            parentDiscuss,
-            childDiscuss
+            comment
         },
         name: "blogDiscuss",
         props:['comment'],
         methods: {
             onSubmit(cid){
+                window.console.log(this.comments)
+                
                 if(this.content==null || this.content=="") return;
                 this.$store.dispatch('releaseComment',{
                     commenter:{id:this.me.id},
@@ -59,7 +51,8 @@ import parentComment from './parentComment'
         computed: {
             ...mapGetters({
                 me: 'getUserInfo',
-                blog:'getBlogContent'
+                blog:'getBlogContent',
+                comments: 'getCommens'
             }),
             coms(){
                 window.console.log(this.$store.getters.getCommens)

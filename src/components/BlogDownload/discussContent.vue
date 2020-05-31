@@ -3,13 +3,13 @@
         <div class="discuss1">
             <div class="authorintro">
                 <img class="headpic" src="../../assets/headPic.jpg">
-                <div class="author">冷jing灬</div>
+                <div class="author">{{com.commenterAccount==null?"me":com.commenterAccount}}</div>
                 <i class="el-icon-chat-dot-square" style="float: right; margin-right: 25px; margin-top: 15px"/>
-                <div class="time">2020-02-03 16:10:02</div>
+                <div class="time">{{com.time==null?"刚刚":com.time}}</div>
                 <div style="clear: both"></div>
             </div>
             <div class="discuss" style="min-height: 50px">
-                这篇文章写得真不错本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，
+               {{com.content}}
             </div>
         </div>
     </div>
@@ -17,7 +17,8 @@
 
 <script>
     export default {
-        name: "discussContent"
+        name: "discussContent",
+        props:['com']
     }
 </script>
 

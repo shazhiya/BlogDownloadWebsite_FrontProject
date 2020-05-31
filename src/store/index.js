@@ -82,7 +82,8 @@ export default new Vuex.Store({
             state.userCoinRecord = info
         },
         releaseComment(state,info){
-            this.state.blogContent.comment.unshift(info)
+            if(info.blogArticle!=null) this.state.blogContent.comment.unshift(info)
+            else state.ResourceDetail.comments.unshift(info)
         }
 
 
@@ -218,6 +219,9 @@ export default new Vuex.Store({
                 }
             });
             return ret
+        },
+        getCommentsByR(state){
+            return state.ResourceDetail.comments
         }
     }
 })
