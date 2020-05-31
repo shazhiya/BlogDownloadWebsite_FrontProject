@@ -3,10 +3,10 @@
         <div class="content">
             <el-form ref="form">
                 <el-form-item>
-                    <el-input class="inp" placeholder="请输入你的评论" type="textarea"></el-input>
+                    <el-input class="inp" placeholder="请输入你的评论" v-model="content" type="textarea"></el-input>
                 </el-form-item>
                 <el-form-item class="submit">
-                    <el-button type="primary" @click="onSubmit">立即评论</el-button>
+                    <el-button type="primary" @click="onSubmit()">立即评论</el-button>
                 </el-form-item>
                 <div style="clear: both"></div>
             </el-form>
@@ -26,17 +26,45 @@
 <script>
     import parentDiscuss from "../BlogContent/parentDiscuss";
     import childDiscuss from "../BlogContent/childDiscuss";
+import {mapGetters} from 'vuex'
+import parentComment from './parentComment'
     export default {
-        name: "blogDiscuss",
-        props:['comment'],
-        methods: {
-            onSubmit() {
-                alert("submit")
+        data(){
+            return{
+                content: null
+
             }
         },
         components:{
+            parentComment,
             parentDiscuss,
             childDiscuss
+        },
+        name: "blogDiscuss",
+        props:['comment'],
+        methods: {
+            onSubmit(cid){
+                if(this.content==null || this.content=="") return;
+                this.$store.dispatch('releaseComment',{
+                    commenter:{id:this.me.id},
+                    blogArticle:{id:this.blog.id},
+                    content:this.content,
+                    parentComment:{id:cid}
+                }).then(()=>{
+                    this.content = "";
+                })
+            }
+        },
+        computed: {
+            ...mapGetters({
+                me: 'getUserInfo',
+                blog:'getBlogContent'
+            }),
+            coms(){
+                window.console.log(this.$store.getters.getCommens)
+
+                return this.$store.getters.getCommens
+            }
         }
     }
 </script>

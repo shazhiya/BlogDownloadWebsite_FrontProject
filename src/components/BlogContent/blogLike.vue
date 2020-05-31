@@ -27,7 +27,9 @@
 <script>
     export default {
         name: "blogLike",
-        data(){},
+        data(){
+            return {}
+        },
         methods:{
             // 点赞 为博文点赞
             postBlogLike(bid) {

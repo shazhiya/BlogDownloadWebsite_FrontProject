@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     state: {
         isLogin: false,
@@ -82,10 +81,31 @@ export default new Vuex.Store({
             sessionStorage.setItem('userCoinRecord', JSON.stringify(info))
             state.userCoinRecord = info
         },
+        releaseComment(state,info){
+            this.state.blogContent.comment.unshift(info)
+        }
 
 
     },
-    actions: {},
+    actions: {
+        releaseComment(context,data){
+            let type =  data.blogArticle!=null?'article':'resource'
+            let axios = Vue.prototype.axios
+            if(data.parentComment.id == undefined) delete data.parentComment
+            window.console.log(data)
+            
+            axios
+                .post(type+'/sendComment',data)
+                .then(res=>{
+                    if (res.data) {
+                        context.commit("releaseComment",data)
+                    }else{
+                        throw "失败"
+                    }
+                })
+
+        }
+    },
     modules: {},
     getters: {
         getLoginState: state => {
@@ -177,6 +197,28 @@ export default new Vuex.Store({
                 state.MessageUserList = JSON.parse(sessionStorage.getItem('MessageUserList'));
             }
             return state.MessageUserList
+        },
+        getCommens: (state)=>{
+            if (!state.blogContent) {
+                state.blogContent = JSON.parse(sessionStorage.getItem('blogContent'));
+            }
+            let coms = state.blogContent.comment
+            let ret = []
+            coms.forEach(element => {
+                if(element.parentComment!=undefined&&element.parentComment.id!=undefined) element.cid = element.parentComment.id
+                if(element.cid == null) {
+                    ret.push(element)
+                    element.childrens = []
+                }
+            });
+            coms.forEach(element => {
+                if(element.cid != null) {
+                    ret.forEach(parent=>{
+                        if(element.cid == parent.id) parent.childrens.push(element)
+                    })
+                }
+            });
+            return ret
         }
     }
 })
