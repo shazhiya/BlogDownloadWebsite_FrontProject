@@ -91,13 +91,12 @@ export default new Vuex.Store({
         releaseComment(context,data){
             let type =  data.blogArticle!=null?'article':'resource'
             let axios = Vue.prototype.axios
-            if(data.parentComment.id == undefined) delete data.parentComment
-            window.console.log(data)
-            
+            if(data.parentComment.id == undefined) delete data.parentComment   
             axios
                 .post(type+'/sendComment',data)
                 .then(res=>{
-                    if (res.data) {
+                    if (res.data!=undefined && res.data!=null) {
+                        data.id = res.data
                         context.commit("releaseComment",data)
                     }else{
                         throw "失败"
