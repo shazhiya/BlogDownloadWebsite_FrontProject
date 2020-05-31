@@ -19,7 +19,7 @@
     "echarts": "^4.8.0",
     "element-ui": "^2.13.0",
     "express": "latest",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "js-md5": "^0.7.3",
     "qs": "^6.9.1",
     "view-design": "^4.1.2",
