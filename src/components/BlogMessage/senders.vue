@@ -2,7 +2,7 @@
     <div style="height: 700px; overflow-y: auto;" class="listleft">
         <div style=" width:100%; text-align: left; padding-left: 15px; font-style: oblique; margin-top: 10px; margin-bottom: 10px">近期信息</div>
         <ul id="tabUL">
-            <li v-for="(item,index) in MessageUserList" :key="index" :class="[index==currentnum?class2:class1]" @click="tabfun(index)">
+            <li v-for="(item,index) in MessageUserList" :key="index" :class="[index==currentnum?class2:class1]" @click="tabfun(index,item.senderId)">
                 <img class="headpic" src="../../assets/headPic.jpg"> <!-- :src="item.headpic"  -->
                 <div class="author">{{item.sernderAccount}}</div>
                 <div style="clear: both"></div>
@@ -20,18 +20,25 @@
                 class1:'senderlist',
                 class2:'senderlist current',
                 currentnum: 0,
+                targetId: null,
             }
         },
         computed:{
             MessageUserList(){
                 return this.$store.getters.getMessageUserList;
             },
+            // UnreadMessageList(){
+            //     return this.$store.getters.getUnreadMessageList;
+            // }
         },
         methods:{
-            tabfun:function (t) {
+            tabfun:function (t,senderId) {
                 this.currentnum = t;
-                // this.getUnreadMessageList(2);
-                this.getHistoryMessageList(2);
+                window.console.log(senderId);
+                this.targetId = senderId;
+                // this.getUnreadMessageList(senderId);
+                // this.parent.changeMessageList(this.MessageUserList);
+                this.getHistoryMessageList(senderId);
             },
             //请求谁给我发的消息userList
             getMessageUserList(){
@@ -40,7 +47,7 @@
                     }).then((res)=>{
                     // window.console.log(res.data)
                     this.$store.commit("updateMessageUserList",res.data)
-                    window.console.log(this.$store.getters.getMessageUserList)
+                    // window.console.log(this.$store.getters.getMessageUserList)
                 })
             },
             //请求与某人的未读聊天信息 单方
@@ -51,8 +58,9 @@
                             "id": senderId,
                         },
                     }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
+                    // window.console.log(res.data)
+                    // this.$store.commit("updateUnreadMessageList",res.data)
+                    this.$emit('changeMessageList',res.data);
                 })
             },
             //请求与某人的历史聊天信息 双方
@@ -62,16 +70,17 @@
                         "sender": {
                             "id": senderId,
                         },
-                        "time": 1585405662347,
+                        "time": 1590588342415,
                     }).then((res)=>{
                     window.console.log(res.data)
                     // this.$store.commit("updateBlogList",res.data)
+                    this.$emit('changeMessageList',res.data);
                 })
             },
         },
         created() {
             this.getMessageUserList();
-            window.console.log(this.MessageUserList[0].sernderAccount);
+            // window.console.log(this.MessageUserList[0].sernderAccount);
         }
     }
 </script>

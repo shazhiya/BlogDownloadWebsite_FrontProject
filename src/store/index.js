@@ -20,8 +20,13 @@ export default new Vuex.Store({
         AdminBlogList: null,
         userCoinRecord: null,
         MessageUserList: null,
+        UnreadMessageList: null,
     },
     mutations: {
+        updateUnreadMessageList(state, info){
+            sessionStorage.setItem('UnreadMessageList', JSON.stringify(info));
+            state.UnreadMessageList = info;
+        },
         updateMessageUserList(state, info){
             sessionStorage.setItem('MessageUserList', JSON.stringify(info));
             state.MessageUserList = info;
@@ -177,6 +182,12 @@ export default new Vuex.Store({
                 state.MessageUserList = JSON.parse(sessionStorage.getItem('MessageUserList'));
             }
             return state.MessageUserList
-        }
+        },
+        getUnreadMessageList: state =>{
+            if (!state.UnreadMessageList) {
+                state.UnreadMessageList = JSON.parse(sessionStorage.getItem('UnreadMessageList'));
+            }
+            return state.UnreadMessageList
+        },
     }
 })

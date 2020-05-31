@@ -6,7 +6,7 @@
         <div class="right header-icon">
             <img src="../../assets/headPic.jpg" alt="" class="left user-img"> <!-- 这里获取不到图片，不知道为什么 -->
             <div class="left user-info">
-                小红
+                {{me.account}}
             </div>
             <div class="left header-icon">
                 <router-link to="/bindex">
@@ -19,7 +19,12 @@
 
 <script>
     export default {
-        name: "blogMngHeader"
+        name: "blogMngHeader",
+        data(){
+            return{
+                me:this.$store.getters.getUserInfo
+            }
+        }
     }
 </script>
 

@@ -1,11 +1,11 @@
 <template>
     <div style="box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.5);">
         <div class="senders">
-            <senders/>
+            <senders @changeMessageList="changeMessageList"/>
         </div>
         <div class="contents">
             <message-content ref="messageContent"/>
-            <send-message @textFunc="textFunc" ref="sendMessage"/>
+            <send-message @textFunc="textFunc" :targetId="targetId" ref="sendMessage"/>
         </div>
         <div class="clears"></div>
     </div>
@@ -19,7 +19,22 @@
         name: "messageCenter",
         data(){
             return{
-                me:this.$store.getters.getUserInfo
+                me:this.$store.getters.getUserInfo,
+                messageList:[
+                    {
+                        id:123,
+                        content: "测试内容",
+                    },
+                    {
+                        id:123,
+                        content: "测试内容",
+                    },
+                ]
+            }
+        },
+        computed:{
+            targetId(){
+                return this.$refs.senders.targetId;
             }
         },
         components:{
@@ -39,6 +54,13 @@
                 }
                 this.$refs.messageContent.messageList.push(add)
             },
+            // sender调用
+            changeMessageList(messageUserList){ // messageUserList
+                window.console.log("Center:changeMessageList");
+                window.console.log(messageUserList);
+                this.$refs.messageContent.messageList = messageUserList;
+                // window.console.log(this.messageList);
+            }
         }
     }
 </script>

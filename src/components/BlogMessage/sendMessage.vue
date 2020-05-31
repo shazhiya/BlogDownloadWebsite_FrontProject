@@ -6,7 +6,7 @@
                     <el-input class="inp" placeholder="来回复一下吧" type="textarea" v-model="postedContent"></el-input>
                 </el-form-item>
                 <el-form-item class="submit">
-                    <el-button type="primary" @click="onSubmit">发送</el-button>
+                    <el-button type="primary" @click="onSubmit(this.targetId)">发送</el-button>
                 </el-form-item>
                 <div style="clear: both"></div>
             </el-form>
@@ -17,24 +17,25 @@
 <script>
     export default {
         name: "sendMessage",
+        props:["targetId"],
         data(){
             return{
                 postedContent:"",
             }
         },
         methods: {
-            onSubmit() {
+            onSubmit(targetId) {
                 // alert("submit");
                 // this.postMessage();
                 this.$emit('textFunc')
-                this.postMessage();
+                this.postMessage(targetId);
             },
-            postMessage(){
+            postMessage(targetId){
                 window.console.log("postMessage");
                 this.axios.post(
                     "message/postMessage",{
                         "target":{
-                            "id": 3,
+                            "id": targetId,
                         },
                         "content": this.postedContent,
                     }).then((res)=>{

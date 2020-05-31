@@ -7,7 +7,7 @@
 
         <div class="messagecontent" id="messagecontent">
             <message
-                    v-for="(item,index) in messageList"
+                    v-for="(item,index) in this.MessageList"
                     :key="index"
                     :postedMessage="item"
             ></message>
@@ -27,6 +27,11 @@
             return{
                 messageList:[],
             }
+        },
+        computed:{
+            MessageList(){
+              return this.messageList;
+            },
         },
         methods:{
             parentDoChildFunc(){

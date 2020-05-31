@@ -122,7 +122,7 @@
 
 <script>
     export default {
-        name: "DataAnalysis",
+        name: "adminDataAnalysis",
         data() {
             return {
                 activeIndex: '1',
@@ -242,69 +242,5 @@
 </script>
 
 <style scoped>
-    #blogChart {
-        width: 50%;
-        height: 450px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #resourceChart {
-        width: 50%;
-        height: 450px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .content {
-        margin-top: 30px;
-    }
-
-    .rowLine {
-        height: 20px;
-    }
-
-    .bg-purple {
-        background: rgb(235, 248, 252);
-    }
-
-    .grid-content {
-        border-radius: 4px;
-        min-height: 100px;
-    }
-
-    .grid-content .data-name {
-        font-size: 14px;
-        line-height: 18px;
-        color: #757575;
-    }
-
-    .grid-content .text-content {
-        margin-top: 6px;
-        margin-bottom: 8px;
-        line-height: 22px;
-        font-weight: 600;
-        font-size: 22px;
-        color: #00a1d6;
-    }
-
-    .grid-content .data-ystd {
-        white-space: nowrap;
-        color: #757575;
-        font-size: 14px;
-        line-height: 18px;
-    }
-
-    .grid-content .data-ystd span {
-        margin-right: 4px;
-    }
-
-    .grid-content .data-ystd span:nth-child(2) {
-        color: #00a1d6;
-    }
-
-    .allCharts h3{
-        margin-bottom: 10px;
-    }
 
 </style>

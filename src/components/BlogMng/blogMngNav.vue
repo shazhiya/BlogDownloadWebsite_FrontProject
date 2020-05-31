@@ -1,7 +1,7 @@
 <template>
     <div id="nav-wrap">
         <h1 class="logo">
-            <img src="../../assets/Logo.png" height="60" width="100"/>
+            <img src="../../assets/Logo_03.jpg" height="60" width="100"/>
         </h1>
         <el-menu
                 default-active="1-4-1"

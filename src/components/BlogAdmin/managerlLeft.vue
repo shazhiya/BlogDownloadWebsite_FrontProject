@@ -1,7 +1,7 @@
 <template>
     <div class="adminleft">
         <div class="leftheader">
-            给个图标
+            <img src="../../assets/Logo_03.jpg" alt="" class="img_logo">
         </div>
         <el-menu :default-openeds="['1', '3']" style="height: 855px">
             <el-menu-item-group>
@@ -10,21 +10,21 @@
             <el-menu-item-group>
                 <template slot="title">博文版块</template>
                 <el-menu-item index="1-1"><i class="el-icon-s-grid"/>博文管理</el-menu-item>
-                <el-menu-item index="1-2"><i class="el-icon-s-management"/>博文审核</el-menu-item>
+                <el-menu-item index="1-2" @click="inCoding"><i class="el-icon-s-management"/>博文审核</el-menu-item>
             </el-menu-item-group>
 
             <el-menu-item-group>
                 <template slot="title">资源版块</template>
-                <el-menu-item index="2-1"><i class="el-icon-s-ticket"/> 资源管理</el-menu-item>
-                <el-menu-item index="2-2"><i class="el-icon-s-management"/> 资源审核</el-menu-item>
+                <el-menu-item index="2-1"><i class="el-icon-s-ticket"/>资源管理</el-menu-item>
+                <el-menu-item index="2-2" @click="inCoding"><i class="el-icon-s-management"/>资源审核</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="用户版块">
-                <el-menu-item index="2-3"><i class="el-icon-user-solid"/> 用户管理</el-menu-item>
+                <el-menu-item index="2-3" @click="inCoding"><i class="el-icon-user-solid"/>用户管理</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
                 <template slot="title">数据分析</template>
                 <el-menu-item index="3-1"><i class="el-icon-s-data"/> 统计总览</el-menu-item>
-                <el-menu-item index="3-2"><i class="el-icon-s-marketing"/> 统计排名</el-menu-item>
+                <el-menu-item index="3-2" @click="inCoding"><i class="el-icon-s-marketing"/> 统计排名</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
                 <el-menu-item index="3-3" style="margin-left: 0">
@@ -82,8 +82,11 @@
             close(){
                 document.getElementById("keywords").close();
             },
+            inCoding(){
+                alert('开发中，敬请期待!');
+            },
             submit(){
-                alert('submit!')
+                alert('submit!');
             },
             handleClose(tag) {
                 this.keyword.splice(this.keyword.indexOf(tag), 1);
@@ -160,5 +163,8 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+    .img_logo{
+        margin-top: 25px;
     }
 </style>

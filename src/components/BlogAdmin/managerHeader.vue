@@ -4,7 +4,7 @@
         <el-dropdown>
             <div class="authorname">
                 <img src="../../assets/headPic.jpg"/>
-                <span class="name">李小红</span>
+                <span class="name">Admin</span>
             </div>
             <el-dropdown-menu slot="dropdown" style="width: 160px">
                 <div class="dropdowm">
