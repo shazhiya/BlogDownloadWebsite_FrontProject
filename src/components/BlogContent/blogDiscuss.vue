@@ -1,13 +1,12 @@
 <template>
     <div class="discuss">
-        <!-- 评论框 -->
         <div class="content">
             <el-form ref="form">
                 <el-form-item>
-                    <el-input class="inp" placeholder="请输入你的评论" type="textarea"></el-input>
+                    <el-input class="inp" placeholder="请输入你的评论" v-model="content" type="textarea"></el-input>
                 </el-form-item>
                 <el-form-item class="submit">
-                    <el-button type="primary" @click="onSubmit">立即评论</el-button>
+                    <el-button type="primary" @click="onSubmit()">立即评论</el-button>
                 </el-form-item>
                 <div style="clear: both"></div>
             </el-form>
@@ -15,85 +14,51 @@
         <i class="el-icon-caret-bottom" style="float: left; margin-left: 1%"/>
         <div style="clear: both"></div>
         <div class="alldiscuss">
-            <!-- 博文评论 -->
-            <div class="discuss1">
-                <div class="authorintro">
-                    <img class="headpic" src="../../assets/headPic.jpg">
-                    <div class="author">冷jing灬</div>
-                    <i class="el-icon-chat-dot-square" style="float: right; margin-right: 25px; margin-top: 15px"/>
-                    <div class="time">2020-02-03 16:10:02</div>
-                    <div style="clear: both"></div>
-                </div>
-                <div class="discusscontent" style="min-height: 70px">
-                    这篇文章写得真不错本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，
-                </div>
-                <el-button style="float: right; padding: 3px 10px 10px;" type="text">回复</el-button>
-            </div>
-            <i class="el-icon-caret-bottom"/>
-            <!-- 评论评论 -->
-            <div class="discuss2">
-                <div class="authorintro">
-                    <img class="headpic" src="../../assets/headPic.jpg">
-                    <div class="author">冷jing灬</div>
-                    <i class="el-icon-chat-dot-square" style="float: right; margin-right: 25px; margin-top: 15px"/>
-                    <div class="time">2020-02-03 16:10:02</div>
-                    <div style="clear: both"></div>
-                </div>
-                <div class="discusscontent">
-                    赞同，我也觉得是这样本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。 而这些并不是完全重要，更加重要的问题是，
-                </div>
-                <el-button style="float: right; padding: 3px 10px 10px" type="text">回复</el-button>
-            </div>
-            <div style="clear: both"></div>
+            <comment v-for="com in comments" :key="com.id" :com="com" :child="com.childrens" @onSubmit="onSubmit"></comment>
         </div>
     </div>
 </template>
 
 <script>
+    import comment from './comment'
+    import {mapGetters} from 'vuex'
     export default {
-        name: "blogDiscuss",
-        props:['comment','currentArticleId'],
-        computed:{
-            articleId(){
-                return this.currentArticleId;
+        data(){
+            return{
+                content: null
             }
         },
-        methods: {
-            onSubmit() {
-                alert("submit")
-            },
-            // 发送博文评论
-            postBlogComment(aid){
-                this.axios.post(
-                    "article/sendComment",{
-                        "blogArticle":{
-                            "id": aid,
-                        },
-                        "content": "这是评论博文",
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
-            // 发送评论的评论
-            postBlogCommentComment(blogId,commentId){
-                this.axios.post(
-                    "article/sendComment",{
-                        "blogArticle":{
-                            "id": blogId,
-                        },
-                        "parentComment":{
-                            "id": commentId,
-                        },
-                        "content": "借一部说话",
-                    }).then((res)=>{
-                    window.console.log(res.data)
-                    // this.$store.commit("updateBlogList",res.data)
-                })
-            },
+        components:{
+            comment
         },
-        created() {
-            // window.console.log(this.currentArticleId);
+        name: "blogDiscuss",
+        props:['comment'],
+        methods: {
+            onSubmit(cid){
+                window.console.log(this.comments)
+
+                if(this.content==null || this.content=="") return;
+                this.$store.dispatch('releaseComment',{
+                    commenter:{id:this.me.id},
+                    blogArticle:{id:this.blog.id},
+                    content:this.content,
+                    parentComment:{id:cid}
+                }).then(()=>{
+                    this.content = "";
+                })
+            }
+        },
+        computed: {
+            ...mapGetters({
+                me: 'getUserInfo',
+                blog:'getBlogContent',
+                comments: 'getCommens'
+            }),
+            coms(){
+                window.console.log(this.$store.getters.getCommens)
+
+                return this.$store.getters.getCommens
+            }
         }
     }
 </script>
@@ -128,53 +93,6 @@
         float: right;
         margin-right: 50px;
     }
-    .discuss1{
-        width: 98%;
-        min-height: 150px;
-        margin: auto;
-        margin-top: 10px;
-        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
-        border: #D3DCE6 1px solid;
-    }
-    .discuss2{
-        width: 92%;
-        min-height: 50px;
-        float: right;
-        margin-right: 1%;
-        margin-top: 10px;
-        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
-        border: #D3DCE6 1px solid;
-    }
-    .headpic{
-        width: 24px;
-        height: 24px;
-        float: left;
-        margin-left: 10px;
-        margin-top: 10px;
-        border: #333333 1px solid;
-        border-radius: 999px;
-    }
-    .author{
-        float: left;
-        line-height: 24px;
-        margin-left: 10px;
-        margin-top: 10px;
-    }
-    .time{
-        float: right;
-        line-height: 24px;
-        margin-right: 35px;
-        margin-top: 10px;
-    }
-    .authorintro{
-        height: 40px;
-        border-bottom: #B3C0D1 1px dashed;
-    }
-    .discusscontent{
-        text-align: left;
-        margin-left: 25px;
-        margin-top: 5px;
-        padding-bottom: 10px;
-    }
+
 
 </style>

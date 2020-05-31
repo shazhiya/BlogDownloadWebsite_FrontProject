@@ -12,7 +12,7 @@
                         </div></el-col>
                         <el-col :span="14"><div class="grid-content bg-purple">
                             <blog-content :article="this.article"/>
-                            <blog-discuss :comment="this.comment" :currentArticleId="this.currentArticleId"/>
+                            <blog-discuss :comment="this.comment"/>
                         </div></el-col>
                         <el-col :span="5"><div class="grid-content bg-purple-light">
                             <blog-author/>
@@ -57,11 +57,38 @@
                     "article/detail",{
                         "id":id
                     }).then((res)=>{
-                    window.console.log(res.data)
+                    window.console.log(res.data.comment)
                     this.$store.commit("updateBlogContent",res.data)
                 })
             },
-
+            // 发送博文评论
+            postBlogComment(aid){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": aid,
+                        },
+                        "content": "这是评论博文",
+                    }).then(()=>{
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
+            // 发送评论的评论
+            postBlogCommentComment(blogId,commentId){
+                this.axios.post(
+                    "article/sendComment",{
+                        "blogArticle":{
+                            "id": blogId,
+                        },
+                        "parentComment":{
+                            "id": commentId,
+                        },
+                        "content": "借一部说话",
+                    }).then((res)=>{
+                    window.console.log(res.data)
+                    // this.$store.commit("updateBlogList",res.data)
+                })
+            },
 
         },
         components:{
@@ -73,9 +100,6 @@
         },
         created() {
             this.getBlogContent(this.currentArticleId);
-            // this.postBlogComment(11)
-            // this.postBlogCommentComment(12,1)
-            // window.console.log();
         },
         mounted() {
 
@@ -93,7 +117,7 @@
     }
 
     .el-main {
-        //background-color: #E9EEF3;
+        background-color: #E9EEF3;
         color: #333;
         text-align: center;
         min-height: 800px;

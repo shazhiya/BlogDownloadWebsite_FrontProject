@@ -87,10 +87,31 @@ export default new Vuex.Store({
             sessionStorage.setItem('userCoinRecord', JSON.stringify(info))
             state.userCoinRecord = info
         },
+        releaseComment(state,info){
+            if(info.blogArticle!=null) this.state.blogContent.comment.unshift(info)
+            else state.ResourceDetail.comments.unshift(info)
+        }
 
 
     },
-    actions: {},
+    actions: {
+        releaseComment(context,data){
+            let type =  data.blogArticle!=null?'article':'resource'
+            let axios = Vue.prototype.axios
+            if(data.parentComment.id == undefined) delete data.parentComment
+            axios
+                .post(type+'/sendComment',data)
+                .then(res=>{
+                    if (res.data!=undefined && res.data!=null) {
+                        data.id = res.data
+                        context.commit("releaseComment",data)
+                    }else{
+                        throw "失败"
+                    }
+                })
+
+        }
+    },
     modules: {},
     getters: {
         getLoginState: state => {
@@ -189,5 +210,31 @@ export default new Vuex.Store({
             }
             return state.UnreadMessageList
         },
+        },
+        getCommens: (state)=>{
+            if (!state.blogContent) {
+                state.blogContent = JSON.parse(sessionStorage.getItem('blogContent'));
+            }
+            let coms = state.blogContent.comment
+            let ret = []
+            coms.forEach(element => {
+                if(element.parentComment!=undefined&&element.parentComment.id!=undefined) element.cid = element.parentComment.id
+                if(element.cid == null) {
+                    ret.push(element)
+                    element.childrens = []
+                }
+            });
+            coms.forEach(element => {
+                if(element.cid != null) {
+                    ret.forEach(parent=>{
+                        if(element.cid == parent.id) parent.childrens.push(element)
+                    })
+                }
+            });
+            return ret
+        },
+        getCommentsByR(state){
+            return state.ResourceDetail.comments
+        }
     }
 })

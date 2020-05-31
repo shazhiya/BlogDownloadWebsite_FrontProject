@@ -1,34 +1,38 @@
 <template>
-    <div>
-        <div class="discuss1">
-            <div class="authorintro">
-                <img class="headpic" src="../../assets/headPic.jpg">
-                <div class="author">{{com.commenterAccount==null?"me":com.commenterAccount}}</div>
-                <i class="el-icon-chat-dot-square" style="float: right; margin-right: 25px; margin-top: 15px"/>
-                <div class="time">{{com.time==null?"刚刚":com.time}}</div>
-                <div style="clear: both"></div>
-            </div>
-            <div class="discuss" style="min-height: 50px">
-               {{com.content}}
-            </div>
+    <div class="discuss1">
+        <div class="authorintro">
+            <img class="headpic" src="../../assets/headPic.jpg">
+            <div class="author">{{com.uaccount}}</div>
+            <i class="el-icon-chat-dot-square" style="float: right; margin-right: 25px; margin-top: 15px"/>
+            <div class="time">{{com.time}}</div>
+            <div style="clear: both"></div>
         </div>
+        <div class="discusscontent" style="min-height: 70px">
+            {{com.content}}
+        </div>
+        <el-button style="float: right; padding: 3px 10px 10px;" type="text" @click="onSubmit">回复</el-button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "discussContent",
-        props:['com']
+        data(){return {}},
+        props:['com'],
+        methods:{
+            onSubmit(){
+                this.$emit('onSubmit')
+            }
+        }
     }
 </script>
 
 <style scoped>
     .discuss1{
         width: 98%;
-        min-height: 100px;
+        min-height: 150px;
         margin: auto;
         margin-top: 10px;
-        /*box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);*/
+        box-shadow: 6px 6px 6px 0 rgba(0, 0, 0, 0.1);
         border: #D3DCE6 1px solid;
     }
     .headpic{
@@ -56,7 +60,7 @@
         height: 40px;
         border-bottom: #B3C0D1 1px dashed;
     }
-    .discuss{
+    .discusscontent{
         text-align: left;
         margin-left: 25px;
         margin-top: 5px;
