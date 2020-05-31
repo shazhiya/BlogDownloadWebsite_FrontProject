@@ -15,6 +15,7 @@
         <div style="clear: both"></div>
         <div class="alldiscuss">
             <i><parent-discuss></parent-discuss></i>
+            <i><parent-comment></parent-comment></i>
             <i class="el-icon-caret-bottom"/>
             <i><child-discuss></child-discuss></i>
             <i><child-discuss></child-discuss></i>
