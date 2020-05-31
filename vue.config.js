@@ -19,7 +19,7 @@ module.exports = {
                 }
             },
             '/admin': {
-                target: 'http://29175vv342.zicp.vip/admin',
+                target: 'http://localhost:8080/admin',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/admin': ''

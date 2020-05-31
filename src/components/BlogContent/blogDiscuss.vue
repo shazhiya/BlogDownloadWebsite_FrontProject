@@ -13,28 +13,33 @@
         </div>
         <i class="el-icon-caret-bottom" style="float: left; margin-left: 1%"/>
         <div style="clear: both"></div>
-
         <div class="alldiscuss">
-            <parentComment v-for="com in coms" :key="com.id" :comment="com" @onSubmit="onSubmit"></parentComment>
+            <i><parent-discuss></parent-discuss></i>
+            <i><parent-comment></parent-comment></i>
             <i class="el-icon-caret-bottom"/>
-            
-            <div style="clear: both"></div>
-        </div>    
+            <i><child-discuss></child-discuss></i>
+            <i><child-discuss></child-discuss></i>
+            <i><parent-discuss></parent-discuss></i>
+        </div>
     </div>
 </template>
 
 <script>
+    import parentDiscuss from "../BlogContent/parentDiscuss";
+    import childDiscuss from "../BlogContent/childDiscuss";
 import {mapGetters} from 'vuex'
 import parentComment from './parentComment'
     export default {
         data(){
             return{
                 content: null
-                
+
             }
         },
         components:{
-            parentComment
+            parentComment,
+            parentDiscuss,
+            childDiscuss
         },
         name: "blogDiscuss",
         props:['comment'],
@@ -58,7 +63,7 @@ import parentComment from './parentComment'
             }),
             coms(){
                 window.console.log(this.$store.getters.getCommens)
-                
+
                 return this.$store.getters.getCommens
             }
         }
@@ -95,11 +100,6 @@ import parentComment from './parentComment'
         float: right;
         margin-right: 50px;
     }
-    
-    
-    
-    
-    
-    
+
 
 </style>
