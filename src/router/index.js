@@ -186,14 +186,6 @@ const routes = [
       name: '资源站主页'
     },
     component: ()=> import('../views/ResourceIndex/index')
-  },
-  {
-    path:'/data',
-    name:'data',
-    meta:{
-      name: '资源站主页'
-    },
-    component: ()=> import('../components/BlogMng/DataAnalysis/DataAnalysis')
   }
 ]
 

@@ -41,6 +41,21 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         background-color: #fff;
+        overflow-y: auto;
+    }
+    .content::-webkit-scrollbar {/*滚动条整体样式*/
+        width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+    .content::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background: #05b2d2;
+    }
+    .content::-webkit-scrollbar-track {/*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background: #EDEDED;
     }
 
 </style>
