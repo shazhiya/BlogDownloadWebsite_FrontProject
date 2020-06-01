@@ -75,10 +75,10 @@
                     <el-col :span="6">
                         <el-card class="grid-content bg-purple">
                             <div class="data-name">硬币数</div>
-                            <div class="text-content"><span>{{dataJson.res_coinNum}}</span></div>
+                            <div class="text-content"><span>{{dataJson.res_sellNum * 5}}</span></div>
                             <div class="data-ystd">
                                 <span>昨日</span>
-                                <span>{{dataJson.yes_res_coinNum}}</span>
+                                <span>{{dataJson.yes_res_sellNum * 5}}</span>
                             </div>
                         </el-card>
                     </el-col>
@@ -127,24 +127,39 @@
             return {
                 activeIndex: '1',
                 dataJson:{
+                    // 所有博文至今的阅读量
                     blog_readNum: 542,
+                    // 所有博文昨天的阅读量
                     yes_blog_readNum: 381,
+                    // 所有博文至今的点赞量
                     blog_goodNum: 27,
+                    // 所有博文昨天的点赞量
                     yes_blog_goodNum: 12,
+                    // 所有博文至今获得的投币量
                     blog_coinNum: 84,
+                    // 所有博文昨天获得的投币量
                     yes_blog_coinNum: 29,
+                    // 所有博文至今的收藏量
                     blog_collectNum: 12,
+                    // 所有博文昨天的收藏量
                     yes_blog_collectNum: 3,
+                    // 所有资源至今的购买量(被购买)
                     res_sellNum: 24,
+                    // 所有资源昨天的购买量(被购买)
                     yes_res_sellNum: 6,
+                    // 所有资源至今的下载量
                     res_downloadNum: 35,
+                    // 所有资源昨天的下载量
                     yes_res_downloadNum: 12,
-                    res_coinNum: this.res_sellNum*5,
-                    yes_res_coinNum: this.yes_res_sellNum*5,
                     res_commentNum: 8,
                     yes_res_commentNum: 0,
                 }
 
+            }
+        },
+        computed:{
+            UserMngDataJson(){
+                return this.$store.getters.getUserMngDataJson;
             }
         },
         mounted() {
@@ -152,6 +167,15 @@
             this.drawResourceLine();
         },
         methods: {
+            // 获取用户数据总览 json
+            getDataJson(){
+                this.axios.post(
+                    "article/url", {
+                    }).then((res) => {
+                    window.console.log(res.data)
+                    this.$store.commit("updateUserMngDataJson", res.data)
+                })
+            },
             drawBlogLine() {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = this.$echarts.init(document.getElementById('blogChart'))

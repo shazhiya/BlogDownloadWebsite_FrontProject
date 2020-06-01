@@ -21,8 +21,13 @@ export default new Vuex.Store({
         userCoinRecord: null,
         MessageUserList: null,
         UnreadMessageList: null,
+        UserMngDataJson: null,
     },
     mutations: {
+        updateUserMngDataJson(state, info){
+            sessionStorage.setItem('UserMngDataJson', JSON.stringify(info));
+            state.UserMngDataJson = info;
+        },
         updateUnreadMessageList(state, info){
             sessionStorage.setItem('UnreadMessageList', JSON.stringify(info));
             state.UnreadMessageList = info;
@@ -210,6 +215,8 @@ export default new Vuex.Store({
             }
             return state.UnreadMessageList
         },
+        getCommentsByR(state){
+            return state.ResourceDetail.comments
         },
         getCommens: (state)=>{
             if (!state.blogContent) {
@@ -231,10 +238,13 @@ export default new Vuex.Store({
                     })
                 }
             });
-            return ret
+            return ret;
+            },
+        getUserMngDataJson: state =>{
+            if (!state.UserMngDataJson) {
+                state.UserMngDataJson = JSON.parse(sessionStorage.getItem('UserMngDataJson'));
+            }
+            return state.UserMngDataJson;
         },
-        getCommentsByR(state){
-            return state.ResourceDetail.comments
-        }
     }
 })
